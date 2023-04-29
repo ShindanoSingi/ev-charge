@@ -37,4 +37,64 @@ router.post('/register', async (req, res) => {
 }
 );
 
+// Login user
+router.post('/login', async (req, res) => {
+    const { email, password } = req.body;
+    try {
+        // Check if user exists
+        const user = await User.findOne({ email });
+        console.log(user);
+        if (!user) {
+            return res.send({
+                message: 'User not found',
+                success: false,
+            });
+        }
+        // Check if password is correct
+        if (req.body.password !== user.password) {
+            return res.send({
+                message: 'Invalid password',
+                success: false,
+            });
+        }
+        // Create and assign a token
+        const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET);
+        return res.send({
+            message: 'User logged in successfully',
+            success: true,
+            token: token
+        });
+    } catch (error) {
+        return res.send({
+            message: 'User not found',
+            success: false,
+        });
+    };
+});
+
+// Get current user
+router.get('/current-user', authMiddleware, async (req, res) => {
+    const { userId } = req.body;
+    try {
+        const user = await User.findOne({ userId });
+        if (user) {
+            return res.send({
+                message: 'User fetched successfully',
+                success: true,
+                user: user,
+            });
+        }
+    } catch (error) {
+        return res.send({
+            message: 'User not found',
+            success: false,
+        });
+    }
+});
+
+// Add a station to station list
+router.post('/add-station', authMiddleware, async (req, res) => {
+    console.log(req);
+});
+
 module.exports = router;
