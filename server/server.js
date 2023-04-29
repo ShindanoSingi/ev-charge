@@ -13,8 +13,6 @@ const server = require('http').createServer(app);
 
 app.use('/api/users', usersRoute);
 
-console.log(port)
-
 server.listen(port, () =>
     console.log(`Server started on port ${port}`)
 );
