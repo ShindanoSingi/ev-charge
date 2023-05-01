@@ -114,4 +114,10 @@ router.delete('/delete-station/:id', authMiddleware, async (req, res) => {
     }
 });
 
+// Add a station to station list
+router.post('/add-station/:id', authMiddleware, async (req, res) => {
+    const { id } = req.body;
+    console.log(id);
+});
+
 module.exports = router;

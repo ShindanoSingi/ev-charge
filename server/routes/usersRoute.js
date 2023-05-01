@@ -92,9 +92,4 @@ router.get('/current-user', authMiddleware, async (req, res) => {
     }
 });
 
-// Add a station to station list
-router.post('/add-station', authMiddleware, async (req, res) => {
-    console.log(req);
-});
-
 module.exports = router;
