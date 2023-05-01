@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const Station = require('../models/stationModel');
 const authMiddleware = require('../middlewares/authMiddleware');
+const { searchStations } = require('../functions/stationsApi');
 
 // Create a new station
 router.post('/new-station', authMiddleware, async (req, res) => {
@@ -115,9 +116,8 @@ router.delete('/delete-station/:id', authMiddleware, async (req, res) => {
 });
 
 // Add a station to station list
-router.post('/add-station/:id', authMiddleware, async (req, res) => {
-    const { id } = req.body;
-    console.log(id);
+router.get('/search-station', authMiddleware, async (req, res) => {
+    searchStations(37.359428, -121.925337);
 });
 
 module.exports = router;

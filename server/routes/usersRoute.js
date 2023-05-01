@@ -58,10 +58,10 @@ router.post('/login', async (req, res) => {
             });
         }
         // Create and assign a token
-        const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET);
+        const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, { expiresIn: '1d' });
         return res.send({
-            message: 'User logged in successfully',
             success: true,
+            message: 'User logged in successfully',
             token: token
         });
     } catch (error) {
