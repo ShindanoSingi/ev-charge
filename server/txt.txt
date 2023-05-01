@@ -1,1 +1,5 @@
 https://rapidapi.com/letscrape-6bRBa3QguO5/api/ev-charge-finder/
+
+weather api https://rapidapi.com/weatherbit/api/weather/
+
+https://rapidapi.com/visual-crossing-corporation-visual-crossing-corporation-default/api/visual-crossing-weather/
