@@ -1,6 +1,7 @@
 const axios = require('axios');
 const Station = require('../models/stationModel');
 const asyncHandler = require('express-async-handler');
+const User = require('../models/userModel');
 
 let latitude = '';
 let longitude = '';
@@ -125,8 +126,54 @@ const deleteaStation = asyncHandler(async (req, res) => {
 );
 
 const addaStation = asyncHandler(async (req, res) => {
-    const id = req.user;
-    console.log(req);
+    const { id } = req.user;
+    const findStations = User.findById(id);
+    const user = await User.findByIdAndUpdate(id, { $push: { stations: req.params.id } }, { new: true }).populate('stations');
+    res.send({
+        success: true,
+        message: 'Station added successfully',
+        data: user,
+    });
 });
 
-module.exports = { createStastion, getAllStations, getaStation, updateaStation, deleteaStation, addaStation };
+const getMyStations = asyncHandler(async (req, res) => {
+    const { _id } = req.user;
+    const user = await User.findById(_id).populate('stations');
+    res.send({
+        success: true,
+        message: 'Stations retrieved successfully',
+        data: user.stations,
+    });
+});
+
+const getoneOfMyStations = asyncHandler(async (req, res) => {
+    const { _id } = req.user;
+    const id = req.params.id;
+    console.log(typeof (id));
+    const user = await User.findById(_id).populate('stations');
+    const station = user.stations.find(station => {
+        return station._id == id;
+    });
+    res.send({
+        success: true,
+        message: 'Station retrieved successfully',
+        data: station,
+    });
+});
+
+const deleteOneOfMyStations = asyncHandler(async (req, res) => {
+    const { _id } = req.user;
+    const id = req.params.id;
+    const user = await User.findById(_id).populate('stations');
+    const station = user.stations.find(station => {
+        return station._id == id;
+    });
+    const deleteMyStation = await User.findByIdAndUpdate(_id, { $pull: { stations: req.params.id } }, { new: true }).populate('stations');
+    res.send({
+        success: true,
+        message: 'Station retrieved successfully',
+        data: deleteMyStation,
+    });
+});
+
+module.exports = { createStastion, getAllStations, getaStation, updateaStation, deleteaStation, addaStation, getMyStations, getoneOfMyStations, deleteOneOfMyStations };
