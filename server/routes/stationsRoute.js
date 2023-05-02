@@ -118,7 +118,7 @@ router.delete('/delete-station/:id', authMiddleware, async (req, res) => {
 // Geta station
 router.get('/search/:city/:state/:country', authMiddleware, async (req, res) => {
     const { city, state, country } = req.params;
-    const stations = searchStation(city, state, country);
+    const stations = await searchStation(city, state, country);
     res.send({
         success: true,
         message: 'Stations retrieved successfully',

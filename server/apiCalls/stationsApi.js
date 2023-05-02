@@ -4,11 +4,11 @@ const asyncHandler = require('express-async-handler');
 let latitude = '';
 let longitude = '';
 
-const searchStation = async (city, state, country) => {
+const searchStation = async (city = 'New York', state = 'New York', country = 'USA') => {
     const searchLatLon = {
         key: process.env.OPENWEATHER_API,
-        city: 'Lewiston',
-        state: 'Maine',
+        city: '',
+        state: '',
         country: '',
         limit: 1,
         api: "https://api.openweathermap.org/geo/1.0/direct?q=",
