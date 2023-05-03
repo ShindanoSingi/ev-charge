@@ -50,9 +50,9 @@ router.get('/search/:city/:state/:country', async (req, res) => {
 
             axios.request(options)
                 .then(function (response) {
-                    console.log(response.data);
+                    res.send(response.data);
                 }).catch(function (error) {
-                    throw new Error(error);
+                    res.send(error);
                 });
         })
 });

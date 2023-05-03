@@ -9,3 +9,7 @@
   font-weight: 500;
   margin: 0px;
 }
+
+:root{
+  --green-color: #28DC89;
+}

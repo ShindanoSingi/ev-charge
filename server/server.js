@@ -10,6 +10,12 @@ const stationsRoute = require('./routes/stationsRoute');
 
 app.use(express.json());
 
+// set the Access-Control-Allow-Origin header
+app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    next();
+});
+
 const server = require('http').createServer(app);
 
 app.use('/api/users', usersRoute);
