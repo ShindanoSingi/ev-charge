@@ -35,14 +35,13 @@ router.get('/search/:city/:state/:country', async (req, res) => {
             const options = {
                 method: 'GET',
                 url: process.env.EV_CHARGE_URL,
-
                 params: {
-                    lat: latitude,
-                    lng: longitude,
-                    limit: '50'
+                    orderBy: '"postcode"',
+                    equalTo: '"04210"',
+                    print: '"pretty"',
+                    limitToFirst: '50'
                 },
                 headers: {
-                    'content-type': 'application/octet-stream',
                     'X-RapidAPI-Key': process.env.X_RAPID_API_KEY,
                     'X-RapidAPI-Host': process.env.X_RAPID_API_HOST
                 }
@@ -50,7 +49,7 @@ router.get('/search/:city/:state/:country', async (req, res) => {
 
             axios.request(options)
                 .then(function (response) {
-                    res.send(response.data);
+                    res.send([response.data]);
                 }).catch(function (error) {
                     res.send(error);
                 });

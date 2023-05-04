@@ -11,12 +11,17 @@ import { MdPlace } from 'react-icons/md';
 import { FaLocationArrow } from 'react-icons/fa';
 import { v4 as uuidv4 } from 'uuid';
 import ReactStars from 'react-stars';
+import { AiFillCar } from 'react-icons/ai';
+import Loader from '../../components/Loader';
 require('mapbox-gl/dist/mapbox-gl.css');
 
 
 function Map() {
+    const [position, setPosition] = useState(null);
+    const [distance, setDistance] = useState(null);
     const [placeName, setPlaceName] = useState('');
-    const { allStations, allMyStations } = useSelector((state) => state.userReducer);
+    const [allStations, setAllStations] = useState([]);
+    // const { allStations, allMyStations } = useSelector((state) => state.userReducer);
     const dispatch = useDispatch();
 
     const Map = ReactMapboxGl({
@@ -35,21 +40,55 @@ function Map() {
     //     return null;
     // }
 
-    const ratingChanged = (newRating) => {
-        console.log(newRating)
+    // Get the user's current position
+    const getUserPosition = () => {
+        console.log('Getting user position');
+        navigator.geolocation.getCurrentPosition(
+            position => setPosition(position),
+            err => console.log(err)
+        );
     };
 
+    // Get all stations
     const getStations = async () => {
         dispatch(showLoader());
         const response = await getAllStations();
-        console.log(response);
-        dispatch(setAllStations(response.data));
-        dispatch(hideLoader());
+        setAllStations(response);
+        // dispatch(hideLoader());
     };
 
+    // Convert degrees to radians
+    const deg2rad = (deg) => {
+        return deg * (Math.PI / 180)
+    }
+
+    // Get distance between two points
+    const getDistance = (lat1, lon1, lat2, lon2, earthRaduis) => {
+        // const earthRaduisK = 6371; // Radius of the earth in km
+        // const earthRaduisM = 3959; // Radius of the earth in miles
+
+        const dLat = deg2rad(lat2 - lat1);  // deg2rad below
+        const dLon = deg2rad(lon2 - lon1);
+
+        const a =
+            Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+            Math.cos(deg2rad(lat1)) *
+            Math.cos(deg2rad(lat2)) *
+            Math.sin(dLat / 2) *
+            Math.sin(dLat / 2);
+        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+        const distance = earthRaduis * c;
+
+        setDistance(distance);
+    }
+
     useEffect(() => {
+        getUserPosition();
         getStations();
     }, []);
+
+    console.log(allStations[0]);
 
     return (
         <div>
@@ -64,24 +103,38 @@ function Map() {
                                     <BsEvStation className='text-white h-9 w-7 absolute left-[2rem] bg-green top-[1.2rem]' />
                                     <MdPlace className='h-[5.5rem] w-[5.3rem] text-green' />
                                 </div>
-                                <div className='bg-cardBlack text-gray-400 p-4 rounded-lg'>
+                                <div className='bg-cardBlack text-gray-400 p-4 rounded-lg flex flex-col gap-4'>
                                     <div className='flex justify-between'>
-                                        <div className='w-[16rem]'>
-                                            <h1 className='line-clamp-1 text-white w-full'>{station.name}</h1>
-                                            <span className='text-sm font-light line-clamp-1 w-full'> {station.address_components.city}, {station.address_components.street_address}</span>
+                                        <div className='w-[16rem] mt-2'>
+                                            <h1 className='line-clamp-1 text-white w-full'>{station.station_name}</h1>
+                                            <span className='text-sm font-light line-clamp-1 w-full'> {station.city}, {station.street_address}</span>
                                         </div>
                                         <div className='w-11 h-11 rounded-full bg-green p-2 flex items-center justify-center'>
                                             <FaLocationArrow className='h-6 w-6 text-white' />
                                         </div>
                                     </div>
-                                    <div>
-                                        <p>{station.rating}</p>
+                                    <div className='flex gap-2 items-center'>
+                                        <p className='text-sm'>{0}</p>
                                         <ReactStars
-                                            className='text-[22px]'
                                             count={5}
-                                            value={station.rating}
-                                            size={24}
-                                            color2={'#ffd700'} />
+                                            value={3}
+                                            size={15}
+                                            color2={'#ffd700'}
+                                        />
+                                        <p className='text-sm'>( reviews)</p>
+                                    </div>
+                                    <div className='flex items-center gap-4'>
+                                        <div className='flex items-center gap-2 bg-red px-2 py-1 rounded-lg'>
+                                            <p className='text-sm text-white'>In Use</p>
+                                        </div>
+                                        <div className='flex items-center gap-2'>
+                                            <MdPlace className=' text-xl  text-gray-400' />
+                                            <p className='text-sm'>1.9 mi</p>
+                                        </div>
+                                        <div className='flex items-center gap-2'>
+                                            <AiFillCar className=' text-xl  text-gray-400' />
+                                            <p className='text-sm'>7 mins</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

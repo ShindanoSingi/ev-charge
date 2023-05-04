@@ -1,4 +1,4 @@
-https://rapidapi.com/letscrape-6bRBa3QguO5/api/ev-charge-finder/
+https://rapidapi.com/zoal21301/api/electric-vehicle-charging-station-and-point/
 
 weather api https://rapidapi.com/weatherbit/api/weather/
 
