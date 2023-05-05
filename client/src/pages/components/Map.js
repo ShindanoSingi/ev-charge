@@ -88,7 +88,8 @@ function Map() {
         getStations();
     }, []);
 
-    console.log(allStations[0]);
+    const allStationsArray = Object.entries(allStations);
+    console.log(allStationsArray[1]);
 
     return (
         <div>
