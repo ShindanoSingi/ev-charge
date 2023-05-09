@@ -88,18 +88,27 @@ function Map() {
         getStations();
     }, []);
 
-    const allStationsArray = Object.entries(allStations);
-    console.log(allStationsArray[1]);
+    console.log(allStations);
+
+    const allStationsArray = [];
+
+    for (const key in allStations) {
+        if (allStations.hasOwnProperty(key)) {
+            allStationsArray.push(allStations[key]);
+        }
+    }
+
+    console.log(allStationsArray[0]);
 
     return (
         <div>
             <div className='p-4'>
                 {
-                    allStations?.map((station) => {
+                    allStationsArray?.map((station) => {
 
                         return (
 
-                            <div key={uuidv4()}>
+                            <div key={station.id}>
                                 <div className='relative'>
                                     <BsEvStation className='text-white h-9 w-7 absolute left-[2rem] bg-green top-[1.2rem]' />
                                     <MdPlace className='h-[5.5rem] w-[5.3rem] text-green' />
