@@ -13,6 +13,7 @@ import { v4 as uuidv4 } from 'uuid';
 import ReactStars from 'react-stars';
 import { AiFillCar } from 'react-icons/ai';
 import Loader from '../../components/Loader';
+import axios from 'axios';
 require('mapbox-gl/dist/mapbox-gl.css');
 
 
@@ -27,6 +28,32 @@ function Map() {
     const Map = ReactMapboxGl({
         accessToken: process.env.REACT_APP_MAPBOX_TOKEN
     });
+
+
+    const getStations = async () => {
+        // axios.get('https://api.openchargemap.io/v3/poi/?output=json&countrycode=US&maxresults=100&compact=true&verbose=false&key=27a33e89-32a2-4837-9325-352522d8d890')
+        //     .then(response => {
+        //         dispatch(showLoader());
+        //         console.log(response.data);
+        //         setAllStations(response.data);
+        //         dispatch(hideLoader());
+        //     })
+
+        // axios.get('https://enode-api.sandbox.enode.io/chargers', {
+        //     headers: {
+        //         'Authorization': '541c209b-0c17-4cbe-bd0c-6bdb1a4d39e1',
+        //         'Enode-User-Id': '62010a90dea162611e9e78f9b81488e86156ba22'
+        //     }
+        // })
+        //     .then(response => {
+        //         console.log(response.data);
+        //     })
+        //     .catch(error => {
+        //         console.error(error);
+        //     });
+
+
+    }
 
 
     // async function getPlaceName(lat, lng) {
@@ -50,12 +77,12 @@ function Map() {
     };
 
     // Get all stations
-    const getStations = async () => {
-        dispatch(showLoader());
-        const response = await getAllStations();
-        setAllStations(response);
-        // dispatch(hideLoader());
-    };
+    // const getStations = async () => {
+    //     dispatch(showLoader());
+    //     const response = await getAllStations();
+    //     setAllStations(response);
+    //     // dispatch(hideLoader());
+    // };
 
     // Convert degrees to radians
     const deg2rad = (deg) => {
@@ -88,23 +115,12 @@ function Map() {
         getStations();
     }, []);
 
-    console.log(allStations);
-
-    const allStationsArray = [];
-
-    for (const key in allStations) {
-        if (allStations.hasOwnProperty(key)) {
-            allStationsArray.push(allStations[key]);
-        }
-    }
-
-    console.log(allStationsArray[0]);
 
     return (
         <div>
             <div className='p-4'>
                 {
-                    allStationsArray?.map((station) => {
+                    allStations?.map((station) => {
 
                         return (
 
