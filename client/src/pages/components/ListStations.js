@@ -7,17 +7,18 @@ import { useDispatch } from 'react-redux';
 import { showLoader, hideLoader } from '../../redux/loaderSlice';
 import { getAllStations } from '../../apiCalls/apiCalls';
 import { BsEvStation } from 'react-icons/bs';
-import { MdPlace } from 'react-icons/md';
+import { RiMapPin2Fill } from 'react-icons/ri';
 import { FaLocationArrow } from 'react-icons/fa';
 import { v4 as uuidv4 } from 'uuid';
 import ReactStars from 'react-stars';
 import { AiFillCar } from 'react-icons/ai';
 import Loader from '../../components/Loader';
+import { BsChevronRight } from 'react-icons/bs';
 import axios from 'axios';
 require('mapbox-gl/dist/mapbox-gl.css');
 
 
-function Map() {
+function ListStations() {
     const [position, setPosition] = useState(null);
     const [distance, setDistance] = useState(null);
     const [placeName, setPlaceName] = useState('');
@@ -30,47 +31,26 @@ function Map() {
     });
 
 
-    // const getStations = async () => {
-    // axios.get('https://api.openchargemap.io/v3/poi/?output=json&countrycode=US&maxresults=100&compact=true&verbose=false&key=27a33e89-32a2-4837-9325-352522d8d890')
-    //     .then(response => {
-    //         dispatch(showLoader());
-    //         console.log(response.data);
-    //         setAllStations(response.data);
-    //         dispatch(hideLoader());
-    //     })
-
-    // axios.get(`https://developer.nrel.gov/api/alt-fuel-stations/v1.json?limit=100&api_key=${process.env.REACT_APP_NREL_API_KEY}`)
-    //     .then(response => {
-    //         dispatch(showLoader());
-    //         console.log(response.data);
-    //         setAllStations(response.data);
-    //         dispatch(hideLoader());
-    //     })
-
-    // axios.get('https://enode-api.sandbox.enode.io/chargers', {
-    //     headers: {
-    //         'Authorization': '541c209b-0c17-4cbe-bd0c-6bdb1a4d39e1',
-    //         'Enode-User-Id': '62010a90dea162611e9e78f9b81488e86156ba22'
-    //     }
-    // })
-    //     .then(response => {
-    //         console.log(response.data);
-    //     })
-    //     .catch(error => {
-    //         console.error(error);
-    //     });
-
-
-    // }
+    const getStations = async () => {
+        dispatch(showLoader());
+        axios.get(`${process.env.REACT_APP_NREL_API_URL}${process.env.REACT_APP_NREL_API_KEY}&fuel_type=ELEC&state=ME`)
+            .then(response => {
+                dispatch(showLoader());
+                console.log(response.data);
+                setAllStations(response.data);
+                dispatch(hideLoader());
+            })
+    }
 
 
     // async function getPlaceName(lat, lng) {
-    //     const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${lng},${lat}.json?access_token=${process.env.REACT_APP_MAPBOX_TOKEN}`;
+    //     const url = `${process.env.REACT_APP_MAPBOX_URL}${lng},${lat}.json?access_token=${process.env.REACT_APP_MAPBOX_TOKEN}`;
     //     const response = await fetch(url);
     //     const data = await response.json();
     //     if (data.features.length > 0) {
-    //         console.log(data.features[0].text);
-    //         setPlaceName(data.features[0].text);
+    //         console.log(data);
+    //         console.log(data.features[0].place_name);
+    //         setPlaceName(data.features[0].place_name);
     //     }
     //     return null;
     // }
@@ -84,29 +64,59 @@ function Map() {
         );
     };
 
+    // console.log(position.coords);
+
     // Get all stations
-    const getStations = async () => {
-        dispatch(showLoader());
-        const response = await getAllStations();
-        console.log(response);
-        setAllStations(response);
-        // dispatch(hideLoader());
-    };
+    // const getStations = async () => {
+    //     dispatch(showLoader());
+    //     const response = await getAllStations();
+    //     console.log(response);
+    //     setAllStations(response);
+    //     // dispatch(hideLoader());
+    // };
 
     useEffect(() => {
         getUserPosition();
+        // getPlaceName(position.coords.latitude, position.coords.longitude);
         getStations();
     }, []);
 
     return (
         <div>
-            <div className='p-4'>
-                {
-                    allStations.fuel_stations?.map((station) => {
+            <div className=''>
+                <div className='max-h-[80vh] overflow-scroll '>
+                    {
+                        allStations.fuel_stations?.map((station) => {
+                            return (
+                                <div key={station.id}>
+                                    <div className='bg-cardBlack card text-gray-400 flex items-center justify-between p-2 gap-2 border border-l-0 border-r-0 border-t-0  border-b-gray-500'>
+                                        <div className='flex items-center'>
+                                            <div className='relative'>
+                                                <BsEvStation className='text-white h-6 w-5 absolute left-[1.25rem] bg-green top-[1rem]' />
+                                                <RiMapPin2Fill className='h-[3.5rem] w-[3.5rem] text-green' />
+                                            </div>
+                                            <div className='flex justify-between'>
+                                                <div className='w-full'>
+                                                    <h1 className='line-clamp-1 text-white w-full mb-1'>{station.station_name}</h1>
+                                                    <span className='text-sm font-light line-clamp-1 w-full'> {station.city}, {station.street_address}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <BsChevronRight className='h-6 w-6 text-gray-400' />
+                                        </div>
+                                    </div>
+                                </div>
+                            )
+                        })
+                    }
+                </div>
 
-                        return (
 
-                            <div key={station.id}>
+
+
+
+                {/* <div key={station.id}>
                                 <div className='relative'>
                                     <BsEvStation className='text-white h-9 w-7 absolute left-[2rem] bg-green top-[1.2rem]' />
                                     <MdPlace className='h-[5.5rem] w-[5.3rem] text-green' />
@@ -145,10 +155,11 @@ function Map() {
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        )
-                    })
-                }
+                            </div> */}
+
+
+
+
 
                 {/* <Map
                     style="mapbox://styles/mapbox/outdoors-v12"
@@ -167,4 +178,4 @@ function Map() {
     )
 }
 
-export default Map
+export default ListStations

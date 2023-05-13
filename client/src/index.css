@@ -12,3 +12,15 @@
 :root{
   --green-color: #28DC89;
 }
+
+input{
+  background-color: #262A34;
+}
+
+/* .card{
+  display: flex;
+}
+
+.card:last-child {
+  justify-content: end;
+} */

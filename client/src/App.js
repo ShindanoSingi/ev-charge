@@ -1,10 +1,17 @@
 import Loader from './components/Loader';
-import Home from './pages/Home';
+import ListStations from './pages/components/ListStations';
+import Footer from './pages/components/Footer';
+import SearchForm from './pages/components/SearchForm';
+import { Routes, Route } from 'react-router-dom';
 
-function App() {
+const App = () => {
   return (
-    <div className=" h-screen w-screen">
-      <Home />
+    <div className="p-4 h-min-[100vh] w-screen bg-cardBlack">
+      <SearchForm />
+      <Routes>
+        <Route path='/' element={<ListStations />} />
+      </Routes>
+      <Footer />
     </div>
   );
 }

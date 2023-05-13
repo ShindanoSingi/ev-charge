@@ -17,43 +17,31 @@ router.delete('/delete-station/:id', authMiddleware, deleteaStation);
 // Add a station
 router.post('/add-station/:id', authMiddleware, addaStation);
 // Geta station
-router.get('/search/:city/:state/:country', async (req, res) => {
-    const { city, state, country } = req.params;
-    console.log(city, state, country);
-    const searchLatLon = {
-        key: process.env.OPENWEATHER_API,
-        limit: 1,
-        api: "https://api.openweathermap.org/geo/1.0/direct?q=",
-    };
+router.get('/search/:location/:fuel', async (req, res) => {
+    const { location, fuel } = req.params;
 
-    axios.get(`${searchLatLon.api}${city},${state},${country}&limit=${searchLatLon.limit}&appid=${searchLatLon.key}`)
-        .then((response) => {
-            latitude = (response.data[0].lat);
-            longitude = (response.data[0].lon);
-            console.log(latitude, longitude);
+    axios.get(`https://developer.nrel.gov/api/alt-fuel-stations/v1.json?limit=100&api_key=${process.env.REACT_APP_NREL_API_KEY}&fuel_type=ELEC&state=ME`)
+        .then(response => {
+            console.log(response.data);
+            res.json(response.data);
 
-            const options = {
-                method: 'GET',
-                url: process.env.EV_CHARGE_URL,
-                params: {
-                    orderBy: '"postcode"',
-                    equalTo: '"04210"',
-                    print: '"pretty"',
-                    limitToFirst: '50'
-                },
-                headers: {
-                    'X-RapidAPI-Key': process.env.X_RAPID_API_KEY,
-                    'X-RapidAPI-Host': process.env.X_RAPID_API_HOST
-                }
-            };
-
-            axios.request(options)
-                .then(function (response) {
-                    res.send([response.data]);
-                }).catch(function (error) {
-                    res.send(error);
-                });
         })
+
+    // const { city, state, country } = req.params;
+    // console.log(city, state, country);
+    // const searchLatLon = {
+    //     key: process.env.OPENWEATHER_API,
+    //     limit: 1,
+    //     api: "https://api.openweathermap.org/geo/1.0/direct?q=",
+    // };
+
+    // axios.get(`${searchLatLon.api}${city},${state},${country}&limit=${searchLatLon.limit}&appid=${searchLatLon.key}`)
+    //     .then((response) => {
+    //         latitude = (response.data[0].lat);
+    //         longitude = (response.data[0].lon);
+    //         console.log(latitude, longitude);
+
+
 });
 // Get my stations
 router.get('/my-stations', authMiddleware, getMyStations);

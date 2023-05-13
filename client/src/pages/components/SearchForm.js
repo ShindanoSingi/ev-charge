@@ -7,11 +7,10 @@ import Button from '@mui/joy/Button';
 
 function SearchForm() {
     return (
-        <div>
-            {/* <Input
-                startDecorator={<MailIcon />}
-                endDecorator={<Button>Message</Button>}
-            /> */}
+        <div className=''>
+            <div className='mb-2 w-full top-2 z-50'>
+                <input placeholder="Search" className='search-input w-full p-3 pl-4 rounded-lg' />
+            </div>
         </div>
     )
 }
