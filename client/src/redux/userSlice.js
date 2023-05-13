@@ -9,7 +9,7 @@ const userSlice = createSlice({
         inputValue: '',
         selectedOption: null,
         position: null,
-        apiStation: null,
+        apiStation: [],
     },
     reducers: {
         setUser: (state, action) => {
@@ -36,5 +36,5 @@ const userSlice = createSlice({
     },
 });
 
-export const { setUser, setAllStations, setAllMyStations, setInputValue, setSelectedOption, setPosition } = userSlice.actions;
+export const { setUser, setAllStations, setAllMyStations, setInputValue, setSelectedOption, setPosition, setApiStation } = userSlice.actions;
 export default userSlice.reducer;

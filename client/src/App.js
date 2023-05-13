@@ -7,8 +7,16 @@ import { FaRoute } from 'react-icons/fa';
 import { IoMapSharp } from 'react-icons/io5';
 import Map from './pages/components/Map';
 import UserPage from './pages/components/UserPage';
+import Station from './pages/components/Station';
+import { useState } from 'react';
 
 const App = () => {
+  const [apiStation, setApiStation] = useState([]);
+
+  const getApiStation = async (station) => {
+    setApiStation(station);
+  }
+
   return (
     <div className="p-4 h-max-[100vh] w-screen bg-cardBlack">
       <div className='flex gap-4 absolute top-[85%] left-[65%] z-50'>
@@ -26,10 +34,10 @@ const App = () => {
       <div className='main'>
         <SearchForm />
         <Routes>
-          <Route path='/' element={<ListStations />} />
+          <Route path='/' element={<ListStations getApiStation={getApiStation} />} />
           <Route path='/map' element={<Map />} />
           <Route path='/user' element={<UserPage />} />
-          <Route path='/sation/:id' />
+          <Route path='/apiStation/:id' element={<Station apiStation={apiStation} />} />
         </Routes>
         <Footer />
       </div>

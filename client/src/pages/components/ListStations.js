@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import ReactMapboxGl, { Layer, Feature } from 'react-mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css'
 import { useSelector } from 'react-redux';
-import { setAllStations, setAllMyStations, setInputValue, setSelectedOption } from '../../redux/userSlice';
+import { setAllStations, setAllMyStations, setInputValue, setSelectedOption, setApiStation } from '../../redux/userSlice';
 import { useDispatch } from 'react-redux';
 import { showLoader, hideLoader } from '../../redux/loaderSlice';
 import { getAllStations } from '../../apiCalls/apiCalls';
@@ -15,11 +15,12 @@ import { AiFillCar } from 'react-icons/ai';
 import Loader from '../../components/Loader';
 import { BsChevronRight } from 'react-icons/bs';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 
 require('mapbox-gl/dist/mapbox-gl.css');
 
-function ListStations() {
+function ListStations({ getApiStation }) {
     const [position, setPosition] = useState(null);
     const [distance, setDistance] = useState(null);
     const [placeName, setPlaceName] = useState('');
@@ -38,6 +39,9 @@ function ListStations() {
                 <div className='max-h-[80vh] overflow-scroll '>
                     {
                         allStations.fuel_stations?.map((station) => {
+
+                            // dispatch(setApiStation(station))
+
                             return (
                                 <div key={station.id}>
                                     <div className='bg-cardBlack card text-gray-400 flex items-center justify-between p-2 gap-2 border border-l-0 border-r-0 border-t-0  border-b-[#35383F]'>
@@ -54,7 +58,12 @@ function ListStations() {
                                             </div>
                                         </div>
                                         <div>
-                                            <BsChevronRight className='h-6 w-6 text-gray-400' />
+                                            <Link to={`/apiStation/${station.id}`}>
+                                                <BsChevronRight onClick={() => {
+                                                    getApiStation(station)
+                                                }} className='h-6 w-6 text-gray-400' />
+                                            </Link>
+
                                         </div>
                                     </div>
                                 </div>
