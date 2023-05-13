@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import ReactMapboxGl, { Layer, Feature } from 'react-mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css'
 import { useSelector } from 'react-redux';
-import { setAllStations, setAllMyStations } from '../../redux/userSlice';
+import { setAllStations, setAllMyStations, setInputValue, setSelectedOption } from '../../redux/userSlice';
 import { useDispatch } from 'react-redux';
 import { showLoader, hideLoader } from '../../redux/loaderSlice';
 import { getAllStations } from '../../apiCalls/apiCalls';
@@ -15,71 +15,22 @@ import { AiFillCar } from 'react-icons/ai';
 import Loader from '../../components/Loader';
 import { BsChevronRight } from 'react-icons/bs';
 import axios from 'axios';
-require('mapbox-gl/dist/mapbox-gl.css');
 
+
+require('mapbox-gl/dist/mapbox-gl.css');
 
 function ListStations() {
     const [position, setPosition] = useState(null);
     const [distance, setDistance] = useState(null);
     const [placeName, setPlaceName] = useState('');
-    const [allStations, setAllStations] = useState([]);
-    // const { allStations, allMyStations } = useSelector((state) => state.userReducer);
+    // const [allStations, setAllStations] = useState([]);
+    const { allStations, allMyStations, inputValue, selectedOption } = useSelector((state) => state.userReducer);
     const dispatch = useDispatch();
 
     const Map = ReactMapboxGl({
         accessToken: process.env.REACT_APP_MAPBOX_TOKEN
     });
 
-
-    const getStations = async () => {
-        dispatch(showLoader());
-        axios.get(`${process.env.REACT_APP_NREL_API_URL}${process.env.REACT_APP_NREL_API_KEY}&fuel_type=ELEC&state=ME`)
-            .then(response => {
-                dispatch(showLoader());
-                console.log(response.data);
-                setAllStations(response.data);
-                dispatch(hideLoader());
-            })
-    }
-
-
-    // async function getPlaceName(lat, lng) {
-    //     const url = `${process.env.REACT_APP_MAPBOX_URL}${lng},${lat}.json?access_token=${process.env.REACT_APP_MAPBOX_TOKEN}`;
-    //     const response = await fetch(url);
-    //     const data = await response.json();
-    //     if (data.features.length > 0) {
-    //         console.log(data);
-    //         console.log(data.features[0].place_name);
-    //         setPlaceName(data.features[0].place_name);
-    //     }
-    //     return null;
-    // }
-
-    // Get the user's current position
-    const getUserPosition = () => {
-        console.log('Getting user position');
-        navigator.geolocation.getCurrentPosition(
-            position => setPosition(position),
-            err => console.log(err)
-        );
-    };
-
-    // console.log(position.coords);
-
-    // Get all stations
-    // const getStations = async () => {
-    //     dispatch(showLoader());
-    //     const response = await getAllStations();
-    //     console.log(response);
-    //     setAllStations(response);
-    //     // dispatch(hideLoader());
-    // };
-
-    useEffect(() => {
-        getUserPosition();
-        // getPlaceName(position.coords.latitude, position.coords.longitude);
-        getStations();
-    }, []);
 
     return (
         <div>
@@ -89,7 +40,7 @@ function ListStations() {
                         allStations.fuel_stations?.map((station) => {
                             return (
                                 <div key={station.id}>
-                                    <div className='bg-cardBlack card text-gray-400 flex items-center justify-between p-2 gap-2 border border-l-0 border-r-0 border-t-0  border-b-gray-500'>
+                                    <div className='bg-cardBlack card text-gray-400 flex items-center justify-between p-2 gap-2 border border-l-0 border-r-0 border-t-0  border-b-[#35383F]'>
                                         <div className='flex items-center'>
                                             <div className='relative'>
                                                 <BsEvStation className='text-white h-6 w-5 absolute left-[1.25rem] bg-green top-[1rem]' />

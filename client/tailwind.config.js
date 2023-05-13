@@ -25,7 +25,7 @@ module.exports = {
         green: '#28DC89',
         red: '#FD6A6B',
         black: '#1A1C23',
-        cardBlack: '#181A20'
+        cardBlack: '#181A20',
       },
     },
   },

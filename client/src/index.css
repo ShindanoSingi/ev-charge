@@ -14,8 +14,18 @@
 }
 
 input{
-  background-color: #262A34;
+  background-color: #262A34 !important;
 }
+
+.main{
+  height: 100vh !important;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+
 
 /* .card{
   display: flex;
