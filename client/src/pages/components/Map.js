@@ -30,30 +30,38 @@ function Map() {
     });
 
 
-    const getStations = async () => {
-        // axios.get('https://api.openchargemap.io/v3/poi/?output=json&countrycode=US&maxresults=100&compact=true&verbose=false&key=27a33e89-32a2-4837-9325-352522d8d890')
-        //     .then(response => {
-        //         dispatch(showLoader());
-        //         console.log(response.data);
-        //         setAllStations(response.data);
-        //         dispatch(hideLoader());
-        //     })
+    // const getStations = async () => {
+    // axios.get('https://api.openchargemap.io/v3/poi/?output=json&countrycode=US&maxresults=100&compact=true&verbose=false&key=27a33e89-32a2-4837-9325-352522d8d890')
+    //     .then(response => {
+    //         dispatch(showLoader());
+    //         console.log(response.data);
+    //         setAllStations(response.data);
+    //         dispatch(hideLoader());
+    //     })
 
-        // axios.get('https://enode-api.sandbox.enode.io/chargers', {
-        //     headers: {
-        //         'Authorization': '541c209b-0c17-4cbe-bd0c-6bdb1a4d39e1',
-        //         'Enode-User-Id': '62010a90dea162611e9e78f9b81488e86156ba22'
-        //     }
-        // })
-        //     .then(response => {
-        //         console.log(response.data);
-        //     })
-        //     .catch(error => {
-        //         console.error(error);
-        //     });
+    // axios.get(`https://developer.nrel.gov/api/alt-fuel-stations/v1.json?limit=100&api_key=${process.env.REACT_APP_NREL_API_KEY}`)
+    //     .then(response => {
+    //         dispatch(showLoader());
+    //         console.log(response.data);
+    //         setAllStations(response.data);
+    //         dispatch(hideLoader());
+    //     })
+
+    // axios.get('https://enode-api.sandbox.enode.io/chargers', {
+    //     headers: {
+    //         'Authorization': '541c209b-0c17-4cbe-bd0c-6bdb1a4d39e1',
+    //         'Enode-User-Id': '62010a90dea162611e9e78f9b81488e86156ba22'
+    //     }
+    // })
+    //     .then(response => {
+    //         console.log(response.data);
+    //     })
+    //     .catch(error => {
+    //         console.error(error);
+    //     });
 
 
-    }
+    // }
 
 
     // async function getPlaceName(lat, lng) {
@@ -77,50 +85,24 @@ function Map() {
     };
 
     // Get all stations
-    // const getStations = async () => {
-    //     dispatch(showLoader());
-    //     const response = await getAllStations();
-    //     setAllStations(response);
-    //     // dispatch(hideLoader());
-    // };
-
-    // Convert degrees to radians
-    const deg2rad = (deg) => {
-        return deg * (Math.PI / 180)
-    }
-
-    // Get distance between two points
-    const getDistance = (lat1, lon1, lat2, lon2, earthRaduis) => {
-        // const earthRaduisK = 6371; // Radius of the earth in km
-        // const earthRaduisM = 3959; // Radius of the earth in miles
-
-        const dLat = deg2rad(lat2 - lat1);  // deg2rad below
-        const dLon = deg2rad(lon2 - lon1);
-
-        const a =
-            Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-            Math.cos(deg2rad(lat1)) *
-            Math.cos(deg2rad(lat2)) *
-            Math.sin(dLat / 2) *
-            Math.sin(dLat / 2);
-        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-
-        const distance = earthRaduis * c;
-
-        setDistance(distance);
-    }
+    const getStations = async () => {
+        dispatch(showLoader());
+        const response = await getAllStations();
+        console.log(response);
+        setAllStations(response);
+        // dispatch(hideLoader());
+    };
 
     useEffect(() => {
         getUserPosition();
         getStations();
     }, []);
 
-
     return (
         <div>
             <div className='p-4'>
                 {
-                    allStations?.map((station) => {
+                    allStations.fuel_stations?.map((station) => {
 
                         return (
 
