@@ -30,16 +30,16 @@ function Map() {
     });
 
 
-    const getStations = async () => {
-        dispatch(showLoader());
-        axios.get(`${process.env.REACT_APP_NREL_API_URL}${process.env.REACT_APP_NREL_API_KEY}&fuel_type=ELEC&state=MA`)
-            .then(response => {
-                dispatch(showLoader());
-                console.log(response.data);
-                setAllStations(response.data);
-                dispatch(hideLoader());
-            })
-    }
+    // const getStations = async () => {
+    //     dispatch(showLoader());
+    //     axios.get(`${process.env.REACT_APP_NREL_API_URL}${process.env.REACT_APP_NREL_API_KEY}&fuel_type=ELEC&state=MA`)
+    //         .then(response => {
+    //             dispatch(showLoader());
+    //             console.log(response.data);
+    //             setAllStations(response.data);
+    //             dispatch(hideLoader());
+    //         })
+    // }
 
 
     // async function getPlaceName(lat, lng) {
@@ -77,7 +77,7 @@ function Map() {
     useEffect(() => {
         getUserPosition();
         // getPlaceName(position.coords.latitude, position.coords.longitude);
-        getStations();
+        // getStations();
     }, []);
 
     return (

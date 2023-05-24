@@ -17,6 +17,8 @@ const App = () => {
     setApiStation(station);
   }
 
+  console.log(apiStation);
+
   return (
     <div className="p-4 h-max-[100vh] w-screen bg-cardBlack">
       <div className='flex gap-4 absolute top-[85%] left-[65%] z-50'>

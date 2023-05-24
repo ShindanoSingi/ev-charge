@@ -166,7 +166,7 @@ function SearchForm() {
             <div className='flex px-2 items-center bg-[#262A34]'>
 
                 <div className='mb-2 p-2 w-full gap-3  search-input flex items-center rounded-lg z-50'>
-                    <BsSearch onClick={handleSubmit} className='text-gray-400' />
+                    <BsSearch onClick={handleSubmit} className='text-gray-400 text-lg' />
                     <input placeholder="Enter Location" value={inputValue} onChange={handleInputChange} className='px-2 text-gray-400 border-green w-full' />
                 </div>
 

@@ -8,7 +8,10 @@ function Station() {
     const dispatch = useDispatch();
     console.log(apiStation);
     return (
-        <div className='text-white'>Station</div>
+        <div className='text-white h-[50%] w-[100vw] px-4'>
+            <div className='bg-green h-[15%] w-[100%]'>dsdsdsdsd</div>
+            <div className='bg-yellow-200 h-[90%] w-full'></div>
+        </div>
     )
 }
 
