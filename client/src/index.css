@@ -17,11 +17,27 @@ input{
   background-color: #262A34 !important;
 }
 
-.main{
-  height: 100vh !important;
+.container{
   display: flex;
   flex-direction: column;
-  align-items: center;
+
+}
+
+.element{
+  padding: 5px;
+
+}
+
+.start{
+  margin-bottom: auto;
+}
+
+.center{
+  margin: auto;
+}
+
+.end{
+  margin-top: auto;
 }
 
 

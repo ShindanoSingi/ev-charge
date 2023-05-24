@@ -82,40 +82,40 @@ function Map() {
 
     return (
         <div>
-            <div className=''>
-                <div className='max-h-[80vh] overflow-scroll '>
-                    {
-                        allStations.fuel_stations?.map((station) => {
-                            return (
-                                <div key={station.id}>
-                                    <div className='bg-cardBlack card text-gray-400 flex items-center justify-between p-2 gap-2 border border-l-0 border-r-0 border-t-0  border-b-[#35383F]'>
-                                        <div className='flex items-center'>
-                                            <div className='relative'>
-                                                <BsEvStation className='text-white h-6 w-5 absolute left-[1.25rem] bg-green top-[1rem]' />
-                                                <RiMapPin2Fill className='h-[3.5rem] w-[3.5rem] text-green' />
-                                            </div>
-                                            <div className='flex justify-between'>
-                                                <div className='w-full'>
-                                                    <h1 className='line-clamp-1 text-white w-full mb-1'>{station.station_name}</h1>
-                                                    <span className='text-sm font-light line-clamp-1 w-full'> {station.city}, {station.street_address}</span>
-                                                </div>
-                                            </div>
+
+            <div className='max-h-[80vh] overflow-scroll '>
+                {
+                    allStations.fuel_stations?.map((station) => {
+                        return (
+                            <div key={station.id}>
+                                <div className='bg-cardBlack card text-gray-400 flex items-center justify-between p-2 gap-2 border border-l-0 border-r-0 border-t-0  border-b-[#35383F]'>
+                                    <div className='flex items-center'>
+                                        <div className='relative'>
+                                            <BsEvStation className='text-white h-6 w-5 absolute left-[1.25rem] bg-green top-[1rem]' />
+                                            <RiMapPin2Fill className='h-[3.5rem] w-[3.5rem] text-green' />
                                         </div>
-                                        <div>
-                                            <BsChevronRight className='h-6 w-6 text-gray-400' />
+                                        <div className='flex justify-between'>
+                                            <div className='w-full'>
+                                                <h1 className='line-clamp-1 text-white w-full mb-1'>{station.station_name}</h1>
+                                                <span className='text-sm font-light line-clamp-1 w-full'> {station.city}, {station.street_address}</span>
+                                            </div>
                                         </div>
                                     </div>
+                                    <div>
+                                        <BsChevronRight className='h-6 w-6 text-gray-400' />
+                                    </div>
                                 </div>
-                            )
-                        })
-                    }
-                </div>
+                            </div>
+                        )
+                    })
+                }
+            </div>
 
 
 
 
 
-                {/* <div key={station.id}>
+            {/* <div key={station.id}>
                                 <div className='relative'>
                                     <BsEvStation className='text-white h-9 w-7 absolute left-[2rem] bg-green top-[1.2rem]' />
                                     <MdPlace className='h-[5.5rem] w-[5.3rem] text-green' />
@@ -160,7 +160,7 @@ function Map() {
 
 
 
-                {/* <Map
+            {/* <Map
                     style="mapbox://styles/mapbox/outdoors-v12"
                     containerStyle={{
                         height: '100vh',
@@ -172,8 +172,7 @@ function Map() {
                         <Feature coordinates={[-70.2601336, 43.6605883]} />
                     </Layer>
                 </Map> */}
-            </div>
-        </div >
+        </div>
     )
 }
 

@@ -162,24 +162,22 @@ function SearchForm() {
     // }, [selectedOption, inputValue])
 
     return (
-        <div className='mb-2'>
-            <div className='flex px-2 items-center bg-[#262A34]'>
 
-                <div className='mb-2 p-2 w-full gap-3  search-input flex items-center rounded-lg z-50'>
-                    <BsSearch onClick={handleSubmit} className='text-gray-400 text-lg' />
-                    <input placeholder="Enter Location" value={inputValue} onChange={handleInputChange} className='px-2 text-gray-400 border-green w-full' />
-                </div>
+        <div className='flex px-2 start items-center bg-[#262A34]'>
 
-                <div className='w-50 flex flex-col items-end p-2'>
-                    <label className='text-gray-400'>Select Fuel Type</label>
-                    <select className='option w-full bg-[#262A34] text-gray-400' value={selectedOption} onChange={handleOptionChange}>
-                        {options.map((option) => (
-                            <option key={option.value} value={option.value}> {option.label}</option>
-                        ))}
-                    </select>
-                </div>
+            <div className='mb-2 p-2 w-full gap-3  search-input flex items-center rounded-lg z-50'>
+                <BsSearch onClick={handleSubmit} className='text-gray-400 text-lg' />
+                <input placeholder="Enter Location" value={inputValue} onChange={handleInputChange} className='px-2 text-gray-400 border-green w-full' />
             </div>
 
+            <div className='w-50 flex flex-col items-end p-2'>
+                <label className='text-gray-400'>Select Fuel Type</label>
+                <select className='option w-full bg-[#262A34] text-gray-400' value={selectedOption} onChange={handleOptionChange}>
+                    {options.map((option) => (
+                        <option key={option.value} value={option.value}> {option.label}</option>
+                    ))}
+                </select>
+            </div>
         </div>
     )
 }
