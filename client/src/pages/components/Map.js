@@ -6,13 +6,13 @@ import { setAllStations, setAllMyStations } from '../../redux/userSlice';
 import { useDispatch } from 'react-redux';
 import { showLoader, hideLoader } from '../../redux/loaderSlice';
 import { getAllStations } from '../../apiCalls/apiCalls';
-import { BsEvStation } from 'react-icons/bs';
+
 import { RiMapPin2Fill } from 'react-icons/ri';
 import { FaLocationArrow } from 'react-icons/fa';
 import ReactStars from 'react-stars';
 import { AiFillCar } from 'react-icons/ai';
 import Loader from '../../components/Loader';
-import { BsChevronRight } from 'react-icons/bs';
+import { BsChevronRight, BsEvStation } from 'react-icons/bs';
 import axios from 'axios';
 require('mapbox-gl/dist/mapbox-gl.css');
 
@@ -81,35 +81,35 @@ function Map() {
     }, []);
 
     return (
-        <div>
 
-            <div className='max-h-[80vh] overflow-scroll '>
-                {
-                    allStations.fuel_stations?.map((station) => {
-                        return (
-                            <div key={station.id}>
-                                <div className='bg-cardBlack card text-gray-400 flex items-center justify-between p-2 gap-2 border border-l-0 border-r-0 border-t-0  border-b-[#35383F]'>
-                                    <div className='flex items-center'>
-                                        <div className='relative'>
-                                            <BsEvStation className='text-white h-6 w-5 absolute left-[1.25rem] bg-green top-[1rem]' />
-                                            <RiMapPin2Fill className='h-[3.5rem] w-[3.5rem] text-green' />
-                                        </div>
-                                        <div className='flex justify-between'>
-                                            <div className='w-full'>
-                                                <h1 className='line-clamp-1 text-white w-full mb-1'>{station.station_name}</h1>
-                                                <span className='text-sm font-light line-clamp-1 w-full'> {station.city}, {station.street_address}</span>
-                                            </div>
-                                        </div>
+
+        <div className='max-h-[80vh] overflow-scroll '>
+            {
+                allStations.fuel_stations?.map((station) => {
+                    return (
+                        <div key={station.id}>
+                            <div className='bg-cardBlack card text-gray-400 flex items-center justify-between p-2 gap-2 border border-l-0 border-r-0 border-t-0  border-b-[#35383F]'>
+                                <div className='flex items-center'>
+                                    <div className='relative'>
+                                        <BsEvStation className='text-white h-6 w-5 absolute left-[1.25rem] bg-green top-[1rem]' />
+                                        <RiMapPin2Fill className='h-[3.5rem] w-[3.5rem] text-green' />
                                     </div>
-                                    <div>
-                                        <BsChevronRight className='h-6 w-6 text-gray-400' />
+                                    <div className='flex justify-between'>
+                                        <div className='w-full'>
+                                            <h1 className='line-clamp-1 text-white w-full mb-1'>{station.station_name}</h1>
+                                            <span className='text-sm font-light line-clamp-1 w-full'> {station.city}, {station.street_address}</span>
+                                        </div>
                                     </div>
                                 </div>
+                                <div>
+                                    <BsChevronRight className='h-6 w-6 text-gray-400' />
+                                </div>
                             </div>
-                        )
-                    })
-                }
-            </div>
+                        </div>
+                    )
+                })
+            }
+
 
 
 

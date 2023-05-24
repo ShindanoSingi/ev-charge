@@ -6,20 +6,16 @@ import { Link } from 'react-router-dom'
 
 function Footer() {
     return (
-        <div className='px-4 py-2 end bottom-2 w-full'>
-            <div className=' flex items-center justify-between'>
-                <Link to='/'>
-                    < AiFillHome className='text-gray-400 text-[1.9rem]' />
-                </Link>
+        <div className='px-4 py-1 w-full flex items-center justify-between'>
+            <Link to='/'>
+                < AiFillHome className='text-gray-400 text-[1.9rem]' />
+            </Link>
 
-                < BsFillBookmarkDashFill className='text-gray-400 text-[1.5rem]' />
-                <Link to='/user'>
-                    < FaUserCircle className='text-gray-400 text-[1.8rem]' />
-                </Link>
-
-            </div>
+            < BsFillBookmarkDashFill className='text-gray-400 text-[1.5rem]' />
+            <Link to='/user'>
+                < FaUserCircle className='text-gray-400 text-[1.8rem]' />
+            </Link>
         </div>
-
     )
 }
 

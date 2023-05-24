@@ -20,9 +20,9 @@ const App = () => {
   // console.log(apiStation);
 
   return (
-    <div className="p-4 w-screen bg-cardBlack">
+    <div className="p-4 h-[100%] w-screen bg-cardBlack">
 
-      <div className='main h-[100%]'>
+      <div className='h-[100%]'>
         <TwoButtons />
         <SearchForm />
         <Routes>

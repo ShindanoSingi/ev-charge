@@ -163,7 +163,7 @@ function SearchForm() {
 
     return (
 
-        <div className='flex px-2 start items-center bg-[#262A34]'>
+        <div className='flex px-2 h-[10%] items-center bg-[#262A34]'>
 
             <div className='mb-2 p-2 w-full gap-3  search-input flex items-center rounded-lg z-50'>
                 <BsSearch onClick={handleSubmit} className='text-gray-400 text-lg' />

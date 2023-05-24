@@ -17,7 +17,7 @@ input{
   background-color: #262A34 !important;
 }
 
-.container{
+/* .container{
   display: flex;
   flex-direction: column;
 
@@ -32,13 +32,11 @@ input{
   margin-bottom: auto;
 }
 
-.center{
-  margin: auto;
-}
+
 
 .end{
   margin-top: auto;
-}
+} */
 
 
 
