@@ -7,7 +7,7 @@ import Button from '@mui/joy/Button';
 import { showLoader, hideLoader } from '../../redux/loaderSlice';
 import { BsSearch } from 'react-icons/bs';
 import { useEffect } from 'react';
-import { setInputValue, setSelectedOption, setAllStations, setPosition } from '../../redux/userSlice';
+import { setInputValue, setSelectedOption, setAllStations, setUserPosition } from '../../redux/userSlice';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
@@ -15,7 +15,7 @@ const pos = require('pos');
 
 
 function SearchForm() {
-    const { inputValue, selectedOption, position } = useSelector((state) => state.userReducer);
+    const { inputValue, selectedOption, userPosition } = useSelector((state) => state.userReducer);
 
     const options = [
         { value: '', label: '' },
@@ -141,7 +141,7 @@ function SearchForm() {
     const getUserPosition = () => {
         console.log('Getting user position');
         navigator.geolocation.getCurrentPosition(
-            position => dispatch(setPosition(position)),
+            position => dispatch(setUserPosition(position)),
             err => console.log(err)
         );
     };

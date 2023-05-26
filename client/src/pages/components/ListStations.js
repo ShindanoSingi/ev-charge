@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react'
 import ReactMapboxGl, { Layer, Feature } from 'react-mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css'
 import { useSelector } from 'react-redux';
-import { setAllStations, setAllMyStations, setInputValue, setSelectedOption, setApiStation } from '../../redux/userSlice';
+import { setAllStations, setAllMyStations, setInputValue, setSelectedOption, setUserPosition, setApiStation, setDistanceM, setTime } from '../../redux/userSlice';
 import { useDispatch } from 'react-redux';
 import { showLoader, hideLoader } from '../../redux/loaderSlice';
-import { getAllStations } from '../../apiCalls/apiCalls';
+import { getAllStations, getDistance, getTime } from '../../apiCalls/apiCalls';
 import { BsEvStation } from 'react-icons/bs';
 import { RiMapPin2Fill } from 'react-icons/ri';
 import { FaLocationArrow } from 'react-icons/fa';
@@ -22,21 +22,63 @@ import Station from './Station';
 require('mapbox-gl/dist/mapbox-gl.css');
 
 function ListStations({ getApiStation }) {
-    const [position, setPosition] = useState(null);
     const [distance, setDistance] = useState(null);
     const [placeName, setPlaceName] = useState('');
     // const [allStations, setAllStations] = useState([]);
-    const { allStations, allMyStations, inputValue, selectedOption } = useSelector((state) => state.userReducer);
+    const { allStations, allMyStations, inputValue, selectedOption, userPosition } = useSelector((state) => state.userReducer);
     const dispatch = useDispatch();
 
     const Map = ReactMapboxGl({
         accessToken: process.env.REACT_APP_MAPBOX_TOKEN
     });
 
+    // Get the user's current position
+    const getUserPosition = () => {
+        console.log('Getting user position');
+        navigator.geolocation.getCurrentPosition(
+            position => dispatch(setUserPosition(position)),
+            err => console.log(err)
+        );
+    };
+
+    // const earthRaduisK = 6371; // Radius of the earth in km
+    const earthRaduisM = 3959; // Radius of the earth in miles
+    // const distances = getDistance(position.coords.latitude, position.coords.longitude, 44.09393, -70.20805, earthRaduisM);
+    // console.log(distances);
+
+    useEffect(() => {
+        getUserPosition();
+        console.log(userPosition);
+
+        // getPlaceName(position.coords.latitude, position.coords.longitude);
+        // getStations();
+    }, []);
+
+
+
+
+    const accessToken = 'pk.eyJ1Ijoic2hpbmRhbm8iLCJhIjoiY2xpNDVjNXc0MDZhbzNrcGhnYm95czVteSJ9.gGJMMh2SKPYSeWso3nXskg';
+
+    const destination = [44.0941472, -70.2084129]; // Specify the origin city
+    const origin = [42.393167, -71.064352]; // Specify the destination city
+
+    const apiUrl = `https://api.mapbox.com/directions/v5/mapbox/driving/${origin};${destination}.json?access_token=${accessToken}`;
+
+    fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+            console.log(data)
+            const duration = data.routes[0].duration; // Duration in seconds
+            const formattedDuration = Math.round(duration / 60); // Convert to minutes (rounded)
+            console.log(`The estimated travel time between ${origin} and ${destination} is approximately ${formattedDuration} minutes.`);
+        })
+        .catch(error => {
+            console.error('An error occurred while fetching directions:', error);
+        });
+
+
 
     return (
-
-
         <div className='max-h-[80vh] overflow-scroll '>
             <Station />
             {
@@ -67,9 +109,10 @@ function ListStations({ getApiStation }) {
                                         <Link to={`/apiStation/${station.id}`}>
                                             <BsChevronRight onClick={() => {
                                                 dispatch(setApiStation(station))
+                                                dispatch(setTime(getTime(userPosition.coords.latitude, userPosition.coords.longitude, station.latitude, station.longitude)))
+                                                dispatch(setDistanceM(getDistance(userPosition.coords.latitude, userPosition.coords.longitude, station.latitude, station.longitude, earthRaduisM)))
                                             }} className='h-6 w-6 text-gray-400' />
                                         </Link>
-
                                     </div>
                                 </div>
                             </div>

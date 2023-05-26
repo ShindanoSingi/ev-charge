@@ -5,16 +5,19 @@ import { MdPlace } from 'react-icons/md';
 import { AiFillCar } from 'react-icons/ai';
 import { FaLocationArrow } from 'react-icons/fa';
 import { FiPhoneCall } from 'react-icons/fi';
-
+import { getDistance } from '../../apiCalls/apiCalls';
+import { setTime } from '../../redux/userSlice';
 
 
 function Station() {
-    const { apiStation } = useSelector((state) => state.userReducer);
+    const { apiStation, userPosition, distanceM, time } = useSelector((state) => state.userReducer);
     const dispatch = useDispatch();
 
     useEffect(() => {
         console.log(apiStation);
     }, [apiStation])
+
+    console.log(userPosition);
 
     return (
 
@@ -37,10 +40,10 @@ function Station() {
                         apiStation.access_code && <p className='text-sm text-gray-400'>Access: {apiStation.access_code}</p>
                     }
                     {
-                        apiStation.ev_network && <p className='text-sm text-gray-400'>Price: {apiStation.ev_pricing}</p>
+                        apiStation.ev_pricing && <p className='text-sm text-gray-400'>Price: {apiStation.ev_pricing}</p>
                     }
                     {
-                        apiStation.ev_connector_types[0].length > 0 ? <p className='text-sm text-gray-400'>Connectors: {apiStation?.ev_connector_types[0]}</p> : <p className='text-sm text-gray-400'>-</p>
+                        apiStation.ev_connector_types && <p className='text-sm text-gray-400'>Connectors: {apiStation?.ev_connector_types[0]}</p>
                     }
                     {
                         apiStation.ev_level2_evse_num && <p className='text-sm text-gray-400'>EVSE Ports: {apiStation.ev_level2_evse_num}</p>
@@ -50,11 +53,11 @@ function Station() {
                 <div className='flex items-center gap-4'>
                     <div className='flex items-center gap-2'>
                         <MdPlace className=' text-xl  text-gray-400' />
-                        <p className='text-sm'>1.9 mi</p>
+                        <p className='text-sm'>{distanceM} mi</p>
                     </div>
                     <div className='flex items-center gap-2'>
                         <AiFillCar className=' text-xl  text-gray-400' />
-                        <p className='text-sm'>7 mins</p>
+                        <p className='text-sm'>{time} mins</p>
                     </div>
                 </div>
                 {

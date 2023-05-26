@@ -8,8 +8,10 @@ const userSlice = createSlice({
         allMyStations: [],
         inputValue: '',
         selectedOption: null,
-        position: null,
+        userPosition: null,
         apiStation: [],
+        distanceM: null,
+        time: null,
     },
     reducers: {
         setUser: (state, action) => {
@@ -27,14 +29,20 @@ const userSlice = createSlice({
         setSelectedOption: (state, action) => {
             state.selectedOption = action.payload;
         },
-        setPosition: (state, action) => {
-            state.position = action.payload;
+        setUserPosition: (state, action) => {
+            state.userPosition = action.payload;
         },
         setApiStation: (state, action) => {
             state.apiStation = action.payload;
-        }
+        },
+        setDistanceM: (state, action) => {
+            state.distanceM = action.payload;
+        },
+        setTime: (state, action) => {
+            state.time = action.payload;
+        },
     },
 });
 
-export const { setUser, setAllStations, setAllMyStations, setInputValue, setSelectedOption, setPosition, setApiStation } = userSlice.actions;
+export const { setUser, setAllStations, setAllMyStations, setInputValue, setSelectedOption, setUserPosition, setApiStation, setDistanceM, setTime } = userSlice.actions;
 export default userSlice.reducer;
