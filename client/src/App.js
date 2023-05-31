@@ -3,11 +3,12 @@ import ListStations from './pages/components/ListStations';
 import Footer from './pages/components/Footer';
 import SearchForm from './pages/components/SearchForm';
 import { Routes, Route } from 'react-router-dom';
-import Map from './pages/components/Map';
+// import Map from './pages/components/Map';
 import UserPage from './pages/components/UserPage';
 import Station from './pages/components/Station';
 import { useState } from 'react';
 import TwoButtons from './pages/components/TwoButtons';
+import Maps from './pages/components/Maps';
 
 
 const App = () => {
@@ -26,8 +27,9 @@ const App = () => {
         <TwoButtons />
         <SearchForm />
         <Routes>
-          <Route path='/' element={<ListStations getApiStation={getApiStation} />} />
-          <Route path='/map' element={<Map />} />
+          <Route path='/' element={<Maps />} />
+          {/* <Route path='/' element={<ListStations getApiStation={getApiStation} />} /> */}
+          {/* <Route path='/map' element={<Map />} /> */}
           <Route path='/user' element={<UserPage />} />
           <Route path='/apiStation/:id' element={<Station apiStation={apiStation} />} />
         </Routes>

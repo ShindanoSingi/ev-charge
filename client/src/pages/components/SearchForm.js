@@ -146,7 +146,7 @@ function SearchForm() {
         );
     };
 
-    console.log(inputValue, selectedOption)
+    // console.log(inputValue, selectedOption)
 
     useEffect(() => {
         getUserPosition();

@@ -1,5 +1,0 @@
-https://rapidapi.com/zoal21301/api/electric-vehicle-charging-station-and-point/
-
-weather api https://rapidapi.com/weatherbit/api/weather/
-
-https://rapidapi.com/visual-crossing-corporation-visual-crossing-corporation-default/api/visual-crossing-weather/

@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import ReactMapboxGl, { Layer, Feature } from 'react-mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css'
 import { useSelector } from 'react-redux';
-import { setAllStations, setAllMyStations } from '../../redux/userSlice';
+import { setAllStations, setAllMyStations, setUserPosition } from '../../redux/userSlice';
 import { useDispatch } from 'react-redux';
 import { showLoader, hideLoader } from '../../redux/loaderSlice';
 import { getAllStations } from '../../apiCalls/apiCalls';
@@ -14,20 +14,32 @@ import { AiFillCar } from 'react-icons/ai';
 import Loader from '../../components/Loader';
 import { BsChevronRight, BsEvStation } from 'react-icons/bs';
 import axios from 'axios';
-require('mapbox-gl/dist/mapbox-gl.css');
+import { cons } from 'pos/lexicon';
+// require('mapbox-gl/dist/mapbox-gl.css');
+
+import maplibregl from 'maplibre-gl';
+import 'maplibre-gl/dist/maplibre-gl.css';
+
+function Maps() {
+    const mapContainer = useRef(null);
+    const map = useRef(null);
+    const [lng] = useState(43.6605883);
+    const [lat] = useState(43.6605883);
+    const [zoom] = useState(14);
+    const [API_KEY] = useState('TBXZbDt5UU4DMNITROsC');
+
+    const { allStations, allMyStations, userPosition } = useSelector((state) => state.userReducer);
+
+    // const [center, setCenter] = useState({ lat: 43.6605883, lng: 43.6605883 });
+    // const ZOOM_LEVEL = 30;
+    // const mapRef = useRef();
 
 
-function Map() {
-    const [position, setPosition] = useState(null);
-    const [distance, setDistance] = useState(null);
-    const [placeName, setPlaceName] = useState('');
-    const [allStations, setAllStations] = useState([]);
-    // const { allStations, allMyStations } = useSelector((state) => state.userReducer);
     const dispatch = useDispatch();
 
-    const Map = ReactMapboxGl({
-        accessToken: process.env.REACT_APP_MAPBOX_TOKEN
-    });
+    // const Map = ReactMapboxGl({
+    //     accessToken: process.env.REACT_APP_MAPBOX_TOKEN
+    // });
 
 
     // const getStations = async () => {
@@ -58,7 +70,7 @@ function Map() {
     const getUserPosition = () => {
         console.log('Getting user position');
         navigator.geolocation.getCurrentPosition(
-            position => setPosition(position),
+            position => dispatch(setUserPosition(position)),
             err => console.log(err)
         );
     };
@@ -78,13 +90,24 @@ function Map() {
         getUserPosition();
         // getPlaceName(position.coords.latitude, position.coords.longitude);
         // getStations();
-    }, []);
+
+        if (map.current) return;
+        map.current = new maplibregl.Map({
+            container: mapContainer.current,
+            style: `https://api.maptiler.com/maps/streets-v2/style.json?key=${API_KEY}`,
+            center: [lng, lat],
+            zoom: zoom
+        }, []);
+    });
 
     return (
 
 
-        <div className='max-h-[80vh] overflow-scroll '>
-            {
+        <div className='h-[80.3vh] overflow-scroll '>
+
+            <div className='h-[90vh]' ref={mapContainer} />
+
+            {/* {
                 allStations.fuel_stations?.map((station) => {
                     return (
                         <div key={station.id}>
@@ -109,7 +132,7 @@ function Map() {
                     )
                 })
             }
-
+ */}
 
 
 
@@ -176,4 +199,4 @@ function Map() {
     )
 }
 
-export default Map
+export default Maps

@@ -7,10 +7,11 @@ import { FaLocationArrow } from 'react-icons/fa';
 import { FiPhoneCall } from 'react-icons/fi';
 import { getDistance } from '../../apiCalls/apiCalls';
 import { setTime } from '../../redux/userSlice';
+import { setShowCard } from '../../redux/userSlice';
 
 
 function Station() {
-    const { apiStation, userPosition, distanceM, time } = useSelector((state) => state.userReducer);
+    const { apiStation, userPosition, distanceM, time, showCard } = useSelector((state) => state.userReducer);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -22,10 +23,14 @@ function Station() {
     return (
 
         // <div className='bg-cardBlack h-[78vh] px-4'>
-        <div className='bg-[#181A20] border-solid border-gray-700 border h-[15rem] absolute z-50 top-[50%] right-4 rounded-lg left-4 translate-y-[-50%]'>
+        showCard && <div className='bg-[#181A20] border-white border-solid  border absolute z-50 top-[50%] right-4 rounded-lg left-4 translate-y-[-50%]'
+            onClick={() => {
+                dispatch(setShowCard(false))
+            }}>
 
 
-            <div className='bg-cardBlack text-gray-400 p-4 rounded-lg flex flex-col gap-4'>
+            <div className='bg-cardBlack text-gray-400 p-4 rounded-lg flex flex-col gap-4'
+            >
                 <div className='flex justify-between'>
                     <div className='w-[17rem] mt-2'>
                         <h1 className='line-clamp-1 text-white w-full'>{apiStation.station_name}</h1>
@@ -53,11 +58,11 @@ function Station() {
                 <div className='flex items-center gap-4'>
                     <div className='flex items-center gap-2'>
                         <MdPlace className=' text-xl  text-gray-400' />
-                        <p className='text-sm'>{distanceM} mi</p>
+                        <p className='text-sm'>{10} mi</p>
                     </div>
                     <div className='flex items-center gap-2'>
                         <AiFillCar className=' text-xl  text-gray-400' />
-                        <p className='text-sm'>{time} mins</p>
+                        <p className='text-sm'>{30} mins</p>
                     </div>
                 </div>
                 {

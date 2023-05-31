@@ -1,8 +1,11 @@
 {
   "dependencies": {
     "dotenv": "^16.1.1",
+    "leaflet": "^1.9.4",
+    "maplibre-gl": "^3.0.1",
     "natural": "^6.3.0",
     "pos": "^0.4.2",
+    "react-leaflet": "^4.2.1",
     "react-router-dom": "^6.11.1"
   }
 }
