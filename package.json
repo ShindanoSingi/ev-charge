@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "dotenv": "^16.1.1",
     "natural": "^6.3.0",
     "pos": "^0.4.2",
     "react-router-dom": "^6.11.1"
