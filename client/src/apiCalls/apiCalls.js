@@ -38,13 +38,13 @@ const deg2rad = (deg) => {
 //     return (distance + 0.6).toFixed(1); // Distance in km
 // }
 
-export const osm = {
-    maptiler: {
-        url: "https://api.maptiler.com/maps/streets-v2/256/{z}/{x}/{y}.png?key=TBXZbDt5UU4DMNITROsC",
-        attribution: '&copy; <a href="https://www.maptiler.com/">MapTiler</a> &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
-        src: "https://api.maptiler.com/maps/streets-v2/?key=TBXZbDt5UU4DMNITROsC#0.0/0.00000/0.00000",
-    }
-}
+// export const osm = {
+//     maptiler: {
+//         url: "https://api.maptiler.com/maps/streets-v2/256/{z}/{x}/{y}.png?key=TBXZbDt5UU4DMNITROsC",
+//         attribution: '&copy; <a href="https://www.maptiler.com/">MapTiler</a> &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
+//         src: "https://api.maptiler.com/maps/streets-v2/?key=TBXZbDt5UU4DMNITROsC#0.0/0.00000/0.00000",
+//     }
+// }
 
 // Calculate the time between current position and the destination
 // export const getTime = (lat1, lon1, lat2, lon2) => {
@@ -77,3 +77,6 @@ export const osm = {
 //         }
 //     });
 // };
+
+// Get googleAPiKeyexport 
+export const getGoogleApiKey = 'AIzaSyAqlCvIvKDJsgqCuypUpUy_UDUrCgNcD90';

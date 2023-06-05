@@ -17,10 +17,7 @@ input{
   background-color: #262A34 !important;
 }
 
-.leaflet-container {
-  height: 1500px;
-  width: 100%;
-}
+
 
 /* .container{
   display: flex;

@@ -6,6 +6,7 @@
     "maplibre-gl": "^3.0.1",
     "natural": "^6.3.0",
     "pos": "^0.4.2",
+    "react-icons": "^4.9.0",
     "react-leaflet": "^4.2.1",
     "react-router-dom": "^6.11.1",
     "react-simple-maps": "^3.0.0"

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import ReactMapboxGl, { Layer, Feature } from 'react-mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css'
 import { useSelector } from 'react-redux';
-import { setAllStations, setAllMyStations, setInputValue, setSelectedOption, setUserPosition, setApiStation, setDistanceM, setTime, setShowCard } from '../../redux/userSlice';
+import { setAllStations, setAllMyStations, setInputValue, setSelectedOption, setApiStation, setDistanceM, setTime, setShowCard } from '../../redux/userSlice';
 import { useDispatch } from 'react-redux';
 import { showLoader, hideLoader } from '../../redux/loaderSlice';
 import { getAllStations, getDistance, getTime } from '../../apiCalls/apiCalls';
@@ -30,15 +30,7 @@ function ListStations({ getApiStation }) {
     // });
 
     // Get the user's current position
-    const getUserPosition = () => {
-        console.log('Getting user position');
-        navigator.geolocation.getCurrentPosition(
-            position => dispatch(setUserPosition(position)),
-            err => console.log(err)
-        );
-    };
 
-    console.log(userPosition);
 
     // const earthRaduisK = 6371; // Radius of the earth in km
     const earthRaduisM = 3959; // Radius of the earth in miles
@@ -46,7 +38,7 @@ function ListStations({ getApiStation }) {
     // console.log(distances);
 
     useEffect(() => {
-        getUserPosition();
+
         console.log(userPosition);
 
         // getPlaceName(position.coords.latitude, position.coords.longitude);
