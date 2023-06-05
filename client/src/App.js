@@ -20,15 +20,14 @@ const App = () => {
   // console.log(apiStation);
 
   return (
-    <div className="p-4 h-[59rem] w-screen bg-cardBlack">
+    <div className="p-0 h-[59rem] w-screen bg-cardBlack">
 
       {/* <div className='h-[100%]'> */}
       <TwoButtons />
       <SearchForm />
       <Routes>
-        <Route path='/' element={<Map />} />
-        {/* <Route path='/' element={<ListStations getApiStation={getApiStation} />} /> */}
-        {/* <Route path='/map' element={<Map />} /> */}
+        <Route path='/' element={<ListStations getApiStation={getApiStation} />} />
+        <Route path='/map' element={<Map />} />
         <Route path='/user' element={<UserPage />} />
         <Route path='/apiStation/:id' element={<Station apiStation={apiStation} />} />
       </Routes>

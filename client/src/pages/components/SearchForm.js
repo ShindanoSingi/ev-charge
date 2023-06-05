@@ -11,11 +11,13 @@ import { setInputValue, setSelectedOption, setAllStations, setUserPosition } fro
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
+import { extractStateName } from './StatesNames';
 const pos = require('pos');
 
 
+
 function SearchForm() {
-    const { inputValue, selectedOption, userPosition } = useSelector((state) => state.userReducer);
+    const { inputValue, selectedOption } = useSelector((state) => state.userReducer);
 
     const options = [
         { value: '', label: '' },
@@ -67,27 +69,6 @@ function SearchForm() {
         return words[0];
 
     }
-
-    // Extract state name from location
-    function extractStateName(location) {
-        const stateNames = ['AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'FL', 'GA', 'HI', 'ID',
-            'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MD', 'MA', 'MI', 'MN', 'MS',
-            'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY', 'NC', 'ND', 'OH', 'OK',
-            'OR', 'PA', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VA', 'WA', 'WV',
-            'WI', 'WY'];
-
-        // Use a regular expression to match the state name
-        const stateRegex = new RegExp(`\\b(${stateNames.join('|')})\\b`, 'gi');
-        const match = location.match(stateRegex);
-
-        if (match && match.length > 0) {
-            // Return the first match
-            return match[0];
-        } else {
-            return null;
-        }
-    }
-
 
     const getStations = async (location, fuelType) => {
         let url = `${process.env.REACT_APP_NREL_API_URL}${process.env.REACT_APP_NREL_API_KEY}`
@@ -154,23 +135,16 @@ function SearchForm() {
         getStations(inputValue, selectedOption);
     }, []);
 
-
-
-    // useEffect(() => {
-    //     console.log(selectedOption);
-    //     console.log(inputValue);
-    // }, [selectedOption, inputValue])
-
     return (
 
         <div className='flex px-2 h-[10%] items-center bg-[#262A34]'>
 
-            <div className='mb-2 p-2 w-full gap-3  search-input flex items-center rounded-lg z-50'>
+            <div className='mb-2 p-2 w-full gap-1  search-input flex items-center rounded-lg z-50'>
                 <BsSearch onClick={handleSubmit} className='text-gray-400 text-lg' />
-                <input placeholder="Enter Location" value={inputValue} onChange={handleInputChange} className='px-2 text-gray-400 border-green w-full' />
+                <input placeholder="Zipcode, City or State" value={inputValue} onChange={handleInputChange} className='px-2 text-gray-400 border-green w-[12rem]' />
             </div>
 
-            <div className='w-50 flex flex-col items-end p-2'>
+            <div className='w-42 flex flex-col items-end p-2'>
                 <label className='text-gray-400'>Select Fuel Type</label>
                 <select className='option w-full bg-[#262A34] text-gray-400' value={selectedOption} onChange={handleOptionChange}>
                     {options.map((option) => (
