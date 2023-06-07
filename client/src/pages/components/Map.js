@@ -2,7 +2,7 @@ import React from 'react'
 import GoogleMapReact from 'google-map-react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getGoogleApiKey } from '../../apiCalls/apiCalls';
-import { setUserPosition } from '../../redux/userSlice';
+import { setApiStation, setShowCard, setUserPosition } from '../../redux/userSlice';
 import { MdPlace } from 'react-icons/md';
 import Station from './Station';
 
@@ -39,11 +39,12 @@ function Map() {
             lat: 10.99835602,
             lng: 77.01502627
         },
-        zoom: 14
+        zoom: 13
     };
 
     return (
         <div style={{ height: '74vh', width: '100vw', marginTop: "7.8rem" }}>
+            <Station />
             <GoogleMapReact
                 bootstrapURLKeys={{ key: getGoogleApiKey }}
                 defaultCenter={defaultProps.center}
@@ -54,6 +55,11 @@ function Map() {
                     allStations.fuel_stations?.map((station) => {
                         return (
                             <MdPlace
+                                onMouseOver={() => {
+                                    dispatch(setApiStation(station))
+                                    dispatch(setShowCard(true))
+                                }}
+                                onMouseOut={() => { dispatch(setShowCard(false)) }}
                                 className='text-red text-3xl'
                                 lat={station.latitude}
                                 lng={station.longitude}

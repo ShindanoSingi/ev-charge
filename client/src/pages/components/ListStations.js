@@ -19,8 +19,6 @@ import { Link } from 'react-router-dom';
 import Station from './Station';
 
 
-require('mapbox-gl/dist/mapbox-gl.css');
-
 function ListStations({ getApiStation }) {
     const { allStations, allMyStations, inputValue, selectedOption, userPosition, showCard } = useSelector((state) => state.userReducer);
     const dispatch = useDispatch();
@@ -36,6 +34,7 @@ function ListStations({ getApiStation }) {
     const earthRaduisM = 3959; // Radius of the earth in miles
     // const distances = getDistance(position.coords.latitude, position.coords.longitude, 44.09393, -70.20805, earthRaduisM);
     // console.log(distances);
+
 
     useEffect(() => {
 
@@ -94,7 +93,7 @@ function ListStations({ getApiStation }) {
                                         </div>
                                     </div>
                                     <div>
-                                        <Link to={`/apiStation/${station.id}`}>
+                                        <Link>
                                             <BsChevronRight className='h-6 w-6 text-gray-400' />
                                         </Link>
                                     </div>

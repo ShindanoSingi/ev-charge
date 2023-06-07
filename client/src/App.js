@@ -27,11 +27,10 @@ const App = () => {
       <TwoButtons />
       <SearchForm />
       <Routes>
-        <Route path='/' element={<LoaderPlayer />} />
-        {/* <Route path='/' element={<ListStations getApiStation={getApiStation} />} /> */}
+        <Route path='/' element={<ListStations getApiStation={getApiStation} />} />
         <Route path='/map' element={<Map />} />
         <Route path='/user' element={<UserPage />} />
-        <Route path='/apiStation/:id' element={<Station apiStation={apiStation} />} />
+        {/* <Route path='/apiStation/:id' element={<Station apiStation={apiStation} />} /> */}
       </Routes>
       <Footer />
       {/* </div> */}

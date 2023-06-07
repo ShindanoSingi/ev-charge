@@ -5,9 +5,10 @@ import { MdPlace } from 'react-icons/md';
 import { AiFillCar } from 'react-icons/ai';
 import { FaLocationArrow } from 'react-icons/fa';
 import { FiPhoneCall } from 'react-icons/fi';
-import { getDistance } from '../../apiCalls/apiCalls';
+import { distance, getDistance } from '../../apiCalls/apiCalls';
 import { setTime } from '../../redux/userSlice';
 import { setShowCard } from '../../redux/userSlice';
+
 
 
 function Station() {
@@ -58,7 +59,7 @@ function Station() {
                 <div className='flex items-center gap-4'>
                     <div className='flex items-center gap-2'>
                         <MdPlace className=' text-xl  text-gray-400' />
-                        <p className='text-sm'>{10} mi</p>
+                        <p className='text-sm'>{distance(userPosition.lat, userPosition.lng, apiStation.latitude, apiStation.longitude, 3959)} mi</p>
                     </div>
                     <div className='flex items-center gap-2'>
                         <AiFillCar className=' text-xl  text-gray-400' />
