@@ -8,7 +8,6 @@ import Station from './Station';
 
 
 function Map() {
-
     const { userPosition, allStations } = useSelector((state) => state.userReducer);
     const dispatch = useDispatch();
 
@@ -35,7 +34,6 @@ function Map() {
         console.log(userPosition);
     }, [])
 
-
     const defaultProps = {
         center: {
             lat: 10.99835602,
@@ -44,10 +42,8 @@ function Map() {
         zoom: 14
     };
 
-
     return (
-        // Important! Always set the container height explicitly
-        <div style={{ height: '100vh', width: '100vw' }}>
+        <div style={{ height: '74vh', width: '100vw', marginTop: "7.8rem" }}>
             <GoogleMapReact
                 bootstrapURLKeys={{ key: getGoogleApiKey }}
                 defaultCenter={defaultProps.center}
@@ -58,7 +54,7 @@ function Map() {
                     allStations.fuel_stations?.map((station) => {
                         return (
                             <MdPlace
-                                className='text-red text-2xl'
+                                className='text-red text-3xl'
                                 lat={station.latitude}
                                 lng={station.longitude}
                             />

@@ -137,19 +137,23 @@ function SearchForm() {
 
     return (
 
-        <div className='flex p-2 fixed w-full top-0 flex-col justify-center items-center bg-[#262A34]'>
-            <div className=' p-2 w-full gap-4  search-input flex items-center rounded-lg z-50'>
-                <BsSearch onClick={handleSubmit} className='text-gray-400 text-lg' />
-                <input placeholder="Zipcode, City or State" value={inputValue} onChange={handleInputChange} className='p-1 text-gray-400 border-2 border-green w-full' />
+        <div className='flex p-2 gap-1 fixed z-50 w-full top-0 flex-col justify-center items-center bg-[#262A34]'>
+            <div className='px-3 gap-2 py-1 w-full search-input flex items-center rounded-lg z-50 border-2 border-gray-400'>
+                <div className=''>
+                    <BsSearch onClick={handleSubmit} className='text-gray-400 text-xl' />
+                </div>
+                <input placeholder="Zipcode, City or State" value={inputValue} onChange={handleInputChange} className='p-1 text-gray-400  w-full' />
             </div>
-            <div className='w-42 flex flex-col items-end'>
-                <label className='text-gray-400'>Select Fuel Type</label>
+            {/* <div className='w-42 flex flex-col items-start'> */}
+            <fieldset className='text-gray-400 rounded-lg border-gray-400 border w-full px-4 p-1'>
+                <legend>Select Fuel Type</legend>
                 <select className='option w-full bg-[#262A34] text-gray-400' value={selectedOption} onChange={handleOptionChange}>
                     {options.map((option) => (
                         <option key={option.value} value={option.value}> {option.label}</option>
                     ))}
                 </select>
-            </div>
+            </fieldset>
+            {/* </div> */}
         </div>
     )
 }

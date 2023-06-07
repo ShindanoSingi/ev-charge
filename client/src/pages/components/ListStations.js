@@ -65,7 +65,7 @@ function ListStations({ getApiStation }) {
     //     });
 
     return (
-        <div className='max-h-[80vh] overflow-scroll '>
+        <div className='max-h-[74vh] mt-[7.6rem] overflow-scroll '>
             <Station />
             {
                 React.Children.toArray(
