@@ -137,14 +137,12 @@ function SearchForm() {
 
     return (
 
-        <div className='flex px-2 h-[10%] items-center bg-[#262A34]'>
-
-            <div className='mb-2 p-2 w-full gap-1  search-input flex items-center rounded-lg z-50'>
+        <div className='flex p-2 fixed w-full top-0 flex-col justify-center items-center bg-[#262A34]'>
+            <div className=' p-2 w-full gap-4  search-input flex items-center rounded-lg z-50'>
                 <BsSearch onClick={handleSubmit} className='text-gray-400 text-lg' />
-                <input placeholder="Zipcode, City or State" value={inputValue} onChange={handleInputChange} className='px-2 text-gray-400 border-green w-[12rem]' />
+                <input placeholder="Zipcode, City or State" value={inputValue} onChange={handleInputChange} className='p-1 text-gray-400 border-2 border-green w-full' />
             </div>
-
-            <div className='w-42 flex flex-col items-end p-2'>
+            <div className='w-42 flex flex-col items-end'>
                 <label className='text-gray-400'>Select Fuel Type</label>
                 <select className='option w-full bg-[#262A34] text-gray-400' value={selectedOption} onChange={handleOptionChange}>
                     {options.map((option) => (
