@@ -5,25 +5,45 @@ import { MdPlace } from 'react-icons/md';
 import { AiFillCar } from 'react-icons/ai';
 import { FaLocationArrow } from 'react-icons/fa';
 import { FiPhoneCall } from 'react-icons/fi';
-import { distance, getDistance } from '../../apiCalls/apiCalls';
-import { setTime } from '../../redux/userSlice';
+import { distance, getDistance, getGoogleApiKey } from '../../apiCalls/apiCalls';
+import { setMyCity, setMyState, setTime } from '../../redux/userSlice';
 import { setShowCard } from '../../redux/userSlice';
-
+import axios from 'axios';
 
 
 function Station() {
-    const { apiStation, userPosition, distanceM, time, showCard } = useSelector((state) => state.userReducer);
+    const { apiStation, userPosition, distanceM, time, showCard, myCity, myState } = useSelector((state) => state.userReducer);
     const dispatch = useDispatch();
+
+    const getGeolocation = async () => {
+        try {
+            const response = await axios.get(
+                `https://nominatim.openstreetmap.org/reverse?format=json&lat=44.0942285&lon=-70.2085079`
+            );
+
+            if (response.data.address) {
+                const { city, state, country } = response.data.address;
+                dispatch(setMyCity(city));
+                dispatch(setMyState(state));
+                // setLocation(`${city}, ${state}, ${country}`);
+            } else {
+                console.log('Location not found');
+                // setLocation('Location not found');
+            }
+        } catch (error) {
+            console.error(error);
+            // setLocation('Error finding location');
+        }
+    };
 
     useEffect(() => {
         console.log(apiStation);
-    }, [apiStation])
+        getGeolocation();
+    }, [])
 
     console.log(userPosition);
 
     return (
-
-        // <div className='bg-cardBlack h-[78vh] px-4'>
         showCard && <div className='bg-[#181A20] border-white border-solid  border absolute z-50 top-[50%] right-4 rounded-lg left-4 translate-y-[-50%]'
             onClick={() => {
                 dispatch(setShowCard(false))
@@ -38,7 +58,7 @@ function Station() {
                         <p className='text-sm overflow-ellipsis w-full font-light line-clamp-1 '>{apiStation.street_address},{apiStation.city} {apiStation.state} {apiStation.zip}</p>
                     </div>
                     <div className='w-11 h-11 rounded-full bg-green p-2 flex items-center justify-center'>
-                        <FaLocationArrow className='h-6 w-6 text-white' />
+                        <a href={`https://www.google.com/maps/dir/${userPosition.coords.latitude},${userPosition.coords.longitude}/${apiStation.latitude},${apiStation.longitude}`}><FaLocationArrow className='h-6 w-6 text-white' /></a>
                     </div>
                 </div>
                 <div className='flex items-center gap-4 flex-wrap'>
@@ -61,10 +81,10 @@ function Station() {
                         <MdPlace className=' text-xl  text-gray-400' />
                         <p className='text-sm'>{distance(userPosition.lat, userPosition.lng, apiStation.latitude, apiStation.longitude, 3959)} mi</p>
                     </div>
-                    <div className='flex items-center gap-2'>
+                    {/* <div className='flex items-center gap-2'>
                         <AiFillCar className=' text-xl  text-gray-400' />
                         <p className='text-sm'>{30} mins</p>
-                    </div>
+                    </div> */}
                 </div>
                 {
                     apiStation.access_days_time &&

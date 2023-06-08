@@ -14,6 +14,8 @@ const userSlice = createSlice({
         time: null,
         showCard: false,
         googleAPIKey: '',
+        myCity: '',
+        myState: '',
     },
     reducers: {
         setUser: (state, action) => {
@@ -49,8 +51,14 @@ const userSlice = createSlice({
         setGoogleAPIKey: (state, action) => {
             state.googleAPIKey = action.payload;
         },
+        setMyCity: (state, action) => {
+            state.myCity = action.payload;
+        },
+        setMyState: (state, action) => {
+            state.myState = action.payload;
+        },
     },
 });
 
-export const { setUser, setAllStations, setAllMyStations, setInputValue, setSelectedOption, setUserPosition, setApiStation, setDistanceM, setTime, setShowCard, setGoogleAPIKey } = userSlice.actions;
+export const { setUser, setAllStations, setAllMyStations, setInputValue, setSelectedOption, setUserPosition, setApiStation, setDistanceM, setTime, setShowCard, setGoogleAPIKey, setMyCity, setMyState } = userSlice.actions;
 export default userSlice.reducer;

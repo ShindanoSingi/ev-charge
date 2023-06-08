@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import { setAllStations, setAllMyStations, setInputValue, setSelectedOption, setApiStation, setDistanceM, setTime, setShowCard } from '../../redux/userSlice';
 import { useDispatch } from 'react-redux';
 import { showLoader, hideLoader } from '../../redux/loaderSlice';
-import { getAllStations, getDistance, getTime } from '../../apiCalls/apiCalls';
+import { getAllStations, getDistance } from '../../apiCalls/apiCalls';
 import { BsEvStation } from 'react-icons/bs';
 import { RiMapPin2Fill } from 'react-icons/ri';
 import { FaLocationArrow } from 'react-icons/fa';
@@ -76,8 +76,6 @@ function ListStations({ getApiStation }) {
                             <div key={station.id} onMouseUp={() => {
                                 dispatch(setShowCard(true))
                                 dispatch(setApiStation(station))
-                                // dispatch(setTime(getTime(userPosition.coords.latitude, userPosition.coords.longitude, station.latitude, station.longitude)))
-                                // dispatch(setDistanceM(getDistance(userPosition.coords.latitude, userPosition.coords.longitude, station.latitude, station.longitude, earthRaduisM)))
                             }}>
                                 <div className='bg-cardBlack card text-gray-400 flex items-center justify-between p-2 gap-2 border border-l-0 border-r-0 border-t-0  border-b-[#35383F]'>
                                     <div className='flex items-center'>

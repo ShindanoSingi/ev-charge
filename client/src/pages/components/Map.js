@@ -11,11 +11,6 @@ function Map() {
     const { userPosition, allStations } = useSelector((state) => state.userReducer);
     const dispatch = useDispatch();
 
-    const [state, setState] = React.useState({
-        lat: 44.0941308,
-        lng: -70.2084584
-    });
-
     const componentDidMount = () => {
         navigator.geolocation.getCurrentPosition(
             (position) => {
