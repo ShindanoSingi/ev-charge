@@ -18,26 +18,22 @@ function Station() {
     const getGeolocation = async () => {
         try {
             const response = await axios.get(
-                `https://nominatim.openstreetmap.org/reverse?format=json&lat=44.0942285&lon=-70.2085079`
+                `https://nominatim.openstreetmap.org/reverse?format=json&lat=${userPosition?.coords.latitude}&lon=${userPosition?.coords.longitude}`
             );
 
             if (response.data.address) {
                 const { city, state, country } = response.data.address;
                 dispatch(setMyCity(city));
                 dispatch(setMyState(state));
-                // setLocation(`${city}, ${state}, ${country}`);
-            } else {
-                console.log('Location not found');
-                // setLocation('Location not found');
+
             }
         } catch (error) {
             console.error(error);
-            // setLocation('Error finding location');
         }
     };
 
     useEffect(() => {
-        console.log(apiStation);
+        // console.log(apiStation);
         getGeolocation();
     }, [])
 
@@ -58,7 +54,7 @@ function Station() {
                         <p className='text-sm overflow-ellipsis w-full font-light line-clamp-1 '>{apiStation.street_address},{apiStation.city} {apiStation.state} {apiStation.zip}</p>
                     </div>
                     <div className='w-11 h-11 rounded-full bg-green p-2 flex items-center justify-center'>
-                        <a href={`https://www.google.com/maps/dir/${userPosition.coords.latitude},${userPosition.coords.longitude}/${apiStation.latitude},${apiStation.longitude}`}><FaLocationArrow className='h-6 w-6 text-white' /></a>
+                        <a href={`https://www.google.com/maps/dir/${userPosition.lat},${userPosition.lng}/${apiStation.latitude},${apiStation.longitude}`} rel="noreferrer" ><FaLocationArrow className='h-6 w-6 text-white' /></a>
                     </div>
                 </div>
                 <div className='flex items-center gap-4 flex-wrap'>
@@ -79,7 +75,7 @@ function Station() {
                 <div className='flex items-center gap-4'>
                     <div className='flex items-center gap-2'>
                         <MdPlace className=' text-xl  text-gray-400' />
-                        <p className='text-sm'>{distance(userPosition.lat, userPosition.lng, apiStation.latitude, apiStation.longitude, 3959)} mi</p>
+                        <p className='text-sm'>{distance(userPosition?.lat, userPosition?.lng, apiStation?.latitude, apiStation?.longitude, 3959)} mi</p>
                     </div>
                     {/* <div className='flex items-center gap-2'>
                         <AiFillCar className=' text-xl  text-gray-400' />
@@ -100,13 +96,8 @@ function Station() {
                         <a href={apiStation.station_phone} className='text-sm text-gray-400'>{apiStation.station_phone}</a>
                     </div>
                 }
-
             </div>
         </div>
-
-
-        // </div>
-
     )
 }
 

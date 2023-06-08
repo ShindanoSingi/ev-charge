@@ -16,6 +16,7 @@ const userSlice = createSlice({
         googleAPIKey: '',
         myCity: '',
         myState: '',
+        myCountry: '',
     },
     reducers: {
         setUser: (state, action) => {
@@ -56,6 +57,9 @@ const userSlice = createSlice({
         },
         setMyState: (state, action) => {
             state.myState = action.payload;
+        },
+        setMyCountry: (state, action) => {
+            state.myCountry = action.payload;
         },
     },
 });

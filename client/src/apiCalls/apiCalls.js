@@ -35,7 +35,7 @@ export const getDistance = (lat1, lon1, lat2, lon2, earthRaduis) => {
     const distance = earthRaduis * c;
 
     console.log(distance.toFixed(1) + ' miles');
-    return distance.toFixed(1); // Distance in km
+    return (distance + 0.6).toFixed(1); // Distance in km
 }
 
 // Get the distance between two points

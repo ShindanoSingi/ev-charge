@@ -1,9 +1,4 @@
 import * as React from 'react';
-import FormControl from '@mui/joy/FormControl';
-import FormLabel from '@mui/joy/FormLabel';
-import FormHelperText from '@mui/joy/FormHelperText';
-import Input from '@mui/joy/Input';
-import Button from '@mui/joy/Button';
 import { showLoader, hideLoader } from '../../redux/loaderSlice';
 import { BsSearch } from 'react-icons/bs';
 import { useEffect } from 'react';
@@ -15,9 +10,8 @@ import { extractStateName } from './StatesNames';
 const pos = require('pos');
 
 
-
 function SearchForm() {
-    const { inputValue, selectedOption } = useSelector((state) => state.userReducer);
+    const { inputValue, selectedOption, userPosition } = useSelector((state) => state.userReducer);
 
     const options = [
         { value: '', label: '' },
@@ -64,10 +58,8 @@ function SearchForm() {
 
         const cityWords = taggedWords.find((word) => word[1] === 'NNP' && (word[0] === word[0].toUpperCase()));
 
-
         console.log(words[0]);
         return words[0];
-
     }
 
     const getStations = async (location, fuelType) => {
@@ -93,7 +85,6 @@ function SearchForm() {
             url += `&state=${stateName}`;
         }
 
-
         dispatch(showLoader());
         axios.get(url)
             .then(response => {
@@ -106,34 +97,23 @@ function SearchForm() {
             })
     }
 
-    // async function getPlaceName(lat, lng) {
-    //     const url = `${process.env.REACT_APP_MAPBOX_URL}${lng},${lat}.json?access_token=${process.env.REACT_APP_MAPBOX_TOKEN}`;
-    //     const response = await fetch(url);
-    //     const data = await response.json();
-    //     if (data.features.length > 0) {
-    //         console.log(data);
-    //         console.log(data.features[0].place_name);
-    //         setPlaceName(data.features[0].place_name);
-    //     }
-    //     return null;
-    // }
-
-    // Get the user's current position
-    const getUserPosition = () => {
-        console.log('Getting user position');
+    const componentDidMount = () => {
         navigator.geolocation.getCurrentPosition(
-            position => dispatch(setUserPosition(position)),
-            err => console.log(err)
+            (position) => {
+                dispatch(setUserPosition({
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude
+                }));
+            },
+
+            (error) => console.log(error.message)
         );
-    };
+    }
 
-    // console.log(inputValue, selectedOption)
-
-    useEffect(() => {
-        getUserPosition();
-        // getPlaceName(position.coords.latitude, position.coords.longitude);
-        getStations(inputValue, selectedOption);
-    }, []);
+    React.useEffect(() => {
+        componentDidMount();
+        console.log(userPosition);
+    }, [])
 
     return (
 
@@ -144,7 +124,6 @@ function SearchForm() {
                 </div>
                 <input placeholder="Zipcode, City or State" value={inputValue} onChange={handleInputChange} className='p-1 text-gray-400  w-full' />
             </div>
-            {/* <div className='w-42 flex flex-col items-start'> */}
             <fieldset className='text-gray-400 rounded-lg border-gray-400 border w-full px-4 p-1'>
                 <legend>Select Fuel Type</legend>
                 <select className='option w-full bg-[#262A34] text-gray-400' value={selectedOption} onChange={handleOptionChange}>

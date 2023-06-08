@@ -32,9 +32,9 @@ const App = () => {
         <Route path='/user' element={<UserPage />} />
         {/* <Route path='/apiStation/:id' element={<Station apiStation={apiStation} />} /> */}
       </Routes>
-      <Footer />
-      {/* </div> */}
-
+      <div className='fixed bottom-1 w-full p-2 bg-cardBlack'>
+        <Footer />
+      </div>
     </div>
   );
 }
