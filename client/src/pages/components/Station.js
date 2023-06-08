@@ -22,10 +22,9 @@ function Station() {
             );
 
             if (response.data.address) {
-                const { city, state, country } = response.data.address;
+                const { city, state } = response.data.address;
                 dispatch(setMyCity(city));
                 dispatch(setMyState(state));
-
             }
         } catch (error) {
             console.error(error);
@@ -44,7 +43,6 @@ function Station() {
             onClick={() => {
                 dispatch(setShowCard(false))
             }}>
-
 
             <div className='bg-cardBlack text-gray-400 p-4 rounded-lg flex flex-col gap-4'
             >
@@ -70,7 +68,6 @@ function Station() {
                     {
                         apiStation.ev_level2_evse_num && <p className='text-sm text-gray-400'>EVSE Ports: {apiStation.ev_level2_evse_num}</p>
                     }
-
                 </div>
                 <div className='flex items-center gap-4'>
                     <div className='flex items-center gap-2'>

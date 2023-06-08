@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 
 function Footer() {
     return (
-        <div className=' w-full flex items-center justify-between mb-4'>
+        <div className='flex justify-around h-8 items-center'>
             <Link to='/'>
                 < AiFillHome className='text-gray-400 text-[1.9rem]' />
             </Link>
