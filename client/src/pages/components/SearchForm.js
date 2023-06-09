@@ -9,6 +9,7 @@ import axios from 'axios';
 import { extractStateName } from './StatesNames';
 import { AiOutlineMenu } from 'react-icons/ai'
 import { IoSearch } from 'react-icons/io5'
+import MenuButton from './MenuButton';
 const pos = require('pos');
 
 
@@ -118,8 +119,7 @@ function SearchForm() {
     }, [])
 
     return (
-
-        <div className='flex p-2 gap-1 fixed z-50 w-full top-0 flex-col  bg-[#262A34]'>
+        <div className='flex p-2 gap-1 fixed z-50 w-full top-0 flex-col h-[21%]  bg-[#262A34]'>
             <div className='flex justify-between items-center'>
                 <div className='flex items-center gap-0 border rounded-lg border-gray-400'>
                     <div className='px-3 gap-2 py-1 w-full search-input flex items-center rounded-lg z-50 '>
@@ -133,12 +133,9 @@ function SearchForm() {
                     </div>
                 </div>
                 <div >
-                    <AiOutlineMenu className='text-gray-400 text-5xl font-thin' />
+                    <MenuButton />
                 </div>
             </div>
-
-
-
             <fieldset className='text-gray-400 rounded-lg border-gray-400 border w-full px-4 p-1'>
                 <legend>Select Fuel Type</legend>
                 <select className='option w-full bg-[#262A34] text-gray-400' value={selectedOption} onChange={handleOptionChange}>

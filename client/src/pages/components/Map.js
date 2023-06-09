@@ -39,36 +39,39 @@ function Map() {
     };
 
     return (
-        <div style={{ height: '74vh', width: '100vw', marginTop: "7.5rem" }}>
-            <Station />
-            {
-                <LoaderPlayer /> && <GoogleMapReact
-                    bootstrapURLKeys={{ key: getGoogleApiKey }}
-                    defaultCenter={defaultProps.center}
-                    defaultZoom={defaultProps.zoom}
-                    center={{ lat: userPosition?.lat, lng: userPosition?.lng }}
-                >
-                    {
-                        allStations.fuel_stations?.map((station) => {
-                            return (
-                                <MdPlace
-                                    onClick={() => {
-                                        dispatch(setApiStation(station))
-                                        dispatch(setShowCard(true))
-                                    }}
-                                    // onMouseOut={() => { dispatch(setShowCard(false)) }}
-                                    className='text-red text-3xl'
-                                    lat={station.latitude}
-                                    lng={station.longitude}
-                                />
-                            )
-                        })
-                    }
+        !allStations.station_locator_url ? <div className='h-[100%]'><LoaderPlayer /></div> :
+            <div style={{ height: '74vh', width: '100vw', marginTop: "8rem" }}>
+                <Station />
+                {
+                    <LoaderPlayer /> && <GoogleMapReact
+                        bootstrapURLKeys={{ key: getGoogleApiKey }}
+                        defaultCenter={defaultProps.center}
+                        defaultZoom={defaultProps.zoom}
+                        center={{ lat: userPosition?.lat, lng: userPosition?.lng }}
+                    >
+                        {
+                            allStations.fuel_stations?.map((station) => {
+                                return (
+                                    <MdPlace
+                                        onClick={() => {
+                                            dispatch(setApiStation(station))
+                                            dispatch(setShowCard(true))
+                                        }}
+                                        // onMouseOut={() => { dispatch(setShowCard(false)) }}
+                                        className='text-red text-3xl'
+                                        lat={station.latitude}
+                                        lng={station.longitude}
+                                    />
+                                )
+                            })
+                        }
 
-                </GoogleMapReact>
-            }
+                    </GoogleMapReact>
+                }
 
-        </div>
+            </div>
+
+
     )
 }
 

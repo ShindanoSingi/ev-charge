@@ -23,6 +23,10 @@ select{
   outline: #28DC89;
 }
 
+li{
+  list-style: none;
+}
+
 
 
 

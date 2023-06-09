@@ -11,7 +11,6 @@ const userSlice = createSlice({
         userPosition: null,
         apiStation: [],
         distanceM: null,
-        time: null,
         showCard: false,
         googleAPIKey: '',
         myCity: '',
