@@ -30,7 +30,7 @@ const SignupForm = () => {
 
     const handleSubmit = async (values, { setSubmitting }) => {
         try {
-            const response = await axios.post('http://localhost:4000/api/users/register', values);
+            const response = await axios.post(`${process.env.REACT_APP_BASE_URL_USERS}register`, values);
             console.log(response);
             setSubmitting(false);
         } catch (error) {
