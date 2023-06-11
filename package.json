@@ -7,6 +7,7 @@
     "leaflet": "^1.9.4",
     "maplibre-gl": "^3.0.1",
     "natural": "^6.3.0",
+    "nodemon": "^2.0.22",
     "pos": "^0.4.2",
     "react-icons": "^4.9.0",
     "react-leaflet": "^4.2.1",
