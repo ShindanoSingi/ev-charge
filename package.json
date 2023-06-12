@@ -9,6 +9,7 @@
     "natural": "^6.3.0",
     "nodemon": "^2.0.22",
     "pos": "^0.4.2",
+    "react-hot-toast": "^2.4.1",
     "react-icons": "^4.9.0",
     "react-leaflet": "^4.2.1",
     "react-router-dom": "^6.12.1",

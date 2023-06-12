@@ -4,6 +4,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setShowCard } from '../../redux/userSlice';
 import * as Yup from 'yup';
 import axios from 'axios';
+import { toast } from 'react-hot-toast';
+
+
 
 const onSubmit = values => {
     console.log(values);
@@ -31,10 +34,22 @@ const SignupForm = () => {
     const handleSubmit = async (values, { setSubmitting }) => {
         try {
             const response = await axios.post(`${process.env.REACT_APP_BASE_URL_USERS}register`, values);
-            console.log(response);
             setSubmitting(false);
+            console.log(response.data);
+            toast.success(response.data.message);
+            return {
+                success: true,
+                data: response.data,
+            }
+
         } catch (error) {
-            console.log(error);
+            toast.error(error.response.data.message);
+            console.log(error.response.data);
+            setSubmitting(false);
+            return {
+                success: false,
+                data: error.response.data,
+            };
         }
     };
 
@@ -43,6 +58,7 @@ const SignupForm = () => {
 
     return (
         <div className='absolute grid top-[30%] w-full p-6'>
+            {/* <Toaster /> */}
             <Formik
                 initialValues={initialValues}
                 validationSchema={validationSchema}
