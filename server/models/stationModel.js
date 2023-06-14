@@ -1,13 +1,10 @@
 const mongoose = require('mongoose');
 
 const stationSchema = new mongoose.Schema({
-    name: {
+    station_name: {
         type: String,
     },
-    district: {
-        type: String,
-    },
-    streetAddress: {
+    street_address: {
         type: String,
     },
     city: {
@@ -16,36 +13,30 @@ const stationSchema = new mongoose.Schema({
     state: {
         type: String,
     },
-    zipCode: {
+    zip: {
         type: Number,
     },
     country: {
         type: String,
     },
-    latitude: {
+    access_code: {
         type: Number,
     },
-    longitude: {
+    ev_pricing: {
         type: Number,
     },
-    placeLink: {
+    ev_connector_type: {
         type: String,
     },
-    phoneNumber: {
+    ev_level2_evse_num: {
+        type: Number,
+    },
+    access_days_time: {
         type: String,
     },
-    openingHours: {
-        Monday: String,
-        Tuesday: String,
-        Wednesday: String,
-        Thursday: String,
-        Friday: String,
-        Saturday: String,
-        Sunday: String,
+    station_phone: {
+        type: String,
     },
-    rating: Number,
-    reviews: Number,
-    website: String,
 });
 
 const Station = mongoose.model('Station', stationSchema);

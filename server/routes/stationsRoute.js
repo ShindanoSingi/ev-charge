@@ -7,9 +7,9 @@ const { createStastion, getAllStations, getaStation, updateaStation, deleteaStat
 // Create a new station
 router.post('/new-station', authMiddleware, createStastion);
 // Get all stations
-router.get('/get-all-stations', getAllStations);
+router.get('/get-all-stations', authMiddleware, getAllStations);
 // Get a station by id
-router.get('/get-station/:id', getaStation);
+router.get('/get-station/:id', authMiddleware, getaStation);
 // Update a station by id
 router.put('/update-station/:id', authMiddleware, updateaStation);
 // Delete a station by id

@@ -19,8 +19,6 @@ const registerUser = asyncHandler(async (req, res) => {
             });
         }
 
-        console.log(req.body);
-
         const hashedPassword = await bcrypt.hash(password, 10);
         req.body.password = hashedPassword;
         const newUser = new User(req.body);
@@ -46,13 +44,7 @@ const loginUser = asyncHandler(async (req, res) => {
     try {
         // Check if user exists
         const user = await User.findOne({ email });
-        console.log(user);
-        if (!user) {
-            return res.send({
-                message: 'User not found',
-                success: false,
-            });
-        }
+        // console.log(user);
         // Check if password is correct
         if (req.body.password !== user.password) {
             return res.send({
@@ -60,8 +52,17 @@ const loginUser = asyncHandler(async (req, res) => {
                 success: false,
             });
         }
+
+        if (req.body.email !== user.email) {
+            return res.send({
+                message: 'Invalid email',
+                success: false,
+            });
+        }
+
         // Create and assign a token
         const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, { expiresIn: '1d' });
+
         return res.send({
             success: true,
             message: 'User logged in successfully',
@@ -79,7 +80,6 @@ const loginUser = asyncHandler(async (req, res) => {
 // Get current user
 const getCurrentUser = asyncHandler(async (req, res) => {
     const { _id } = req.user;
-    console.log(req);
     const user = await User?.findById(_id);
     try {
         if (!user) {
