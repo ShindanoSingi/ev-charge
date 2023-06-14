@@ -97,65 +97,39 @@ const updateaStation = asyncHandler(async (req, res) => {
     try {
         const user = await User.findOne({ email }).populate('stations');
 
-        if (!user)
-            return res.status(400).send({
+        if (!user) {
+            return res.status(404).send({
                 success: false,
-                message: 'User not found',
+                message: 'User or station not found',
             });
+        }
 
-        const station = await user.stations.find(station => {
-            return station._id == stationId;
-        });
+        const station = user.stations.find(station => station._id.toString() === stationId);
 
         if (!station) {
-            return res.status(400).send({
+            return res.status(404).send({
                 success: false,
                 message: 'Station not found',
             });
         }
 
-        Object.assign(station, updateData);
-        await user.save();
+        const updatedStation = await Station.findByIdAndUpdate(stationId, updateData, { new: true });
 
+        console.log(updatedStation);
         res.send({
             success: true,
             message: 'Station updated successfully',
-            data: station,
+            data: updatedStation,
         });
     } catch (error) {
+        console.log(error);
         res.status(500).send({
             success: false,
             message: 'Internal server error',
             error: error.message,
         });
     }
-
-
-
-
-
-
-
-    if (!station)
-        return res.status(400).send({
-            success: false,
-            message: 'Station not found',
-        });
-    const updatedStation = await Station.findByIdAndUpdate(req.params.id, req.body, { new: true });
-    res.send({
-        success: true,
-        message: 'Station updated successfully',
-        data: updatedStation,
-    });
-} catch (error) {
-    res.status(500).send({
-        success: false,
-        message: 'Internal server error',
-        error: error.message,
-    });
-}
-}
-);
+});
 
 const deleteaStation = asyncHandler(async (req, res) => {
     const { id } = req.params;
@@ -179,8 +153,7 @@ const deleteaStation = asyncHandler(async (req, res) => {
             error: error.message,
         });
     }
-}
-);
+});
 
 const addaStation = asyncHandler(async (req, res) => {
     const { id } = req.user;
