@@ -65,6 +65,7 @@ function SearchForm() {
         return words[0];
     }
 
+
     const getStations = async (location, fuelType) => {
         let url = `${process.env.REACT_APP_NREL_API_URL}${process.env.REACT_APP_NREL_API_KEY}`
         if (fuelType) {

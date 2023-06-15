@@ -24,7 +24,7 @@ function ListStations({ getApiStation }) {
 
     return (
         !allStations.station_locator_url ? <div className='h-[100%]'><LoaderPlayer /></div> :
-            <div className='max-h-[100%] mt-[8rem] overflow-scroll '>
+            <div className='max-h-[100%] mt-[9rem] overflow-scroll '>
                 <Station />
                 {
                     React.Children.toArray(

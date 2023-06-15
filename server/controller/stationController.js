@@ -132,38 +132,43 @@ const updateaStation = asyncHandler(async (req, res) => {
 });
 
 const deleteaStation = asyncHandler(async (req, res) => {
-    const { id } = req.params;
-    const station = await Station.findById(id);
+    const stationId = req.params.id;
+    const { email } = req.user;
+
     try {
-        if (!station)
-            return res.status(400).send({
+        const user = await User.findOne({ email });
+
+        if (!user) {
+            return res.status(404).send({
+                success: false,
+                message: 'User not found',
+            });
+        }
+
+        const stationIndex = user.stations.findIndex(station => station._id.toString() === stationId);
+
+        if (stationIndex === -1) {
+            return res.status(404).send({
                 success: false,
                 message: 'Station not found',
             });
-        const deletedStation = await Station.findByIdAndDelete(id);
+        }
+
+        user.stations.splice(stationIndex, 1);
+        await user.save();
+
         res.send({
             success: true,
             message: 'Station deleted successfully',
-            data: deletedStation,
         });
     } catch (error) {
+        console.log(error);
         res.status(500).send({
             success: false,
             message: 'Internal server error',
             error: error.message,
         });
     }
-});
-
-const addaStation = asyncHandler(async (req, res) => {
-    const { id } = req.user;
-    const findStations = User.findById(id);
-    const user = await User.findByIdAndUpdate(id, { $push: { stations: req.params.id } }, { new: true });
-    res.send({
-        success: true,
-        message: 'Station added successfully',
-        data: user,
-    });
 });
 
 const getMyStations = asyncHandler(async (req, res) => {
@@ -206,4 +211,39 @@ const deleteOneOfMyStations = asyncHandler(async (req, res) => {
     });
 });
 
-module.exports = { createStastion, getAllStations, getaStation, updateaStation, deleteaStation, addaStation, getMyStations, getoneOfMyStations, deleteOneOfMyStations };
+const searchStation = asyncHandler(async (req, res) => {
+    const { stationName, city, zip } = req.query;
+
+    try {
+        let query = {};
+
+        if (stationName) {
+            query.station_name = { $regex: stationName, $options: 'i' };
+        }
+
+        if (city) {
+            query.city = { $regex: city, $options: 'i' };
+        }
+
+        if (zip) {
+            query.zip = zip;
+        }
+
+        const stations = await Station.find(query);
+
+        res.send({
+            success: true,
+            message: 'Stations retrieved successfully',
+            data: stations,
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({
+            success: false,
+            message: 'Internal server error',
+            error: error.message,
+        });
+    }
+});
+
+module.exports = { createStastion, getAllStations, getaStation, updateaStation, deleteaStation, getMyStations, getoneOfMyStations, deleteOneOfMyStations, searchStation };
