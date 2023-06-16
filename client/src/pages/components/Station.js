@@ -2,13 +2,14 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { BsEvStation, BsFillClockFill } from 'react-icons/bs';
 import { MdPlace } from 'react-icons/md';
-import { AiFillCar } from 'react-icons/ai';
+import { MdFavorite } from 'react-icons/md'
 import { FaLocationArrow } from 'react-icons/fa';
 import { FiPhoneCall } from 'react-icons/fi';
 import { distance, getDistance, getGoogleApiKey } from '../../apiCalls/apiCalls';
 import { setMyCity, setMyState, setTime } from '../../redux/userSlice';
 import { setShowCard } from '../../redux/userSlice';
 import axios from 'axios';
+import { addStation } from '../../apiCalls/apiCalls';
 
 
 function Station() {
@@ -32,11 +33,8 @@ function Station() {
     };
 
     useEffect(() => {
-        // console.log(apiStation);
         getGeolocation();
-    }, [])
-
-    console.log(userPosition);
+    }, []);
 
     return (
         showCard && <div className='bg-[#181A20] border-white border-solid  border absolute z-50 top-[50%] right-4 rounded-lg left-4 translate-y-[-50%]'
@@ -74,10 +72,7 @@ function Station() {
                         <MdPlace className=' text-xl  text-gray-400' />
                         <p className='text-sm'>{distance(userPosition?.lat, userPosition?.lng, apiStation?.latitude, apiStation?.longitude, 3959)} mi</p>
                     </div>
-                    {/* <div className='flex items-center gap-2'>
-                        <AiFillCar className=' text-xl  text-gray-400' />
-                        <p className='text-sm'>{30} mins</p>
-                    </div> */}
+
                 </div>
                 {
                     apiStation.access_days_time &&
@@ -86,13 +81,21 @@ function Station() {
                         <p className='text-sm text-gray-400'>{apiStation.access_days_time}</p>
                     </div>
                 }
-                {
-                    apiStation.station_phone &&
-                    <div className='flex gap-2'>
-                        <FiPhoneCall />
-                        <a href={apiStation.station_phone} className='text-sm text-gray-400'>{apiStation.station_phone}</a>
+                <div className='flex justify-between items-center'>
+                    {
+                        apiStation.station_phone &&
+                        <div className='flex gap-2'>
+                            <FiPhoneCall />
+                            <a href={apiStation.station_phone} className='text-sm text-gray-400'>{apiStation.station_phone}</a>
+                        </div>
+                    }
+                    <div className='items-center gap-2'>
+                        <MdFavorite
+                            onClick={() => addStation(apiStation)}
+                            className='hover:text-red text-4xl  text-gray-400' />
+                        <p className='text-xl'>Like</p>
                     </div>
-                }
+                </div>
             </div>
         </div>
     )

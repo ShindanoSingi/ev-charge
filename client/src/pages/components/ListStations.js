@@ -18,10 +18,6 @@ function ListStations({ getApiStation }) {
     // const earthRaduisK = 6371; // Radius of the earth in km
     const earthRaduisM = 3959; // Radius of the earth in miles
 
-    useEffect(() => {
-        console.log(userPosition);
-    }, []);
-
     return (
         !allStations.station_locator_url ? <div className='h-[100%]'><LoaderPlayer /></div> :
             <div className='max-h-[100%] mt-[9rem] overflow-scroll '>

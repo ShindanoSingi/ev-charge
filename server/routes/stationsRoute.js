@@ -14,34 +14,15 @@ router.get('/get-station/:id', authMiddleware, getaStation);
 router.put('/update-station/:id', authMiddleware, updateaStation);
 // Delete a station by id
 router.delete('/delete-station/:id', authMiddleware, deleteaStation);
-// Add a station
-router.post('/add-station/:id', authMiddleware, addaStation);
 // Geta station
 router.get('/search/:location/:fuel', async (req, res) => {
     const { location, fuel } = req.params;
 
     axios.get(`https://developer.nrel.gov/api/alt-fuel-stations/v1.json?limit=100&api_key=${process.env.REACT_APP_NREL_API_KEY}&fuel_type=ELEC&state=ME`)
         .then(response => {
-            console.log(response.data);
             res.json(response.data);
 
         })
-
-    // const { city, state, country } = req.params;
-    // console.log(city, state, country);
-    // const searchLatLon = {
-    //     key: process.env.OPENWEATHER_API,
-    //     limit: 1,
-    //     api: "https://api.openweathermap.org/geo/1.0/direct?q=",
-    // };
-
-    // axios.get(`${searchLatLon.api}${city},${state},${country}&limit=${searchLatLon.limit}&appid=${searchLatLon.key}`)
-    //     .then((response) => {
-    //         latitude = (response.data[0].lat);
-    //         longitude = (response.data[0].lon);
-    //         console.log(latitude, longitude);
-
-
 });
 // Get my stations
 router.get('/my-stations', authMiddleware, getMyStations);

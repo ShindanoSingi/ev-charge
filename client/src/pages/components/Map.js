@@ -1,7 +1,6 @@
 import React from 'react'
 import GoogleMapReact from 'google-map-react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getGoogleApiKey } from '../../apiCalls/apiCalls';
 import { setApiStation, setShowCard, setUserPosition } from '../../redux/userSlice';
 import { MdPlace } from 'react-icons/md';
 import Station from './Station';
@@ -27,7 +26,6 @@ function Map() {
 
     React.useEffect(() => {
         componentDidMount();
-        console.log(userPosition);
     }, [])
 
     const defaultProps = {
@@ -44,7 +42,7 @@ function Map() {
                 <Station />
                 {
                     <LoaderPlayer /> && <GoogleMapReact
-                        bootstrapURLKeys={{ key: getGoogleApiKey }}
+                        bootstrapURLKeys={{ key: process.env.getGoogleApiKey }}
                         defaultCenter={defaultProps.center}
                         defaultZoom={defaultProps.zoom}
                         center={{ lat: userPosition?.lat, lng: userPosition?.lng }}

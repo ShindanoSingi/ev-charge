@@ -1,5 +1,5 @@
 import React from 'react'
-import { ErrorMessage, Field, Form, Formik, useFormik } from 'formik';
+import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
 import { setShowCard } from '../../redux/userSlice';
 import * as Yup from 'yup';
@@ -16,23 +16,21 @@ const onSubmit = values => {
     }
 };
 
-const SignupForm = () => {
+const LoginForm = () => {
 
     const initialValues = {
         username: '',
-        email: '',
         password: '',
     };
 
     const validationSchema = Yup.object({
         username: Yup.string().required('Name is required!'),
-        email: Yup.string().email('Invalid email address').required('Email is required!'),
         password: Yup.string().min(6, 'Password must be at least 6 characters long!').required('Password is required!'),
     });
 
     const handleSubmit = async (values, { setSubmitting }) => {
         try {
-            const response = await axios.post(`${process.env.REACT_APP_BASE_URL_USERS}register`, values);
+            const response = await axios.post(`${process.env.REACT_APP_BASE_URL_USERS}login`, values);
             setSubmitting(false);
             toast.success(response.data.message);
             return {
@@ -49,9 +47,6 @@ const SignupForm = () => {
             };
         }
     };
-
-    const { showCard } = useSelector((state) => state.userReducer);
-    const dispatch = useDispatch();
 
     return (
         <div className='absolute grid top-[30%] w-full p-6'>
@@ -73,16 +68,6 @@ const SignupForm = () => {
                         <ErrorMessage name='username' />
                     </div>
                     <div className='flex flex-col gap-0 text-gray-400'>
-                        <label className='text-lg' htmlFor="email">Email Address</label>
-                        <Field
-                            id="email"
-                            name="email"
-                            type="email"
-                            className='px-3 py-2'
-                        />
-                        <ErrorMessage name='email' />
-                    </div>
-                    <div className='flex flex-col gap-0 text-gray-400'>
                         <label className='text-lg' htmlFor="password">Password</label>
                         <Field
                             id="password"
@@ -101,4 +86,4 @@ const SignupForm = () => {
     );
 };
 
-export default SignupForm
+export default LoginForm

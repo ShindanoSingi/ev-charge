@@ -11,10 +11,10 @@ const registerUser = asyncHandler(async (req, res) => {
         const { username, email, password } = req.body
 
         // Validate user input
-        const user = await User.findOne({ email });
+        const user = await User.findOne({ username });
         if (user) {
             return res.send({
-                message: 'Email already exists',
+                message: 'Username already exists',
                 success: false,
             });
         }
@@ -30,7 +30,6 @@ const registerUser = asyncHandler(async (req, res) => {
         });
     }
     catch (error) {
-        console.log(error);
         return res.send({
             message: error.message,
             success: false,
@@ -41,11 +40,10 @@ const registerUser = asyncHandler(async (req, res) => {
 
 // Login user
 const loginUser = asyncHandler(async (req, res) => {
-    const { email, password } = req.body;
+    const { username, password } = req.body;
     try {
         // Check if user exists
-        const user = await User.findOne({ email });
-        // console.log(user);
+        const user = await User.findOne({ username });
         // Check if password is correct
         if (req.body.password !== user.password) {
             return res.send({

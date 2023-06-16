@@ -3,6 +3,33 @@ import axios from "axios";
 const baseUrl_users = "http://localhost:4000/api/users/";
 const baseUrl_stations = "http://localhost:4000/api/stations/";
 
+
+// Add my station
+export const addStation = async (station) => {
+    const myStation = {
+        station_name: station.station_name,
+        street_address: station.street_address,
+        city: station.city,
+        state: station.state,
+        zip: station.zip,
+        country: station.country,
+        access_code: station.access_code,
+        ev_pricing: station.ev_pricing,
+        ev_connector_type: station.ev_connector_type,
+        ev_level2_evse_num: station.ev_level2_evse_num,
+        access_days_time: station.access_days_time,
+        station_phone: station.station_phone,
+    }
+
+    axios.post(`${baseUrl_stations}new-station`, myStation)
+        .then(response => {
+            console.log(response);
+        })
+
+};
+
+
+
 // Get all stations
 export const getAllStations = async () => {
     try {
@@ -34,7 +61,6 @@ export const getDistance = (lat1, lon1, lat2, lon2, earthRaduis) => {
 
     const distance = earthRaduis * c;
 
-    console.log(distance.toFixed(1) + ' miles');
     return (distance + 0.6).toFixed(1); // Distance in km
 }
 
@@ -46,6 +72,3 @@ export const distance = (lat1, lon1, lat2, lon2, earthRaduis) => {
     }
     return nDistance;
 }
-
-// Get googleAPiKeyexport 
-export const getGoogleApiKey = 'AIzaSyAqlCvIvKDJsgqCuypUpUy_UDUrCgNcD90';

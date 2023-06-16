@@ -23,7 +23,6 @@ const createStastion = asyncHandler(async (req, res) => {
 
         const newStation = await Station.create(req.body);
         await User.findByIdAndUpdate(user._id, { $push: { stations: newStation._id } }, { new: true });
-        console.log(user);
 
         res.send({
             success: true,
@@ -44,14 +43,12 @@ const getAllStations = asyncHandler(async (req, res) => {
     const user = await User.findOne({ email }).populate('stations');
     try {
         const stations = user.stations;
-        console.log(stations);
         res.send({
             success: true,
             message: 'Stations retrieved successfully',
             data: stations,
         });
     } catch (error) {
-        console.log(error);
         res.status(500).send({
             success: false,
             message: 'Internal server error',
@@ -114,15 +111,12 @@ const updateaStation = asyncHandler(async (req, res) => {
         }
 
         const updatedStation = await Station.findByIdAndUpdate(stationId, updateData, { new: true });
-
-        console.log(updatedStation);
         res.send({
             success: true,
             message: 'Station updated successfully',
             data: updatedStation,
         });
     } catch (error) {
-        console.log(error);
         res.status(500).send({
             success: false,
             message: 'Internal server error',
@@ -162,7 +156,6 @@ const deleteaStation = asyncHandler(async (req, res) => {
             message: 'Station deleted successfully',
         });
     } catch (error) {
-        console.log(error);
         res.status(500).send({
             success: false,
             message: 'Internal server error',
@@ -184,7 +177,6 @@ const getMyStations = asyncHandler(async (req, res) => {
 const getoneOfMyStations = asyncHandler(async (req, res) => {
     const { _id } = req.user;
     const id = req.params.id;
-    console.log(typeof (id));
     const user = await User.findById(_id);
     const station = user.stations.find(station => {
         return station._id === id;
@@ -213,31 +205,38 @@ const deleteOneOfMyStations = asyncHandler(async (req, res) => {
 
 const searchStation = asyncHandler(async (req, res) => {
     const { stationName, city, zip } = req.query;
+    const { email } = req.user;
 
     try {
-        let query = {};
+        const user = await User.findOne({ email });
+
+        if (!user) {
+            return res.status(404).send({
+                success: false,
+                message: 'User not found',
+            });
+        }
+
+        let filteredStations = user.stations;
 
         if (stationName) {
-            query.station_name = { $regex: stationName, $options: 'i' };
+            filteredStations = filteredStations.filter(station => station.station_name.includes(stationName));
         }
 
         if (city) {
-            query.city = { $regex: city, $options: 'i' };
+            filteredStations = filteredStations.filter(station => station.city.includes(city));
         }
 
         if (zip) {
-            query.zip = zip;
+            filteredStations = filteredStations.filter(station => station.zip === zip);
         }
-
-        const stations = await Station.find(query);
 
         res.send({
             success: true,
             message: 'Stations retrieved successfully',
-            data: stations,
+            data: filteredStations,
         });
     } catch (error) {
-        console.log(error);
         res.status(500).send({
             success: false,
             message: 'Internal server error',

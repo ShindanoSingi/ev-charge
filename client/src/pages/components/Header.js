@@ -13,7 +13,7 @@ import MenuButton from './MenuButton';
 const pos = require('pos');
 
 
-function SearchForm() {
+function Header() {
     const { inputValue, selectedOption, userPosition } = useSelector((state) => state.userReducer);
 
     const options = [
@@ -54,14 +54,11 @@ function SearchForm() {
         const tokenizer = new pos.Lexer();
         const words = tokenizer.lex(location);
 
-        console.log(words[0]);
-
         const tagger = new pos.Tagger();
         const taggedWords = tagger.tag(words);
 
         const cityWords = taggedWords.find((word) => word[1] === 'NNP' && (word[0] === word[0].toUpperCase()));
 
-        console.log(words[0]);
         return words[0];
     }
 
@@ -73,18 +70,15 @@ function SearchForm() {
         }
 
         if (detectZipCode(location)) {
-            console.log('Zip code detected');
             url += `&zip=${location}`;
         }
 
         if (extractCityName(location)) {
-            console.log('City name detected');
             const cityName = extractCityName(location);
             url += `&city=${cityName}`;
         }
 
         if (extractStateName(location)) {
-            console.log('State name detected');
             const stateName = extractStateName(location);
             url += `&state=${stateName}`;
         }
@@ -93,7 +87,6 @@ function SearchForm() {
         axios.get(url)
             .then(response => {
                 dispatch(showLoader());
-                console.log(response.data);
                 dispatch(
                     setAllStations(response.data),
                 );
@@ -116,7 +109,6 @@ function SearchForm() {
 
     React.useEffect(() => {
         componentDidMount();
-        console.log(userPosition);
     }, [])
 
     return (
@@ -145,9 +137,8 @@ function SearchForm() {
                     ))}
                 </select>
             </fieldset>
-            {/* </div> */}
         </div>
     )
 }
 
-export default SearchForm
+export default Header;

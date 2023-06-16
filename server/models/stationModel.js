@@ -20,10 +20,10 @@ const stationSchema = new mongoose.Schema({
         type: String,
     },
     access_code: {
-        type: Number,
+        type: String,
     },
     ev_pricing: {
-        type: Number,
+        type: String,
     },
     ev_connector_type: {
         type: String,
