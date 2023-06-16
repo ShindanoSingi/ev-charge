@@ -44,7 +44,9 @@ function MenuButton() {
                         <Link to='/signup'>
                             <p className='bg-gray-200 hover:bg-black hover:text-white px-2 w-full border-b-2 border-gray-400' onClick={handleClose}>Sign Up</p>
                         </Link>
-                        <p className='bg-gray-200 hover:bg-black hover:text-white px-2 w-full border-b-2 border-gray-400' onClick={handleClose}>Sign In</p>
+                        <Link to='/login'>
+                            <p className='bg-gray-200 hover:bg-black hover:text-white px-2 w-full border-b-2 border-gray-400' onClick={handleClose}>Sign In</p>
+                        </Link>
                         <p className='bg-gray-200 hover:bg-black hover:text-white px-2 w-full ' onClick={handleClose}>Sign Out</p>
                     </div>
                     {/* <div>

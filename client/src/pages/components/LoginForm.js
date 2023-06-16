@@ -33,6 +33,7 @@ const LoginForm = () => {
             const response = await axios.post(`${process.env.REACT_APP_BASE_URL_USERS}login`, values);
             setSubmitting(false);
             toast.success(response.data.message);
+            console.log(response.data);
             return {
                 success: true,
                 data: response.data,

@@ -8,8 +8,8 @@ let latitude = '';
 let longitude = '';
 
 const createStastion = asyncHandler(async (req, res) => {
-    const { email } = req.user;
-    const user = await User.findOne({ email });
+    const { username } = req.user;
+    const user = await User.findOne({ username });
 
     const station = await Station.findOne({ station_name: req.body.station_name });
 
@@ -39,8 +39,8 @@ const createStastion = asyncHandler(async (req, res) => {
 });
 
 const getAllStations = asyncHandler(async (req, res) => {
-    const { email } = req.user;
-    const user = await User.findOne({ email }).populate('stations');
+    const { username } = req.user;
+    const user = await User.findOne({ username }).populate('stations');
     try {
         const stations = user.stations;
         res.send({
@@ -59,8 +59,8 @@ const getAllStations = asyncHandler(async (req, res) => {
 );
 
 const getaStation = asyncHandler(async (req, res) => {
-    const { email } = req.user;
-    const user = await User.findOne({ email }).populate('stations');
+    const { username } = req.user;
+    const user = await User.findOne({ username }).populate('stations');
     const station = await user.stations.find(station => {
         return station._id == req.params.id;
     });
@@ -89,10 +89,10 @@ const getaStation = asyncHandler(async (req, res) => {
 
 const updateaStation = asyncHandler(async (req, res) => {
     const stationId = req.params.id;
-    const { email } = req.user;
+    const { username } = req.user;
     const updateData = req.body;
     try {
-        const user = await User.findOne({ email }).populate('stations');
+        const user = await User.findOne({ username }).populate('stations');
 
         if (!user) {
             return res.status(404).send({
@@ -127,10 +127,10 @@ const updateaStation = asyncHandler(async (req, res) => {
 
 const deleteaStation = asyncHandler(async (req, res) => {
     const stationId = req.params.id;
-    const { email } = req.user;
+    const { username } = req.user;
 
     try {
-        const user = await User.findOne({ email });
+        const user = await User.findOne({ username });
 
         if (!user) {
             return res.status(404).send({
@@ -205,10 +205,10 @@ const deleteOneOfMyStations = asyncHandler(async (req, res) => {
 
 const searchStation = asyncHandler(async (req, res) => {
     const { stationName, city, zip } = req.query;
-    const { email } = req.user;
+    const { username } = req.user;
 
     try {
-        const user = await User.findOne({ email });
+        const user = await User.findOne({ username });
 
         if (!user) {
             return res.status(404).send({

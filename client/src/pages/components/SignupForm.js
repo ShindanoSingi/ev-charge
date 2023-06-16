@@ -11,7 +11,6 @@ import { toast } from 'react-hot-toast';
 const onSubmit = values => {
     const user = {
         username: values.username,
-        email: values.email,
         password: values.password
     }
 };
@@ -20,13 +19,11 @@ const SignupForm = () => {
 
     const initialValues = {
         username: '',
-        email: '',
         password: '',
     };
 
     const validationSchema = Yup.object({
         username: Yup.string().required('Name is required!'),
-        email: Yup.string().email('Invalid email address').required('Email is required!'),
         password: Yup.string().min(6, 'Password must be at least 6 characters long!').required('Password is required!'),
     });
 
@@ -71,16 +68,6 @@ const SignupForm = () => {
                             className='px-3 py-2 rounded-t-xl'
                         />
                         <ErrorMessage name='username' />
-                    </div>
-                    <div className='flex flex-col gap-0 text-gray-400'>
-                        <label className='text-lg' htmlFor="email">Email Address</label>
-                        <Field
-                            id="email"
-                            name="email"
-                            type="email"
-                            className='px-3 py-2'
-                        />
-                        <ErrorMessage name='email' />
                     </div>
                     <div className='flex flex-col gap-0 text-gray-400'>
                         <label className='text-lg' htmlFor="password">Password</label>

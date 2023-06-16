@@ -8,7 +8,7 @@ const asyncHandler = require('express-async-handler');
 const registerUser = asyncHandler(async (req, res) => {
 
     try {
-        const { username, email, password } = req.body
+        const { username, password } = req.body
 
         // Validate user input
         const user = await User.findOne({ username });
@@ -52,9 +52,9 @@ const loginUser = asyncHandler(async (req, res) => {
             });
         }
 
-        if (req.body.email !== user.email) {
+        if (req.body.username !== user.username) {
             return res.send({
-                message: 'Invalid email',
+                message: 'Invalid username',
                 success: false,
             });
         }
