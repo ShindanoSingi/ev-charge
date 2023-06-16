@@ -5,7 +5,7 @@ import { setShowCard } from '../../redux/userSlice';
 import * as Yup from 'yup';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
-
+import { useNavigate } from 'react-router-dom';
 
 
 const onSubmit = values => {
@@ -16,6 +16,8 @@ const onSubmit = values => {
 };
 
 const SignupForm = () => {
+
+    const navigate = useNavigate();
 
     const initialValues = {
         username: '',
@@ -30,8 +32,11 @@ const SignupForm = () => {
     const handleSubmit = async (values, { setSubmitting }) => {
         try {
             const response = await axios.post(`${process.env.REACT_APP_BASE_URL_USERS}register`, values);
-            setSubmitting(false);
+            // setSubmitting(false);
             toast.success(response.data.message);
+
+            navigate('/login');
+
             return {
                 success: true,
                 data: response.data,
@@ -52,6 +57,7 @@ const SignupForm = () => {
 
     return (
         <div className='absolute grid top-[30%] w-full p-6'>
+            <h1 className=' text-gray-400 text-2xl text-center mb-2'>Signup Form</h1>
             {/* <Toaster /> */}
             <Formik
                 initialValues={initialValues}
@@ -69,8 +75,8 @@ const SignupForm = () => {
                         />
                         <ErrorMessage name='username' />
                     </div>
-                    <div className='flex flex-col gap-0 text-gray-400'>
-                        <label className='text-lg' htmlFor="password">Password</label>
+                    <div className='flex flex-col gap-0 text-gray-400 '>
+                        <label className='text-lg' htmlFor="password border-solid border-l-1 border-[400] ">Password</label>
                         <Field
                             id="password"
                             name="password"

@@ -41,11 +41,13 @@ const registerUser = asyncHandler(async (req, res) => {
 // Login user
 const loginUser = asyncHandler(async (req, res) => {
     const { username, password } = req.body;
+
     try {
         // Check if user exists
         const user = await User.findOne({ username });
         // Check if password is correct
-        if (req.body.password !== user.password) {
+        const validPassword = await bcrypt.compare(password, user.password);
+        if (!validPassword) {
             return res.send({
                 message: 'Invalid password',
                 success: false,
