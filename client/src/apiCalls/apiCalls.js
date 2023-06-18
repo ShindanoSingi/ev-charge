@@ -5,7 +5,7 @@ const baseUrl_stations = "http://localhost:4000/api/stations/";
 
 
 // Add my station
-export const addStation = async (station) => {
+export const addStation = async (station, token) => {
     const myStation = {
         station_name: station.station_name,
         street_address: station.street_address,
@@ -21,11 +21,18 @@ export const addStation = async (station) => {
         station_phone: station.station_phone,
     }
 
-    axios.post(`${baseUrl_stations}new-station`, myStation)
-        .then(response => {
-            console.log(response);
+    await axios.post(`${baseUrl_stations}new-station`, myStation, {
+        headers: {
+            "Authorization": `Bearer ${token}`,
+            "Content-Type": "application/json",
+        },
+    })
+        .then((response) => {
+            return response.data;
         })
-
+        .catch((error) => {
+            return error.response.data;
+        });
 };
 
 

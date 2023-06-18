@@ -13,7 +13,7 @@ import { addStation } from '../../apiCalls/apiCalls';
 
 
 function Station() {
-    const { apiStation, userPosition, distanceM, time, showCard, myCity, myState } = useSelector((state) => state.userReducer);
+    const { apiStation, userPosition, distanceM, time, showCard, myCity, myState, token } = useSelector((state) => state.userReducer);
     const dispatch = useDispatch();
 
     const getGeolocation = async () => {
@@ -91,7 +91,7 @@ function Station() {
                     }
                     <div className='items-center gap-2'>
                         <MdFavorite
-                            onClick={() => addStation(apiStation)}
+                            onClick={() => addStation(apiStation, token)}
                             className='hover:text-red text-4xl  text-gray-400' />
                         <p className='text-xl'>Like</p>
                     </div>

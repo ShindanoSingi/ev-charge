@@ -1,11 +1,11 @@
 import React from 'react'
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
-import { setShowCard } from '../../redux/userSlice';
+import { setShowCard, setToken } from '../../redux/userSlice';
 import * as Yup from 'yup';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
-
+import { useNavigate } from 'react-router-dom';
 
 
 const onSubmit = values => {
@@ -16,6 +16,10 @@ const onSubmit = values => {
 };
 
 const LoginForm = () => {
+    const navigate = useNavigate();
+
+    const { token } = useSelector((state) => state.userReducer);
+    const dispatch = useDispatch();
 
     const initialValues = {
         username: '',
@@ -31,8 +35,10 @@ const LoginForm = () => {
         try {
             const response = await axios.post(`${process.env.REACT_APP_BASE_URL_USERS}login`, values);
             setSubmitting(false);
+            dispatch(setToken(response.data.token));
+            // console.log(response.data);
             toast.success(response.data.message);
-            console.log(response.data);
+            navigate('/listStations');
             return {
                 success: true,
                 data: response.data,

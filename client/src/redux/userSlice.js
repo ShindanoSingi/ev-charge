@@ -17,6 +17,7 @@ const userSlice = createSlice({
         myState: '',
         myCountry: '',
         success: false,
+        token: '',
     },
     reducers: {
         setUser: (state, action) => {
@@ -64,8 +65,11 @@ const userSlice = createSlice({
         setSuccess: (state, action) => {
             state.success = action.payload;
         },
+        setToken: (state, action) => {
+            state.token = action.payload;
+        },
     },
 });
 
-export const { setUser, setAllStations, setAllMyStations, setInputValue, setSelectedOption, setUserPosition, setApiStation, setDistanceM, setTime, setShowCard, setGoogleAPIKey, setMyCity, setMyState, setSuccess } = userSlice.actions;
+export const { setUser, setAllStations, setAllMyStations, setInputValue, setSelectedOption, setUserPosition, setApiStation, setDistanceM, setTime, setShowCard, setGoogleAPIKey, setMyCity, setMyState, setSuccess, setToken } = userSlice.actions;
 export default userSlice.reducer;
