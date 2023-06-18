@@ -6,13 +6,13 @@ import { Routes, Route } from 'react-router-dom';
 import Map from './pages/components/Map';
 import UserPage from './pages/components/UserPage';
 import { Toaster } from 'react-hot-toast';
-import Station from './pages/components/Station';
 import { useState } from 'react';
 import TwoButtons from './pages/components/TwoButtons';
 import LoaderPlayer from './components/LoaderPlayer';
 import { useSelector } from 'react-redux';
 import SignupForm from './pages/components/SignupForm';
 import LoginForm from './pages/components/LoginForm';
+import MyFavoriteStations from './pages/components/MyFavoriteStations';
 
 
 const App = () => {
@@ -36,6 +36,7 @@ const App = () => {
       />
       <Routes>
         <Route path='/' element={<ListStations getApiStation={getApiStation} />} />
+        <Route path='/favoriteStations' element={<MyFavoriteStations />} />
         <Route path='/signup' element={<SignupForm />} />
         <Route path='/login' element={<LoginForm />} />
         <Route path='/listStations' element={<ListStations getApiStation={getApiStation} />} />

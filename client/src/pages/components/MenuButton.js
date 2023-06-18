@@ -1,17 +1,27 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Button from "@material-ui/core/Button";
 import Menu from "@material-ui/core/Menu";
 import { AiOutlineMenu } from 'react-icons/ai';
-import { setShowCard } from '../../redux/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { getFavoritesStations } from '../../apiCalls/apiCalls'
+import { setMyFavoriteStations } from '../../redux/userSlice';
+
 
 
 function MenuButton() {
-    const { showCard } = useSelector((state) => state.userReducer);
+    const { token } = useSelector((state) => state.userReducer);
     const [anchorEl, setAnchorEl] = React.useState(null);
-
     const dispatch = useDispatch();
+
+    const getAllMyFavoriteStations = async () => {
+        try {
+            const response = await getFavoritesStations(token);
+            dispatch(setMyFavoriteStations(response.data));
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
     const handleClose = () => {
         setAnchorEl(null);
@@ -20,6 +30,10 @@ function MenuButton() {
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
     };
+
+    useEffect(() => {
+        getAllMyFavoriteStations();
+    }, []);
 
     return (
         <div className=''>
@@ -39,8 +53,17 @@ function MenuButton() {
                     onClose={handleClose}
                     open={Boolean(anchorEl)}
                 >
-                    <div className=''>
-                        <p className='bg-gray-200 px-2 w-full hover:bg-black hover:text-white border-b-2 border-gray-400' onClick={handleClose}>My Account</p>
+                    <div>
+                        <Link to='/favoriteStations'>
+                            <p
+                                className='bg-gray-200 px-2 w-full hover:bg-black hover:text-white border-b-2 border-gray-400'
+                                onClick={() => {
+                                    handleClose();
+                                    getAllMyFavoriteStations();
+                                }}
+                            >My Account</p>
+                        </Link>
+
                         <Link to='/signup'>
                             <p className='bg-gray-200 hover:bg-black hover:text-white px-2 w-full border-b-2 border-gray-400' onClick={handleClose}>Sign Up</p>
                         </Link>
@@ -49,15 +72,6 @@ function MenuButton() {
                         </Link>
                         <p className='bg-gray-200 hover:bg-black hover:text-white px-2 w-full ' onClick={handleClose}>Sign Out</p>
                     </div>
-                    {/* <div>
-                        <li className='bg-gray-200 px-2 w-full' onClick={handleClose}>My Account</li><hr className='bg-gray-700' />
-                        <Link to='/signup'>
-                            <li className='bg-gray-200 px-2 w-full' onClick={handleClose}>Sign Up</li><hr className='bg-gray-800' />
-                        </Link>
-                        <li className='bg-gray-200 px-2 w-full' onClick={handleClose}>Sign In</li><hr className='bg-gray-700' />
-                        <li className='bg-gray-200 px-2 w-full' onClick={handleClose}>Sign Out</li>
-                    </div> */}
-
                 </Menu>
             </div>
         </div>

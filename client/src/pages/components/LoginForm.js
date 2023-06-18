@@ -18,7 +18,6 @@ const onSubmit = values => {
 const LoginForm = () => {
     const navigate = useNavigate();
 
-    const { token } = useSelector((state) => state.userReducer);
     const dispatch = useDispatch();
 
     const initialValues = {
@@ -36,7 +35,6 @@ const LoginForm = () => {
             const response = await axios.post(`${process.env.REACT_APP_BASE_URL_USERS}login`, values);
             setSubmitting(false);
             dispatch(setToken(response.data.token));
-            // console.log(response.data);
             toast.success(response.data.message);
             navigate('/listStations');
             return {

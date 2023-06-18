@@ -6,6 +6,7 @@ const baseUrl_stations = "http://localhost:4000/api/stations/";
 
 // Add my station
 export const addStation = async (station, token) => {
+    console.log(token);
     const myStation = {
         station_name: station.station_name,
         street_address: station.street_address,
@@ -35,7 +36,20 @@ export const addStation = async (station, token) => {
         });
 };
 
-
+// Get all my favorites stations
+export const getFavoritesStations = async (token) => {
+    try {
+        const response = await axios.get(`${baseUrl_stations}get-all-stations`, {
+            headers: {
+                "Authorization": `Bearer ${token}`,
+                "Content-Type": "application/json",
+            },
+        });
+        return response.data;
+    } catch (error) {
+        return error.response.data;
+    }
+};
 
 // Get all stations
 export const getAllStations = async () => {
