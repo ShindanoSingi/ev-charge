@@ -34,11 +34,14 @@ function Station() {
     };
 
     const addFavStation = async (apiStation) => {
-        const response = await addStation(apiStation, localStorage.getItem('token'));
-        if (response) {
-            console.log(response);
-            toast.success('Station added to favorites');
-        } else {
+
+        try {
+            const response = await addStation(apiStation, localStorage.getItem('token'));
+            if (response.success) {
+                toast.success('Station added to favorites');
+            }
+
+        } catch (error) {
             toast.error('Station not added');
         }
     };
