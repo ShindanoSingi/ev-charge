@@ -6,8 +6,6 @@ const baseUrl_stations = "http://localhost:4000/api/stations/";
 
 // Add my station
 export const addStation = async (station) => {
-    const token = localStorage.getItem('token')
-    console.log(token);
     const myStation = {
         station_name: station.station_name,
         street_address: station.street_address,
@@ -50,7 +48,7 @@ export const deleteStation = async (stationId, token) => {
         },
     })
         .then((response) => {
-            console.log(response);
+            console.log(response.data);
             return response;
         })
         .catch((error) => {

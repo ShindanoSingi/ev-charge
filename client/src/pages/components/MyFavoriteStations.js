@@ -5,17 +5,32 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import LoaderPlayer from '../../components/LoaderPlayer';
 import Station from './Station';
-import { setApiStation, setShowCard, setMyStationId } from '../../redux/userSlice';
+import { setApiStation, setShowCard, setMyStationId, setMyFavoriteStations } from '../../redux/userSlice';
+import { getFavoritesStations } from '../../apiCalls/apiCalls';
 
 
 function MyFavoriteStations() {
-    const { myFavoriteStations, } = useSelector((state) => state.userReducer);
+    const { myFavoriteStations, myFavoriteStationsLength } = useSelector((state) => state.userReducer);
     const dispatch = useDispatch();
 
-    console.log(myFavoriteStations);
+    const getMyFavoriteStations = async (token) => {
+        try {
+            const response = await getFavoritesStations(token);
+            console.log(response);
+
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    console.log(myFavoriteStations.length);
+
+    React.useEffect(() => {
+        getMyFavoriteStations(localStorage.getItem('token'));
+    }, [myFavoriteStations.length]);
 
     return (
-        myFavoriteStations.length < 1 ? <LoaderPlayer /> : <div className='max-h-[73%] w-screen mt-[8.9rem] overflow-scroll'>
+        myFavoriteStations < 1 ? <LoaderPlayer /> : <div className='max-h-[73%] w-screen mt-[8.9rem] overflow-scroll'>
             <Station />
             {
                 myFavoriteStations?.map((station, id) => {

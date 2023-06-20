@@ -206,7 +206,7 @@ const deleteStation = asyncHandler(async (req, res) => {
         res.send({
             success: true,
             message: 'Station deleted successfully',
-            data: user,
+            data: user.stations,
         });
     } catch (error) {
         res.status(500).send({

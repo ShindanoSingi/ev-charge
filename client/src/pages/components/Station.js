@@ -14,7 +14,7 @@ import DeleteButton from './DeleteButton';
 
 
 function Station() {
-    const { apiStation, userPosition, showCard, token } = useSelector((state) => state.userReducer);
+    const { apiStation, userPosition, showCard } = useSelector((state) => state.userReducer);
     const dispatch = useDispatch();
 
     const getGeolocation = async () => {
@@ -33,13 +33,11 @@ function Station() {
         }
     };
 
-    const addFavStation = async (apiStation) => {
-
+    const addFavStation = async (apiStations) => {
         try {
-            const response = await addStation(apiStation, localStorage.getItem('token'));
-            if (response.success) {
-                toast.success('Station added to favorites');
-            }
+            const res = await addStation(apiStations);
+            console.log(res);
+            toast.success('Station added to favorites');
 
         } catch (error) {
             toast.error('Station not added');
@@ -108,7 +106,9 @@ function Station() {
                     {
                         distance(userPosition?.lat, userPosition?.lng, apiStation?.latitude, apiStation?.longitude, 3959) > 0 ? <div className='items-center gap-2'>
                             <MdFavorite
-                                onClick={() => addFavStation(apiStation, token)}
+                                onClick={() => {
+                                    addFavStation(apiStation);
+                                }}
                                 className='hover:text-red text-4xl  text-gray-400' />
                             <p className='text-xl'>Like</p>
                         </div> : <DeleteButton />

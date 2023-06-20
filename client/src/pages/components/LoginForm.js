@@ -52,6 +52,19 @@ const LoginForm = () => {
         }
     };
 
+    useEffect(() => {
+        if (localStorage.getItem('token')) {
+            dispatch(setToken(localStorage.getItem('token')));
+        }
+    }, [dispatch]);
+
+    if (localStorage.getItem('token')) {
+        navigate('/listStations');
+    }
+    if (!localStorage.getItem('token')) {
+        navigate('/signin');
+    }
+
     return (
         <div className='absolute grid top-[30%] w-full p-6'>
             <h1 className=' text-gray-400 text-2xl text-center mb-2'>Signin Form</h1>

@@ -34,7 +34,6 @@ const SignupForm = () => {
             const response = await axios.post(`${process.env.REACT_APP_BASE_URL_USERS}register`, values);
             // setSubmitting(false);
             toast.success(response.data.message);
-
             navigate('/login');
 
             return {
