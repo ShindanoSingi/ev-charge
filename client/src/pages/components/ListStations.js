@@ -19,8 +19,8 @@ function ListStations({ getApiStation }) {
     const earthRaduisM = 3959; // Radius of the earth in miles
 
     return (
-        !allStations.station_locator_url ? <div className='h-[100%]'><LoaderPlayer /></div> :
-            <div className='max-h-[100%] mt-[9rem] overflow-scroll '>
+        !allStations.station_locator_url ? <div className='h-[100%] child w-screen'><LoaderPlayer /></div> :
+            <div className='h-[100vh] w-screen mt-[8.9rem] overflow-scroll '>
                 <Station />
                 {
                     React.Children.toArray(
@@ -33,10 +33,10 @@ function ListStations({ getApiStation }) {
                                     <div className='bg-cardBlack card text-gray-400 flex items-center justify-between p-2 gap-2 border border-l-0 border-r-0 border-t-0  border-b-[#35383F]'>
                                         <div className='flex items-center'>
                                             <div className='relative'>
-                                                <BsEvStation className='text-white h-6 w-5 absolute left-[1.25rem] bg-green top-[1rem]' />
+                                                <BsEvStation className='text-white h-6 w-5 z-1 absolute left-[1.25rem] bg-green top-[1rem]' />
                                                 <RiMapPin2Fill className='h-[3.5rem] w-[3.5rem] text-green' />
                                             </div>
-                                            <div className='flex justify-between'>
+                                            <div className='justify-between'>
                                                 <div className='w-full'>
                                                     <h1 className='line-clamp-1 text-white w-full mb-1'>{station?.station_name}</h1>
                                                     <span className='text-sm font-light line-clamp-1 w-full'> {station?.city}, {station?.street_address}</span>

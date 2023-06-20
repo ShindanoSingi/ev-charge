@@ -1,19 +1,20 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { BsEvStation, BsFillClockFill } from 'react-icons/bs';
+import { BsFillClockFill } from 'react-icons/bs';
 import { MdPlace } from 'react-icons/md';
 import { MdFavorite } from 'react-icons/md'
 import { FaLocationArrow } from 'react-icons/fa';
 import { FiPhoneCall } from 'react-icons/fi';
-import { distance, getDistance, getGoogleApiKey } from '../../apiCalls/apiCalls';
-import { setMyCity, setMyState, setTime } from '../../redux/userSlice';
+import { addStation, distance } from '../../apiCalls/apiCalls';
+import { setMyCity, setMyState } from '../../redux/userSlice';
 import { setShowCard } from '../../redux/userSlice';
 import axios from 'axios';
-import { addStation } from '../../apiCalls/apiCalls';
+import { toast } from 'react-hot-toast';
+import DeleteButton from './DeleteButton';
 
 
 function Station() {
-    const { apiStation, userPosition, distanceM, time, showCard, myCity, myState, token } = useSelector((state) => state.userReducer);
+    const { apiStation, userPosition, showCard, token } = useSelector((state) => state.userReducer);
     const dispatch = useDispatch();
 
     const getGeolocation = async () => {
@@ -29,6 +30,16 @@ function Station() {
             }
         } catch (error) {
             console.error(error);
+        }
+    };
+
+    const addFavStation = async (apiStation, token) => {
+        const response = await addStation(apiStation, token);
+        if (response) {
+            console.log(response);
+            toast.success('Station added to favorites');
+        } else {
+            toast.error('Station already added to favorites');
         }
     };
 
@@ -67,13 +78,14 @@ function Station() {
                         apiStation.ev_level2_evse_num && <p className='text-sm text-gray-400'>EVSE Ports: {apiStation.ev_level2_evse_num}</p>
                     }
                 </div>
-                <div className='flex items-center gap-4'>
-                    <div className='flex items-center gap-2'>
+
+                {
+                    distance(userPosition?.lat, userPosition?.lng, apiStation?.latitude, apiStation?.longitude, 3959) > 0 ? <div className='flex items-center gap-2'>
                         <MdPlace className=' text-xl  text-gray-400' />
                         <p className='text-sm'>{distance(userPosition?.lat, userPosition?.lng, apiStation?.latitude, apiStation?.longitude, 3959)} mi</p>
-                    </div>
+                    </div> : ''
+                }
 
-                </div>
                 {
                     apiStation.access_days_time &&
                     <div className='flex gap-2'>
@@ -89,12 +101,14 @@ function Station() {
                             <a href={apiStation.station_phone} className='text-sm text-gray-400'>{apiStation.station_phone}</a>
                         </div>
                     }
-                    <div className='items-center gap-2'>
-                        <MdFavorite
-                            onClick={() => addStation(apiStation, token)}
-                            className='hover:text-red text-4xl  text-gray-400' />
-                        <p className='text-xl'>Like</p>
-                    </div>
+                    {
+                        distance(userPosition?.lat, userPosition?.lng, apiStation?.latitude, apiStation?.longitude, 3959) > 0 ? <div className='items-center gap-2'>
+                            <MdFavorite
+                                onClick={() => addFavStation(apiStation, token)}
+                                className='hover:text-red text-4xl  text-gray-400' />
+                            <p className='text-xl'>Like</p>
+                        </div> : <DeleteButton />
+                    }
                 </div>
             </div>
         </div>

@@ -29,10 +29,30 @@ export const addStation = async (station, token) => {
         },
     })
         .then((response) => {
+            // console.log(response.data);
             return response.data;
         })
         .catch((error) => {
+            // console.log(error.response.data);
             return error.response.data;
+        });
+};
+
+// Delete my station
+export const deleteStation = async (stationId, token) => {
+    await axios.delete(`${baseUrl_stations}my-station/${stationId}`, {
+        headers: {
+            "Authorization": `Bearer ${token}`,
+            "Content-Type": "application/json",
+        },
+    })
+        .then((response) => {
+            console.log(response);
+            return response;
+        })
+        .catch((error) => {
+            console.log(error);
+            return error.response;
         });
 };
 

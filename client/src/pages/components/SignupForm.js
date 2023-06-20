@@ -58,7 +58,6 @@ const SignupForm = () => {
     return (
         <div className='absolute grid top-[30%] w-full p-6'>
             <h1 className=' text-gray-400 text-2xl text-center mb-2'>Signup Form</h1>
-            {/* <Toaster /> */}
             <Formik
                 initialValues={initialValues}
                 validationSchema={validationSchema}

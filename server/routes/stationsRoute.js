@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const axios = require('axios');
 const { authMiddleware } = require('../middlewares/authMiddleware');
-const { createStastion, getAllStations, getaStation, updateaStation, deleteaStation, addaStation, getMyStations, getoneOfMyStations, deleteOneOfMyStations } = require('../controller/stationController');
+const { createStastion, getAllStations, getaStation, updateaStation, deleteaStation, addaStation, getMyStations, getoneOfMyStations, deleteStation } = require('../controller/stationController');
 
 
 // Create a new station
@@ -13,7 +13,7 @@ router.get('/get-station/:id', authMiddleware, getaStation);
 // Update a station by id
 router.put('/update-station/:id', authMiddleware, updateaStation);
 // Delete a station by id
-router.delete('/delete-station/:id', authMiddleware, deleteaStation);
+router.delete('/delete-station/:id', authMiddleware, deleteStation);
 // Geta station
 router.get('/search/:location/:fuel', async (req, res) => {
     const { location, fuel } = req.params;
@@ -29,7 +29,7 @@ router.get('/my-stations', authMiddleware, getMyStations);
 // Get one of my stations by id
 router.get('/my-stations/:id', authMiddleware, getoneOfMyStations);
 // Delete one of my stations by id
-router.delete('/my-stations/:id', authMiddleware, deleteOneOfMyStations);
+router.delete('/my-station/:id', authMiddleware, deleteStation);
 
 
 module.exports = router;

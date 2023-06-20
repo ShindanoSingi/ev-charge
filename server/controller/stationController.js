@@ -154,11 +154,13 @@ const deleteaStation = asyncHandler(async (req, res) => {
         res.send({
             success: true,
             message: 'Station deleted successfully',
+            data: user,
         });
     } catch (error) {
         res.status(500).send({
             success: false,
             message: 'Internal server error',
+            data: error.message,
             error: error.message,
         });
     }
@@ -188,20 +190,53 @@ const getoneOfMyStations = asyncHandler(async (req, res) => {
     });
 });
 
-const deleteOneOfMyStations = asyncHandler(async (req, res) => {
+const deleteStation = asyncHandler(async (req, res) => {
     const { _id } = req.user;
     const id = req.params.id;
-    const user = await User.findById(_id);
-    const station = user.stations.find(station => {
-        return station._id === id;
-    });
-    const deleteMyStation = await User.findByIdAndUpdate(_id, { $pull: { stations: req.params.id } }, { new: true });
-    res.send({
-        success: true,
-        message: 'Station retrieved successfully',
-        data: deleteMyStation,
-    });
+    try {
+        const user = await User.findById(_id);
+        if (!user) {
+            return res.status(404).send({
+                success: false,
+                message: 'User not found',
+            });
+        }
+        const stationIndex = user.stations.findIndex(station => station._id.toString() === id);
+        if (stationIndex === -1) {
+            return res.status(404).send({
+                success: false,
+                message: 'Station not found',
+            });
+        }
+        user.stations.splice(stationIndex, 1);
+        await user.save();
+        res.send({
+            success: true,
+            message: 'Station deleted successfully',
+            data: user,
+        });
+    } catch (error) {
+        res.status(500).send({
+            success: false,
+            message: 'Internal server error',
+            data: error.message,
+            error: error.message,
+        });
+    }
 });
+
+// const deleteOneOfMyStation = asyncHandler(async (req, res) => {
+//     const { _id } = req.user;
+//     const id = req.params.id;
+//     const user = await User.findById(_id);
+
+//     const deleteMyStation = await User.findByIdAndUpdate(_id, { $pull: { stations: req.params.id } }, { new: true });
+//     res.send({
+//         success: true,
+//         message: 'Station retrieved successfully',
+//         data: deleteMyStation,
+//     });
+// });
 
 const searchStation = asyncHandler(async (req, res) => {
     const { stationName, city, zip } = req.query;
@@ -245,4 +280,4 @@ const searchStation = asyncHandler(async (req, res) => {
     }
 });
 
-module.exports = { createStastion, getAllStations, getaStation, updateaStation, deleteaStation, getMyStations, getoneOfMyStations, deleteOneOfMyStations, searchStation };
+module.exports = { createStastion, getAllStations, getaStation, updateaStation, deleteaStation, getMyStations, getoneOfMyStations, deleteStation, searchStation };

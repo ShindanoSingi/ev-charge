@@ -34,6 +34,7 @@ const LoginForm = () => {
         try {
             const response = await axios.post(`${process.env.REACT_APP_BASE_URL_USERS}login`, values);
             setSubmitting(false);
+            console.log(response.data.token);
             dispatch(setToken(response.data.token));
             toast.success(response.data.message);
             navigate('/listStations');
