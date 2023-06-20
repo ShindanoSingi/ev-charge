@@ -16,7 +16,7 @@ function MenuButton() {
 
     const getAllMyFavoriteStations = async () => {
         try {
-            const response = await getFavoritesStations(token);
+            const response = await getFavoritesStations(localStorage.getItem('token'));
             dispatch(setMyFavoriteStations(response.data));
         } catch (error) {
             console.log(error);

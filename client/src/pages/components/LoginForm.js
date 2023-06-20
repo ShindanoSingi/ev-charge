@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
 import { setShowCard, setToken } from '../../redux/userSlice';
@@ -34,9 +34,8 @@ const LoginForm = () => {
         try {
             const response = await axios.post(`${process.env.REACT_APP_BASE_URL_USERS}login`, values);
             setSubmitting(false);
-            console.log(response.data.token);
-            dispatch(setToken(response.data.token));
             toast.success(response.data.message);
+            localStorage.setItem('token', response.data.token);
             navigate('/listStations');
             return {
                 success: true,

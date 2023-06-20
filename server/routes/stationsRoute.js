@@ -12,8 +12,6 @@ router.get('/get-all-stations', authMiddleware, getAllStations);
 router.get('/get-station/:id', authMiddleware, getaStation);
 // Update a station by id
 router.put('/update-station/:id', authMiddleware, updateaStation);
-// Delete a station by id
-router.delete('/delete-station/:id', authMiddleware, deleteStation);
 // Geta station
 router.get('/search/:location/:fuel', async (req, res) => {
     const { location, fuel } = req.params;

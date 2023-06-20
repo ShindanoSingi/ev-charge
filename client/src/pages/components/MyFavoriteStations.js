@@ -15,7 +15,7 @@ function MyFavoriteStations() {
     console.log(myFavoriteStations);
 
     return (
-        myFavoriteStations.length < 1 ? <LoaderPlayer /> : <div className='max-h-[73%] w-screen mt-[8.9rem] overflow-scroll '>
+        myFavoriteStations.length < 1 ? <LoaderPlayer /> : <div className='max-h-[73%] w-screen mt-[8.9rem] overflow-scroll'>
             <Station />
             {
                 myFavoriteStations?.map((station, id) => {

@@ -1,32 +1,32 @@
 import React from 'react'
 import { MdDelete } from 'react-icons/md'
-import { deleteStation } from '../../apiCalls/apiCalls';
+import { deleteStation, getFavoritesStations } from '../../apiCalls/apiCalls';
 import { toast } from 'react-hot-toast';
 import { useSelector } from 'react-redux';
+import { setMyFavoriteStations } from '../../redux/userSlice';
+
 
 function DeleteButton() {
 
     const { myStationId, token } = useSelector((state) => state.userReducer);
 
     console.log(myStationId);
-    console.log(token);
+    const myToken = localStorage.getItem('token');
+    console.log(myToken);
 
     const deleteFavStation = async () => {
         try {
-            const response = await fetch(`http://localhost:4000/api/stations/my-station/${myStationId}`, {
-                method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${token}`,
-                },
-            });
-            if (response.ok) {
-                toast.success('Station deleted from favorites');
-            } else {
-                toast.error('Something went wrong');
-            }
+            const response = await deleteStation(myStationId, token);
+            console.log(response);
+            toast.success('Station deleted from favorites');
+
+            // const response2 = await getFavoritesStations(token);
+            // setMyFavoriteStations(response2.data);
+            // console.log(response2);
+
         } catch (error) {
-            console.error(error);
+            console.log(error);
+            toast.error('Error deleting station');
         }
     };
 

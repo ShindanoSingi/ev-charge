@@ -14,13 +14,6 @@ const createStastion = asyncHandler(async (req, res) => {
     const station = await Station.findOne({ station_name: req.body.station_name });
 
     try {
-        if (station) {
-            return res.status(400).send({
-                success: false,
-                message: 'Station already exists',
-            });
-        }
-
         const newStation = await Station.create(req.body);
         await User.findByIdAndUpdate(user._id, { $push: { stations: newStation._id } }, { new: true });
 
@@ -224,19 +217,6 @@ const deleteStation = asyncHandler(async (req, res) => {
         });
     }
 });
-
-// const deleteOneOfMyStation = asyncHandler(async (req, res) => {
-//     const { _id } = req.user;
-//     const id = req.params.id;
-//     const user = await User.findById(_id);
-
-//     const deleteMyStation = await User.findByIdAndUpdate(_id, { $pull: { stations: req.params.id } }, { new: true });
-//     res.send({
-//         success: true,
-//         message: 'Station retrieved successfully',
-//         data: deleteMyStation,
-//     });
-// });
 
 const searchStation = asyncHandler(async (req, res) => {
     const { stationName, city, zip } = req.query;

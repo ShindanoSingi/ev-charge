@@ -33,18 +33,19 @@ function Station() {
         }
     };
 
-    const addFavStation = async (apiStation, token) => {
-        const response = await addStation(apiStation, token);
+    const addFavStation = async (apiStation) => {
+        const response = await addStation(apiStation, localStorage.getItem('token'));
         if (response) {
             console.log(response);
             toast.success('Station added to favorites');
         } else {
-            toast.error('Station already added to favorites');
+            toast.error('Station not added');
         }
     };
 
     useEffect(() => {
         getGeolocation();
+        console.log(apiStation)
     }, []);
 
     return (
