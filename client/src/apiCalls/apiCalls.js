@@ -1,7 +1,7 @@
 import axios from "axios";
 
-const baseUrl_users = "http://localhost:4000/api/users/";
-const baseUrl_stations = "http://localhost:4000/api/stations/";
+const baseUrl_users = "https://bembe-charge.onrender.com/api/users/";
+const baseUrl_stations = "https://bembe-charge.onrender.com/api/stations/";
 
 
 // Add my station
