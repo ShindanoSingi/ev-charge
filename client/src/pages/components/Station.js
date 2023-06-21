@@ -33,6 +33,7 @@ function Station() {
         }
     };
 
+    // Add a new to favorites
     const addFavStation = async (apiStations) => {
         try {
             const res = await addStation(apiStations);
@@ -46,7 +47,6 @@ function Station() {
 
     useEffect(() => {
         getGeolocation();
-        console.log(apiStation)
     }, []);
 
     return (

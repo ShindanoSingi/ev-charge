@@ -56,6 +56,7 @@ function MenuButton() {
                     <div>
                         <Link to='/favoriteStations'>
                             <p
+                                id='account'
                                 className='bg-gray-200 px-2 w-full hover:bg-black hover:text-white border-b-2 border-gray-400'
                                 onClick={() => {
                                     handleClose();

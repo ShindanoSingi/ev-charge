@@ -11,17 +11,27 @@ const createStastion = asyncHandler(async (req, res) => {
     const { username } = req.user;
     const user = await User.findOne({ username });
 
-    const station = await Station.findOne({ station_name: req.body.station_name });
+    const stationExists = user.stations.find(s => s.station_name === req.body.station_name);
+    console.log(stationExists);
 
     try {
-        const newStation = await Station.create(req.body);
-        await User.findByIdAndUpdate(user._id, { $push: { stations: newStation._id } }, { new: true });
 
-        res.send({
-            success: true,
-            message: 'Station created successfully',
-            data: newStation,
-        })
+        if (stationExists) {
+            return res.send({
+                success: false,
+                message: 'Station already exists',
+            });
+        }
+        if (!stationExists) {
+            const newStation = await Station.create(req.body);
+            await User.findByIdAndUpdate(user._id, { $push: { stations: newStation._id } }, { new: true });
+
+            res.send({
+                success: true,
+                message: 'Station created successfully',
+                data: newStation,
+            })
+        }
     } catch (error) {
         res.send({
             success: false,
@@ -29,13 +39,16 @@ const createStastion = asyncHandler(async (req, res) => {
             error: error.message,
         });
     }
+
 });
 
 const getAllStations = asyncHandler(async (req, res) => {
     const { username } = req.user;
     const user = await User.findOne({ username }).populate('stations');
+    console.log(user.stations);
     try {
         const stations = user.stations;
+        console.log(stations);
         res.send({
             success: true,
             message: 'Stations retrieved successfully',
@@ -161,7 +174,8 @@ const deleteaStation = asyncHandler(async (req, res) => {
 
 const getMyStations = asyncHandler(async (req, res) => {
     const { _id } = req.user;
-    const user = await User.findById(_id);
+
+
     res.send({
         success: true,
         message: 'Stations retrieved successfully',

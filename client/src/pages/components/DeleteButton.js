@@ -4,12 +4,17 @@ import { deleteStation, getFavoritesStations } from '../../apiCalls/apiCalls';
 import { toast } from 'react-hot-toast';
 import { useDispatch, useSelector } from 'react-redux';
 import { setMyFavoriteStations, setMyFavoriteStationsLength } from '../../redux/userSlice';
+import { useNavigate } from 'react-router-dom';
 
 
 function DeleteButton() {
 
     const { myStationId } = useSelector((state) => state.userReducer);
     const dispatch = useDispatch();
+
+    const handleClick = () => {
+        document.getElementById('account').click();
+    };
 
     console.log(myStationId);
     const myToken = localStorage.getItem('token');
@@ -36,6 +41,7 @@ function DeleteButton() {
         <MdDelete
             onClick={() => {
                 deleteFavStation();
+                handleClick();
             }}
             className='hover:text-red text-3xl  text-gray-400'
         />

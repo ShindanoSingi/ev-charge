@@ -23,12 +23,6 @@ function MyFavoriteStations() {
         }
     };
 
-    console.log(myFavoriteStations.length);
-
-    React.useEffect(() => {
-        getMyFavoriteStations(localStorage.getItem('token'));
-    }, [myFavoriteStations.length]);
-
     return (
         myFavoriteStations < 1 ? <LoaderPlayer /> : <div className='max-h-[73%] w-screen mt-[8.9rem] overflow-scroll'>
             <Station />
