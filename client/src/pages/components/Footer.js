@@ -10,8 +10,9 @@ function Footer() {
             <Link to='/'>
                 < AiFillHome className='text-gray-400 text-[1.9rem]' />
             </Link>
-
-            < BsFillBookmarkDashFill className='text-gray-400 text-[1.5rem]' />
+            <Link to='/favoriteStations'>
+                < BsFillBookmarkDashFill className='text-gray-400 text-[1.5rem]' />
+            </Link>
             <Link to='/user'>
                 < FaUserCircle className='text-gray-400 text-[1.8rem]' />
             </Link>

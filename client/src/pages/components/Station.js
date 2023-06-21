@@ -23,6 +23,8 @@ function Station() {
                 `https://nominatim.openstreetmap.org/reverse?format=json&lat=${userPosition?.coords.latitude}&lon=${userPosition?.coords.longitude}`
             );
 
+            console.log(response.data.address);
+
             if (response.data.address) {
                 const { city, state } = response.data.address;
                 dispatch(setMyCity(city));
@@ -62,7 +64,9 @@ function Station() {
                         <p className='text-sm overflow-ellipsis w-full font-light line-clamp-1 '>{apiStation.street_address},{apiStation.city} {apiStation.state} {apiStation.zip}</p>
                     </div>
                     <div className='w-11 h-11 rounded-full bg-green p-2 flex items-center justify-center'>
-                        <a href={`https://www.google.com/maps/dir/${userPosition.lat},${userPosition.lng}/${apiStation.latitude},${apiStation.longitude}`} rel="noreferrer" ><FaLocationArrow className='h-6 w-6 text-white' /></a>
+                        <a href={`https://www.google.com/maps/dir/${userPosition.lat},${userPosition.lng}/${apiStation.latitude},${apiStation.longitude}`} rel="noreferrer" ><FaLocationArrow
+                            onClick={getGeolocation}
+                            className='h-6 w-6 text-white' /></a>
                     </div>
                 </div>
                 <div className='flex items-center gap-4 flex-wrap'>

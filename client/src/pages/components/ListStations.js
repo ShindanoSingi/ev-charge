@@ -12,11 +12,13 @@ import LoaderPlayer from '../../components/LoaderPlayer';
 
 
 function ListStations({ getApiStation }) {
-    const { allStations, allMyStations, inputValue, selectedOption, userPosition, showCard } = useSelector((state) => state.userReducer);
+    const { allStations } = useSelector((state) => state.userReducer);
     const dispatch = useDispatch();
 
     // const earthRaduisK = 6371; // Radius of the earth in km
     const earthRaduisM = 3959; // Radius of the earth in miles
+
+    console.log(allStations);
 
     return (
         !allStations.station_locator_url ? <div className='h-[100%] child w-screen'><LoaderPlayer /></div> :

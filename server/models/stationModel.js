@@ -37,6 +37,12 @@ const stationSchema = new mongoose.Schema({
     station_phone: {
         type: String,
     },
+    latitude: {
+        type: Number,
+    },
+    longitude: {
+        type: Number,
+    },
 });
 
 const Station = mongoose.model('Station', stationSchema);
