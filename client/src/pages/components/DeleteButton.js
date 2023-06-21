@@ -11,8 +11,10 @@ function DeleteButton() {
 
     const { myStationId } = useSelector((state) => state.userReducer);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const handleClick = () => {
+        document.getElementById('account').click();
         document.getElementById('account').click();
     };
 

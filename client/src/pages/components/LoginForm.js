@@ -5,7 +5,7 @@ import { setShowCard, setToken } from '../../redux/userSlice';
 import * as Yup from 'yup';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 
 const onSubmit = values => {
@@ -17,6 +17,7 @@ const onSubmit = values => {
 
 const LoginForm = () => {
     const navigate = useNavigate();
+    const { token } = useSelector((state) => state.userReducer);
 
     const dispatch = useDispatch();
 
@@ -36,9 +37,11 @@ const LoginForm = () => {
             setSubmitting(false);
             toast.success(response.data.message);
             localStorage.setItem('token', response.data.token);
+            dispatch(setToken(response.data.token));
             navigate('/listStations');
             return {
                 success: true,
+                user: response.data.user,
                 data: response.data,
             }
 
@@ -58,12 +61,12 @@ const LoginForm = () => {
         }
     }, [dispatch]);
 
-    if (localStorage.getItem('token')) {
-        navigate('/listStations');
-    }
-    if (!localStorage.getItem('token')) {
-        navigate('/signin');
-    }
+    // if (localStorage.getItem('token')) {
+    //     navigate('/listStations');
+    // }
+    // if (!localStorage.getItem('token')) {
+    //     navigate('/signin');
+    // }
 
     return (
         <div className='absolute grid top-[30%] w-full p-6'>
@@ -97,6 +100,9 @@ const LoginForm = () => {
                     <div className='bg-gray-400 mt-2 p-1 text-center text-gray-800 text-xl rounded-xl'>
                         <button onClick={onSubmit} type="submit">Submit</button>
                     </div>
+                    <Link to='/listStations'>
+                        <p className='text-center' onClick={onSubmit} type="submit">Cancel</p>
+                    </Link>
                 </Form>
             </Formik>
         </div>

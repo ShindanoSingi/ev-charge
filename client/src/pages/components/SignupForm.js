@@ -5,7 +5,7 @@ import { setShowCard } from '../../redux/userSlice';
 import * as Yup from 'yup';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 
 const onSubmit = values => {
@@ -86,6 +86,11 @@ const SignupForm = () => {
                     <div className='bg-gray-400 mt-2 p-1 text-center text-gray-800 text-xl rounded-xl'>
                         <button onClick={onSubmit} type="submit">Submit</button>
                     </div>
+                    <Link to='/signin'>
+                        <p className='text-center' onClick={onSubmit} type="submit">Already signed up?
+                            <span> Sign In</span>
+                        </p>
+                    </Link>
                 </Form>
             </Formik>
         </div>

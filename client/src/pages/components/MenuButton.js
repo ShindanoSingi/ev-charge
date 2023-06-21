@@ -31,6 +31,20 @@ function MenuButton() {
         setAnchorEl(event.currentTarget);
     };
 
+    const handleClickLogout = () => {
+        document.getElementById('account').click();
+        document.getElementById('account').click();
+    };
+
+    const handleLogout = async () => {
+        try {
+            localStorage.removeItem('token');
+            handleClose();
+        } catch (error) {
+            return error;
+        }
+    };
+
     useEffect(() => {
         getAllMyFavoriteStations();
     }, []);
@@ -68,10 +82,14 @@ function MenuButton() {
                         <Link to='/signup'>
                             <p className='bg-gray-200 hover:bg-black hover:text-white px-2 w-full border-b-2 border-gray-400' onClick={handleClose}>Sign Up</p>
                         </Link>
-                        <Link to='/login'>
+                        <Link to='/signin'>
                             <p className='bg-gray-200 hover:bg-black hover:text-white px-2 w-full border-b-2 border-gray-400' onClick={handleClose}>Sign In</p>
                         </Link>
-                        <p className='bg-gray-200 hover:bg-black hover:text-white px-2 w-full ' onClick={handleClose}>Sign Out</p>
+                        <p className='bg-gray-200 hover:bg-black hover:text-white px-2 w-full ' onClick={() => {
+                            handleLogout();
+                            handleClose();
+                            handleClickLogout();
+                        }}>Sign Out</p>
                     </div>
                 </Menu>
             </div>

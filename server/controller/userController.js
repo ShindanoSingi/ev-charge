@@ -67,6 +67,7 @@ const loginUser = asyncHandler(async (req, res) => {
         return res.send({
             success: true,
             message: 'User logged in successfully',
+            user: user.username,
             token: token
         });
     } catch (error) {
