@@ -11,6 +11,8 @@ export const addStation = async (station) => {
         street_address: station.street_address,
         city: station.city,
         state: station.state,
+        latitude: station.latitude,
+        longitude: station.longitude,
         zip: station.zip,
         country: station.country,
         access_code: station.access_code,

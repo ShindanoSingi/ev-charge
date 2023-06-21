@@ -6,7 +6,7 @@ import { MdFavorite } from 'react-icons/md'
 import { FaLocationArrow } from 'react-icons/fa';
 import { FiPhoneCall } from 'react-icons/fi';
 import { addStation, distance } from '../../apiCalls/apiCalls';
-import { setMyCity, setMyState } from '../../redux/userSlice';
+import { setMyCity, setMyState, setUserPosition } from '../../redux/userSlice';
 import { setShowCard } from '../../redux/userSlice';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
@@ -16,6 +16,21 @@ import DeleteButton from './DeleteButton';
 function Station() {
     const { apiStation, userPosition, showCard } = useSelector((state) => state.userReducer);
     const dispatch = useDispatch();
+
+    const componentDidMount = () => {
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                dispatch(setUserPosition({
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude
+                }));
+            },
+
+            (error) => {
+                return error;
+            }
+        );
+    }
 
     const getGeolocation = async () => {
         try {
@@ -34,6 +49,8 @@ function Station() {
             console.error(error);
         }
     };
+
+    console.log(apiStation);
 
     // Add a new to favorites
     const addFavStation = async (apiStations) => {
@@ -65,7 +82,10 @@ function Station() {
                     </div>
                     <div className='w-11 h-11 rounded-full bg-green p-2 flex items-center justify-center'>
                         <a href={`https://www.google.com/maps/dir/${userPosition.lat},${userPosition.lng}/${apiStation.latitude},${apiStation.longitude}`} rel="noreferrer" ><FaLocationArrow
-                            onClick={getGeolocation}
+                            onClick={() => {
+                                componentDidMount();
+                                getGeolocation();
+                            }}
                             className='h-6 w-6 text-white' /></a>
                     </div>
                 </div>
@@ -107,7 +127,7 @@ function Station() {
                         </div>
                     }
                     {
-                        distance(userPosition?.lat, userPosition?.lng, apiStation?.latitude, apiStation?.longitude, 3959) > 0 ? <div className='items-center gap-2'>
+                        apiStation?.ev_connector_types ? <div className='items-center gap-2'>
                             <MdFavorite
                                 onClick={() => {
                                     addFavStation(apiStation);
