@@ -12,10 +12,8 @@ const createStastion = asyncHandler(async (req, res) => {
     const user = await User.findOne({ username });
 
     const stationExists = user.stations.find(s => s.station_name === req.body.station_name);
-    console.log(stationExists);
 
     try {
-
         if (stationExists) {
             return res.send({
                 success: false,
@@ -45,10 +43,8 @@ const createStastion = asyncHandler(async (req, res) => {
 const getAllStations = asyncHandler(async (req, res) => {
     const { username } = req.user;
     const user = await User.findOne({ username }).populate('stations');
-    console.log(user.stations);
     try {
         const stations = user.stations;
-        console.log(stations);
         res.send({
             success: true,
             message: 'Stations retrieved successfully',

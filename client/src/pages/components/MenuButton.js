@@ -19,7 +19,7 @@ function MenuButton() {
             const response = await getFavoritesStations(localStorage.getItem('token'));
             dispatch(setMyFavoriteStations(response.data));
         } catch (error) {
-            console.log(error);
+            return error;
         }
     };
 

@@ -16,24 +16,14 @@ function DeleteButton() {
         document.getElementById('account').click();
     };
 
-    console.log(myStationId);
     const myToken = localStorage.getItem('token');
-    console.log(myToken);
 
     const deleteFavStation = async () => {
         try {
             const response = await deleteStation(myStationId, myToken);
             toast.success('Station deleted from favorites');
-            console.log(response);
-
-            // const response2 = await getFavoritesStations(localStorage.getItem('token'));
-            // setMyFavoriteStations(response2.data);
-            // dispatch(setMyFavoriteStationsLength(response2.data.length));
-            // console.log(response2);
-
         } catch (error) {
             toast.error('Error deleting station');
-            console.log(error);
         }
     };
 

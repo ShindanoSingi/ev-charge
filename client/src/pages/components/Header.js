@@ -103,7 +103,9 @@ function Header() {
                 }));
             },
 
-            (error) => console.log(error.message)
+            (error) => {
+                return error;
+            }
         );
     }
 

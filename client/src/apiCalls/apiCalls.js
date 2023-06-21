@@ -30,11 +30,9 @@ export const addStation = async (station) => {
 
         })
             .then((response) => {
-                console.log(response.data);
                 return response.data;
             })
     } catch (error) {
-        console.log(error.response.data);
         return error.response.data;
     };
 };
@@ -48,11 +46,9 @@ export const deleteStation = async (stationId, token) => {
         },
     })
         .then((response) => {
-            console.log(response.data);
             return response;
         })
         .catch((error) => {
-            console.log(error);
             return error.response;
         });
 };

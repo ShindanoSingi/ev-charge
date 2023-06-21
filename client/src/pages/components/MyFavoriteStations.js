@@ -5,23 +5,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import LoaderPlayer from '../../components/LoaderPlayer';
 import Station from './Station';
-import { setApiStation, setShowCard, setMyStationId, setMyFavoriteStations } from '../../redux/userSlice';
-import { getFavoritesStations } from '../../apiCalls/apiCalls';
-
+import { setApiStation, setShowCard, setMyStationId } from '../../redux/userSlice';
 
 function MyFavoriteStations() {
-    const { myFavoriteStations, myFavoriteStationsLength } = useSelector((state) => state.userReducer);
+    const { myFavoriteStations } = useSelector((state) => state.userReducer);
     const dispatch = useDispatch();
-
-    const getMyFavoriteStations = async (token) => {
-        try {
-            const response = await getFavoritesStations(token);
-            console.log(response);
-
-        } catch (error) {
-            console.log(error);
-        }
-    };
 
     return (
         myFavoriteStations < 1 ? <LoaderPlayer /> : <div className='max-h-[73%] w-screen mt-[8.9rem] overflow-scroll'>

@@ -37,7 +37,6 @@ function Station() {
     const addFavStation = async (apiStations) => {
         try {
             const res = await addStation(apiStations);
-            console.log(res);
             toast.success('Station added to favorites');
 
         } catch (error) {

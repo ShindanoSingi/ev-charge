@@ -20,7 +20,9 @@ function Map() {
                 }));
             },
 
-            (error) => console.log(error.message)
+            (error) => {
+                return error;
+            }
         );
     }
 
