@@ -24,6 +24,16 @@ const server = require('http').createServer(app);
 app.use('/api/users', usersRoute);
 app.use('/api/stations', stationsRoute);
 
+// Render deployment
+const path = require('path');
+__dirname = path.resolve();
+if (process.env.NODE_ENV === 'production') {
+    app.use(express.static(path.join(__dirname, '/client/build')));
+    app.get('*', (req, res) => {
+        res.sendFile(path.join(__dirname, "client", "build", "index.html"));
+    });
+}
+
 server.listen(port, () =>
     console.log(`Server started on port ${port}`)
 );
