@@ -113,3 +113,17 @@ li{
     transform: translate(98px, 15px);
   }
 }
+
+::-webkit-scrollbar {
+  width: 0px; /* Adjust the width as needed */
+}
+
+/* Hide the scrollbar thumb */
+::-webkit-scrollbar-thumb {
+  background-color: transparent;
+}
+
+/* Hide the scrollbar corner */
+::-webkit-scrollbar-corner {
+  background-color: transparent;
+}
