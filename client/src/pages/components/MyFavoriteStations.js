@@ -13,7 +13,7 @@ function MyFavoriteStations() {
     const dispatch = useDispatch();
 
     return (
-        !myFavoriteStations ? <CircularIndeterminate /> : <div className='max-h-[73%] w-screen mt-[8.9rem] overflow-scroll'>
+        !myFavoriteStations ? <CircularIndeterminate /> : <div className='h-screen max-h-[73%] w-screen mt-[8.9rem] overflow-scroll'>
             <Station />
             {
                 myFavoriteStations?.map((station, id) => {

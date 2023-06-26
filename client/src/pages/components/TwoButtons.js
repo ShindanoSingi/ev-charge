@@ -5,14 +5,14 @@ import { IoMapSharp } from 'react-icons/io5';
 
 function TwoButtons() {
     return (
-        <div className='flex gap-4 fixed top-[83%] left-[65%] z-50'>
+        <div className='flex gap-4 fixed top-[83%] right-4 z-50'>
             <Link to='/map'>
-                <div className='bg-green rounded-full h-11 w-11  p-2 items-center flex'>
+                <div className='bg-green rounded-full h-11 w-11 md:h-14 md:w-14 p-2 grid place-content-center'>
                     <IoMapSharp className='text-white text-3xl ' />
                 </div>
             </Link>
             <Link to='/listStations'>
-                <div className='bg-green rounded-full h-11 w-11  p-2 items-center flex'>
+                <div className='bg-green rounded-full h-11 w-11 md:h-14 md:w-14 p-2 grid place-content-center'>
                     <FaRoute className='text-white text-3xl ' />
                 </div>
             </Link>

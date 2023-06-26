@@ -59,49 +59,43 @@ const LoginForm = () => {
         if (localStorage.getItem('token')) {
             dispatch(setToken(localStorage.getItem('token')));
         }
-    }, [dispatch]);
 
-    // if (localStorage.getItem('token')) {
-    //     navigate('/listStations');
-    // }
-    // if (!localStorage.getItem('token')) {
-    //     navigate('/signin');
-    // }
+    }, []);
 
     return (
-        <div className='absolute grid top-[30%] w-full p-6'>
-            <h1 className=' text-gray-400 text-2xl text-center mb-2'>Signin Form</h1>
+        <div className='center absolute grid top-[30%] w-full md:max-w-[50%] p-6'>
+            <h1 className=' text-gray-400 text-2xl md:text-4xl text-center mb-2'>Signin Form</h1>
             <Formik
                 initialValues={initialValues}
                 validationSchema={validationSchema}
                 onSubmit={handleSubmit}
             >
-                <Form className='flex flex-col gap-3 text-gray-400'>
+                <Form className='flex md:text-2xl flex-col gap-3 text-gray-400'>
                     <div className='flex flex-col gap-0'>
-                        <label className='text-lg' htmlFor="username">Username</label>
+                        <label className='text-lg md:text-2xl' htmlFor="username">Username</label>
                         <Field
                             id="username"
                             name="username"
                             type="text"
-                            className='px-3 py-2 rounded-t-xl'
+                            className='px-3 py-2 rounded-t-xl md:text-2xl'
                         />
                         <ErrorMessage name='username' />
                     </div>
-                    <div className='flex flex-col gap-0 text-gray-400'>
-                        <label className='text-lg' htmlFor="password">Password</label>
+                    <div className='flex flex-col gap-0 text-gray-400 md:text-2xl'>
+                        <label className='text-lg md:text-2xl' htmlFor="password">Password</label>
                         <Field
                             id="password"
                             name="password"
                             type="password"
-                            className='px-3 py-2 rounded-b-xl'
+                            className='px-3 py-2 md:text-2xl rounded-b-xl'
                         />
                         <ErrorMessage name='password' />
                     </div>
-                    <div className='bg-gray-400 mt-2 p-1 text-center text-gray-800 text-xl rounded-xl'>
-                        <button onClick={onSubmit} type="submit">Submit</button>
+                    <div className='bg-gray-400 mt-2 md:p-2 p-1 text-center text-gray-800 text-xl rounded-xl'>
+                        <button className='md:text-2xl' onClick={onSubmit} type="submit">Submit</button>
                     </div>
                     <Link to='/listStations'>
-                        <p className='text-center' onClick={onSubmit} type="submit">Cancel</p>
+                        <p className='text-center md:text-2xl' onClick={onSubmit} type="submit">Cancel</p>
                     </Link>
                 </Form>
             </Formik>

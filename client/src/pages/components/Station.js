@@ -68,7 +68,7 @@ function Station() {
     }, []);
 
     return (
-        showCard && <div className='bg-[#181A20] border-white border-solid  border absolute z-50 top-[50%] right-4 rounded-lg left-4 translate-y-[-50%]'
+        showCard && <div className='bg-[#181A20] center border-white border-solid md:max-w-[40rem] border absolute z-50 top-[50%] right-4 rounded-lg left-4 translate-y-[-50%]'
             onClick={() => {
                 dispatch(setShowCard(false))
             }}>

@@ -40,7 +40,7 @@ function Map() {
 
     return (
         !allStations.station_locator_url ? <div className='h-[100%]'><LoaderPlayer /></div> :
-            <div style={{ height: '74vh', width: '100vw', marginTop: "8rem" }}>
+            <div className='h-[95%] w-full'>
                 <Station />
                 {
                     <LoaderPlayer /> && <GoogleMapReact

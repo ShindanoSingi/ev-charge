@@ -116,7 +116,7 @@ function Header() {
     return (
         <div className='flex p-2 gap-1 fixed z-10 w-full top-0 flex-col h-[9rem]  bg-[#262A34]'>
             <div className='flex justify-between items-center'>
-                <div className='flex items-center gap-0 border rounded-lg border-gray-400'>
+                <div className='flex items-center gap-0 border rounded-lg border-gray-400 md:w-full'>
                     <div className='px-3 gap-2 py-1 w-full search-input flex items-center rounded-lg z-50 '>
                         <div className=''>
                             <BsSearch onClick={handleSubmit} className='text-gray-400 text-xl' />

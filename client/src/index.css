@@ -38,41 +38,12 @@ li{
   list-style: none;
 }
 
-
-
-
-/* .container{
-  display: flex;
-  flex-direction: column;
-
+.center{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
-
-.element{
-  padding: 5px;
-
-}
-
-.start{
-  margin-bottom: auto;
-}
-
-
-
-.end{
-  margin-top: auto;
-} */
-
-
-
-
-/* .card{
-  display: flex;
-}
-
-.card:last-child {
-  justify-content: end;
-} */
-
 
 .paddle, .player_two, .player_one {
   height: 40px;
@@ -82,12 +53,12 @@ li{
 }
 
 .player_one {
-  left: -180px;
+  left: -100px;
   animation: movePaddleOne 4s infinite;
 }
 
 .player_two {
-  left: 20px;
+  left: 100px;
   animation: movePaddleTwo 4s infinite;
 }
 
@@ -130,15 +101,15 @@ li{
 }
 @keyframes moveBall {
   0%, 100% {
-    transform: translate(-180px, 30px);
+    transform: translate(-100px, 30px);
   }
   25% {
-    transform: translate(18px, -25px);
+    transform: translate(98px, -25px);
   }
   50% {
-    transform: translate(-180px, -55px);
+    transform: translate(-100px, -55px);
   }
   75% {
-    transform: translate(18px, 15px);
+    transform: translate(98px, 15px);
   }
 }

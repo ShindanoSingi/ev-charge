@@ -1,4 +1,3 @@
-import Loader from './components/Loader';
 import ListStations from './pages/components/ListStations';
 import Footer from './pages/components/Footer';
 import Header from './pages/components/Header';
@@ -8,7 +7,6 @@ import UserPage from './pages/components/UserPage';
 import { Toaster } from 'react-hot-toast';
 import { useState } from 'react';
 import TwoButtons from './pages/components/TwoButtons';
-import LoaderPlayer from './components/LoaderPlayer';
 import { useSelector } from 'react-redux';
 import SignupForm from './pages/components/SignupForm';
 import LoginForm from './pages/components/LoginForm';
