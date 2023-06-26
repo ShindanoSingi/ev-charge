@@ -17,6 +17,7 @@
     "dotenv": "^16.0.3",
     "express-async-handler": "^1.2.0",
     "formik": "^2.4.1",
+    "google-map-react": "^2.2.1",
     "install": "^0.13.0",
     "leaflet": "^1.9.4",
     "mapbox-gl": "^1.13.3",

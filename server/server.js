@@ -11,6 +11,8 @@ const stationsRoute = require('./routes/stationsRoute');
 
 app.use(express.json());
 
+
+
 // set the Access-Control-Allow-Origin header
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
@@ -18,6 +20,8 @@ app.use((req, res, next) => {
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
     next();
 });
+
+app.use(cors());
 
 const server = require('http').createServer(app);
 
