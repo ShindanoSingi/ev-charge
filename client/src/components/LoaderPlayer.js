@@ -5,7 +5,7 @@ function LoaderPlayer() {
         <div className='center flex flex-col gap-[1rem] justify-center items-center'>
             <div className='text-lg text-center w-screen md:text-2xl text-gray-400'>Please search for an EV station</div>
             <div className=''>
-                <div className="player_one"></div>
+                <div className="player_one text-gray-800"></div>
                 <div className="player_two"></div>
                 <div className="ball"></div>
             </div>

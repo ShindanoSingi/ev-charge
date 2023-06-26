@@ -48,7 +48,8 @@ li{
 .paddle, .player_two, .player_one {
   height: 40px;
   width: 3px;
-  background-color: white;
+  color: #ffffff;
+  background-color: #ffffff;
   position: relative;
 }
 
