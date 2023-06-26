@@ -6,6 +6,7 @@ import * as Yup from 'yup';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
 import { Link, useNavigate } from 'react-router-dom';
+import { AiOutlineCheck } from 'react-icons/ai';
 
 
 const onSubmit = values => {
@@ -29,11 +30,16 @@ const SignupForm = () => {
         password: Yup.string().min(6, 'Password must be at least 6 characters long!').required('Password is required!'),
     });
 
+    const wait = (timeout) => {
+        timeout = timeout || 2000;
+    };
+
     const handleSubmit = async (values, { setSubmitting }) => {
         try {
             const response = await axios.post(`${process.env.REACT_APP_BASE_URL_USERS}register`, values);
             // setSubmitting(false);
             toast.success(response.data.message);
+
             navigate('/login');
 
             return {
@@ -83,8 +89,11 @@ const SignupForm = () => {
                         />
                         <ErrorMessage name='password' />
                     </div>
-                    <div className='bg-gray-400 mt-2 p-1 text-center text-gray-800 text-xl rounded-xl'>
-                        <button onClick={onSubmit} type="submit">Submit</button>
+                    <div onClick={onSubmit} className='bg-gray-400 hover:bg-orange-400 flex justify-center items-center mt-2 p-1 text-center text-gray-800 text-xl rounded-xl'>
+                        {
+                            localStorage.getItem('token') && <AiOutlineCheck className='text-green-400' />
+                        }
+                        <button type="submit">Submit</button>
                     </div>
                     <Link to='/signin'>
                         <p className='text-center' onClick={onSubmit} type="submit">Already signed up?
