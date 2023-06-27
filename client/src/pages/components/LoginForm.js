@@ -104,11 +104,11 @@ const LoginForm = () => {
                     <div onClick={() => {
                         setTimeOut();
                     }}
-                        className={`bg-gray-400 hover:bg-[#DAA520] flex items-center mt-2 md:py-2 md:px-4 py-1 px-4 text-center text-gray-800 text-xl rounded-xl ${token ? 'justify-between' : 'justify-center'}`
+                        className={`bg-gray-400 hover:bg-green flex items-center mt-2 md:py-2 md:px-4 py-1 px-4 text-center text-gray-800 text-xl rounded-xl ${token ? 'justify-between' : 'justify-center'}`
                         }>
                         <button className='md:text-2xl' onClick={onSubmit} type="submit">Submit</button>
                         {
-                            token ? <AiOutlineCheck className='text-[#32CD32] text-3xl' /> : ""
+                            token ? <AiOutlineCheck className='text-green text-3xl' /> : ""
                         }
 
                     </div>

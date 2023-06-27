@@ -8,17 +8,17 @@ function TwoButtons() {
     return (
         <div className='flex gap-4 fixed top-[90%] right-[4rem] z-50'>
             <Link to='/'>
-                <div className='bg-green rounded-full h-11 w-11 md:h-14 md:w-14 p-2 grid place-content-center'>
+                <div className='bg-green hover:bg-[#00aA90] rounded-full h-11 w-11 md:h-14 md:w-14 p-2 grid place-content-center'>
                     <AiFillHome className='text-white text-3xl ' />
                 </div>
             </Link>
             <Link to='/map'>
-                <div className='bg-green rounded-full h-11 w-11 md:h-14 md:w-14 p-2 grid place-content-center'>
+                <div className='bg-green hover:bg-[#00aA90] rounded-full h-11 w-11 md:h-14 md:w-14 p-2 grid place-content-center'>
                     <IoMapSharp className='text-white text-3xl ' />
                 </div>
             </Link>
             <Link to='/listStations'>
-                <div className='bg-green rounded-full h-11 w-11 md:h-14 md:w-14 p-2 grid place-content-center'>
+                <div className='bg-green hover:bg-[#00aA90] rounded-full h-11 w-11 md:h-14 md:w-14 p-2 grid place-content-center'>
                     <FaRoute className='text-white text-3xl ' />
                 </div>
             </Link>
