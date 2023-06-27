@@ -123,7 +123,7 @@ function Station() {
                         apiStation.station_phone &&
                         <div className='flex gap-2'>
                             <FiPhoneCall />
-                            <a href={apiStation.station_phone} className='text-sm text-gray-400'>{apiStation.station_phone}</a>
+                            <p className='text-sm text-gray-400'>{apiStation.station_phone}</p>
                         </div>
                     }
                     {
