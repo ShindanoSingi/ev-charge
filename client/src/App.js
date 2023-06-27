@@ -42,7 +42,7 @@ const App = () => {
         <Route path='/map' element={<Map />} />
         <Route path='/user' element={<UserPage />} />
       </Routes>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 }

@@ -21,7 +21,7 @@ function ListStations({ getApiStation }) {
     console.log(allStations);
 
     return (
-        !allStations.station_locator_url ? <div className='h-[100%] child w-screen'><LoaderPlayer /></div> :
+        !allStations.station_locator_url ? <LoaderPlayer /> :
             <div className='h-[100vh] w-screen mt-[8.9rem] overflow-scroll '>
                 <Station />
                 {
