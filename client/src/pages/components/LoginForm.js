@@ -6,6 +6,7 @@ import * as Yup from 'yup';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
 import { Link, useNavigate } from 'react-router-dom';
+import { AiOutlineCheck } from 'react-icons/ai';
 
 
 const onSubmit = values => {
@@ -17,7 +18,7 @@ const onSubmit = values => {
 
 const LoginForm = () => {
     const navigate = useNavigate();
-    const { token } = useSelector((state) => state.userReducer);
+    const { token, showCard } = useSelector((state) => state.userReducer);
 
     const dispatch = useDispatch();
 
@@ -34,8 +35,8 @@ const LoginForm = () => {
     const handleSubmit = async (values, { setSubmitting }) => {
         try {
             const response = await axios.post(`${process.env.REACT_APP_BASE_URL_USERS}login`, values);
-            // setSubmitting(false);
-            toast.success(response.data.message);
+            setSubmitting(false);
+            toast.success('User Logged In Success!');
             localStorage.setItem('token', response.data.token);
             dispatch(setToken(response.data.token));
             navigate('/listStations');
@@ -55,9 +56,18 @@ const LoginForm = () => {
         }
     };
 
+    const setTimeOut = () => {
+        console.log(showCard);
+        setTimeout(() => {
+            dispatch(setShowCard(!showCard));
+        }, 1000);
+        dispatch(setShowCard(!showCard));
+    };
+
     useEffect(() => {
         if (localStorage.getItem('token')) {
             dispatch(setToken(localStorage.getItem('token')));
+            console.log(token);
         }
 
     }, []);
@@ -91,8 +101,16 @@ const LoginForm = () => {
                         />
                         <ErrorMessage name='password' />
                     </div>
-                    <div className='bg-gray-400 mt-2 md:p-2 p-1 text-center text-gray-800 text-xl rounded-xl'>
+                    <div onClick={() => {
+                        setTimeOut();
+                    }}
+                        className={`bg-gray-400 hover:bg-[#DAA520] flex items-center mt-2 md:py-2 md:px-4 py-1 px-4 text-center text-gray-800 text-xl rounded-xl ${token ? 'justify-between' : 'justify-center'}`
+                        }>
                         <button className='md:text-2xl' onClick={onSubmit} type="submit">Submit</button>
+                        {
+                            token ? <AiOutlineCheck className='text-[#32CD32] text-3xl' /> : ""
+                        }
+
                     </div>
                     <Link to='/listStations'>
                         <p className='text-center md:text-2xl' onClick={onSubmit} type="submit">Cancel</p>

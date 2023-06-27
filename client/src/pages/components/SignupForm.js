@@ -30,10 +30,6 @@ const SignupForm = () => {
         password: Yup.string().min(6, 'Password must be at least 6 characters long!').required('Password is required!'),
     });
 
-    const wait = (timeout) => {
-        timeout = timeout || 2000;
-    };
-
     const handleSubmit = async (values, { setSubmitting }) => {
         try {
             const response = await axios.post(`${process.env.REACT_APP_BASE_URL_USERS}register`, values);
