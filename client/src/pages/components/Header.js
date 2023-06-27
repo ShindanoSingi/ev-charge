@@ -133,7 +133,7 @@ function Header() {
             </div>
             <fieldset className='text-gray-400 rounded-lg border-gray-400 border w-full px-4 p-1'>
                 <legend>Select Fuel Type</legend>
-                <select className='option w-full bg-[#262A34] text-gray-400' value={selectedOption} onChange={handleOptionChange}>
+                <select className='option w-full text-gray-400' value={selectedOption} onChange={handleOptionChange}>
                     {options.map((option) => (
                         <option key={option.value} value={option.value}> {option.label}</option>
                     ))}
