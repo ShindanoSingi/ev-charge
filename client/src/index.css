@@ -13,6 +13,21 @@
   height: 0;
 }
 
+/* Styles for landscape orientation on desktop */
+@media only screen and (min-width: 1024px) and (orientation: landscape) {
+  /* Your CSS styles for landscape orientation on desktop */
+}
+
+/* Styles for landscape orientation on tablets */
+@media only screen and (min-width: 768px) and (max-width: 1023px) and (orientation: landscape) {
+  /* Your CSS styles for landscape orientation on tablets */
+}
+
+/* Styles for landscape orientation on mobile devices */
+@media only screen and (max-width: 767px) and (orientation: landscape) {
+  /* Your CSS styles for landscape orientation on mobile devices */
+}
+
 * {
   box-sizing: border-box;
   font-size: 16px;

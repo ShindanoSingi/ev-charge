@@ -23,25 +23,31 @@ const App = () => {
 
   return (
     // <div className="p-0 h-[59rem] w-screen ">
-    <div className=' h-[100vh] parent  bg-cardBlack'>
+    <div className=' h-[100vh] parent mobile-landscape:bg-green mobile-landscape:flex mobile-landscape:flex-row   bg-cardBlack'>
       {/* <div className='h-[100%]'> */}
 
       <TwoButtons />
-      <Header />
+      <div className=''>
+        <Header />
+      </div>
+
       <Toaster
         position="bottom-right"
         reverseOrder={false}
       />
-      <Routes>
-        <Route path='/' element={<ListStations getApiStation={getApiStation} />} />
-        <Route path='/userpage' element={<UserPage />} />
-        <Route path='/favoriteStations' element={<MyFavoriteStations />} />
-        <Route path='/signup' element={<SignupForm />} />
-        <Route path='/signin' element={<LoginForm />} />
-        <Route path='/listStations' element={<ListStations getApiStation={getApiStation} />} />
-        <Route path='/map' element={<Map />} />
-        <Route path='/user' element={<UserPage />} />
-      </Routes>
+      <div>
+        <Routes>
+          <Route path='/' element={<ListStations getApiStation={getApiStation} />} />
+          <Route path='/userpage' element={<UserPage />} />
+          <Route path='/favoriteStations' element={<MyFavoriteStations />} />
+          <Route path='/signup' element={<SignupForm />} />
+          <Route path='/signin' element={<LoginForm />} />
+          <Route path='/listStations' element={<ListStations getApiStation={getApiStation} />} />
+          <Route path='/map' element={<Map />} />
+          <Route path='/user' element={<UserPage />} />
+        </Routes>
+      </div>
+
       {/* <Footer /> */}
     </div>
   );

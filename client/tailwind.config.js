@@ -19,6 +19,9 @@ module.exports = {
 
       '2xl': '1536px',
       // => @media (min-width: 1536px) { ... }
+      'mobile-landscape': { 'raw': '(max-width: 767px) and (orientation: landscape)' },
+      'tablet-landscape': { 'raw': '(min-width:768px) and (orientation: landscape)' },
+      'desktop-landscape': { 'raw': '(min-width:1024px) and (orientation: landscape)' },
     },
     extend: {
       colors: {
