@@ -3,13 +3,13 @@ import Button from "@material-ui/core/Button";
 import Menu from "@material-ui/core/Menu";
 import { AiOutlineMenu } from 'react-icons/ai';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { getFavoritesStations } from '../../apiCalls/apiCalls'
 import { setMyFavoriteStations } from '../../redux/userSlice';
 
 
-
 function MenuButton() {
+    const navigate = useNavigate();
     const { token } = useSelector((state) => state.userReducer);
     const [anchorEl, setAnchorEl] = React.useState(null);
     const dispatch = useDispatch();
@@ -40,59 +40,61 @@ function MenuButton() {
         try {
             localStorage.removeItem('token');
             handleClose();
+            navigate('/');
         } catch (error) {
             return error;
         }
     };
 
+    console.log(token);
+
     useEffect(() => {
         getAllMyFavoriteStations();
+        handleLogout();
     }, []);
 
     return (
-        <div className=''>
-            <div className='left-[20%]'>
-                <Button
-                    className='bg-[#262A34]'
-                    aria-controls="simple-menu"
-                    aria-haspopup="true"
-                    onClick={handleClick}
-                >
-                    <AiOutlineMenu className='text-gray-400 text-5xl font-thin' />
-                </Button>
-                <Menu
-                    className='mt-[3rem] ml-[0.7rem]'
-                    keepMounted
-                    anchorEl={anchorEl}
-                    onClose={handleClose}
-                    open={Boolean(anchorEl)}
-                >
-                    <div>
-                        <Link to='/favoriteStations'>
-                            <p
-                                id='account'
-                                className='bg-gray-200 px-2 w-full hover:bg-black hover:text-white border-b-2 border-gray-400'
-                                onClick={() => {
-                                    handleClose();
-                                    getAllMyFavoriteStations();
-                                }}
-                            >My Account</p>
-                        </Link>
+        <div className='left-[20%]'>
+            <Button
+                className='bg-[#262A34]'
+                aria-controls="simple-menu"
+                aria-haspopup="true"
+                onClick={handleClick}
+            >
+                <AiOutlineMenu className='text-gray-400 text-5xl font-thin' />
+            </Button>
+            <Menu
+                className='mt-[3rem] ml-[0.7rem]'
+                keepMounted
+                anchorEl={anchorEl}
+                onClose={handleClose}
+                open={Boolean(anchorEl)}
+            >
+                <div className='p-1 flex flex-col gap-2 w-full'>
+                    <Link to='/favoriteStations'>
+                        <p
+                            id='account'
+                            className='bg-gray-200 px-2 w-full hover:bg-black hover:text-white border-b-2 border-gray-400'
+                            onClick={() => {
+                                handleClose();
+                                getAllMyFavoriteStations();
+                            }}
+                        >My Account</p>
+                    </Link>
 
-                        <Link to='/signup'>
-                            <p className='bg-gray-200 hover:bg-black hover:text-white px-2 w-full border-b-2 border-gray-400' onClick={handleClose}>Sign Up</p>
-                        </Link>
-                        <Link to='/signin'>
-                            <p className='bg-gray-200 hover:bg-black hover:text-white px-2 w-full border-b-2 border-gray-400' onClick={handleClose}>Sign In</p>
-                        </Link>
-                        <p className='bg-gray-200 hover:bg-black hover:text-white px-2 w-full ' onClick={() => {
-                            handleLogout();
-                            handleClose();
-                            handleClickLogout();
-                        }}>Sign Out</p>
-                    </div>
-                </Menu>
-            </div>
+                    <Link to='/signup'>
+                        <p className='bg-gray-200 hover:bg-black hover:text-white px-2 w-full border-b-2 border-gray-400' onClick={handleClose}>Sign Up</p>
+                    </Link>
+                    <Link to='/signin'>
+                        <p className='bg-gray-200 hover:bg-black hover:text-white px-2 w-full border-b-2 border-gray-400' onClick={handleClose}>Sign In</p>
+                    </Link>
+                    <p className='bg-gray-200 hover:bg-black hover:text-white px-2 w-full ' onClick={() => {
+                        handleLogout();
+                        handleClose();
+                        handleClickLogout();
+                    }}>Sign Out</p>
+                </div>
+            </Menu>
         </div>
     );
 }

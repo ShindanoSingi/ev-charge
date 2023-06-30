@@ -22,6 +22,9 @@ module.exports = {
       'mobile-landscape': { 'raw': '(max-width: 767px) and (orientation: landscape)' },
       'tablet-landscape': { 'raw': '(min-width:768px) and (orientation: landscape)' },
       'desktop-landscape': { 'raw': '(min-width:1024px) and (orientation: landscape)' },
+      'desktop-portrait': { 'raw': '(min-width: 1024px) and (orientation: portrait)' },
+      'tablet-portrait': { 'raw': '(min-width: 768px) and (max-width: 1023px) and (orientation: portrait)' },
+      'mobile-portrait': { 'raw': '(max-width: 767px) and (orientation: portrait)' },
     },
     extend: {
       colors: {

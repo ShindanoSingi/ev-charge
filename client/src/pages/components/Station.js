@@ -14,7 +14,7 @@ import DeleteButton from './DeleteButton';
 
 
 function Station() {
-    const { apiStation, userPosition, showCard } = useSelector((state) => state.userReducer);
+    const { apiStation, userPosition, showCard, token } = useSelector((state) => state.userReducer);
     const dispatch = useDispatch();
 
     const componentDidMount = () => {
@@ -127,14 +127,17 @@ function Station() {
                         </div>
                     }
                     {
-                        apiStation?.ev_connector_types ? <div className='items-center gap-2'>
+                        (token?.length > 0 && apiStation?.fuel_type_code) ? <div className='items-center gap-2'>
                             <MdFavorite
                                 onClick={() => {
                                     addFavStation(apiStation);
                                 }}
                                 className='hover:text-red text-4xl  text-gray-400' />
                             <p className='text-xl'>Like</p>
-                        </div> : <DeleteButton />
+                        </div> :
+                            (token && !apiStation?.fuel_type_code
+                            ) ? <DeleteButton /> : ""
+
                     }
                 </div>
             </div>

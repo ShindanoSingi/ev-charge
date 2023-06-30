@@ -22,7 +22,7 @@ function ListStations({ getApiStation }) {
 
     return (
         !allStations.station_locator_url ? <LoaderPlayer /> :
-            <div className='h-[100vh] w-screen mt-[8.9rem] overflow-scroll '>
+            <div className='h-[100dvh] list-stations w-screen mt-[7rem] overflow-scroll '>
                 <Station />
                 {
                     React.Children.toArray(

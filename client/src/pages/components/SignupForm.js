@@ -57,7 +57,7 @@ const SignupForm = () => {
     const dispatch = useDispatch();
 
     return (
-        <div className='absolute grid top-[30%] w-full p-6'>
+        <div className='absolute grid top-[30%] w-full p-6 tablet-landscape:top-[20%] tablet-landscape:bg-black tablet-landscape:px-[20%]'>
             <h1 className=' text-gray-400 text-2xl text-center mb-2'>Signup Form</h1>
             <Formik
                 initialValues={initialValues}

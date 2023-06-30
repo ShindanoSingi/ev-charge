@@ -105,4 +105,21 @@ const getCurrentUser = asyncHandler(async (req, res) => {
 }
 );
 
-module.exports = { registerUser, loginUser, getCurrentUser };
+// Log the user out
+const logoutUser = asyncHandler(async (req, res) => {
+    try {
+        res.cookie('token', '', { maxAge: 1 });
+        res.send({
+            message: 'User logged out successfully',
+            success: true,
+        });
+        console.log('User logged out successfully');
+    } catch (error) {
+        res.send({
+            message: 'User not found',
+            success: false,
+        });
+    }
+});
+
+module.exports = { registerUser, loginUser, getCurrentUser, logoutUser };

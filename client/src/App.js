@@ -23,7 +23,7 @@ const App = () => {
 
   return (
     // <div className="p-0 h-[59rem] w-screen ">
-    <div className=' h-[100vh] parent mobile-landscape:bg-green mobile-landscape:flex mobile-landscape:flex-row   bg-cardBlack'>
+    <div className=' h-[100vh] parent bg-cardBlack'>
       {/* <div className='h-[100%]'> */}
 
       <TwoButtons />

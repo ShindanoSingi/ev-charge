@@ -13,6 +13,35 @@
   height: 0;
 }
 
+/* Styles for portrait orientation on desktop */
+@media only screen and (min-width: 1024px) and (orientation: portrait) {
+  /* Your CSS styles for portrait orientation on desktop */
+}
+
+/* Styles for portrait orientation on tablets */
+@media only screen and (min-width: 768px) and (max-width: 1023px) and (orientation: portrait) {
+  /* Your CSS styles for portrait orientation on tablets */
+}
+
+/* Styles for portrait orientation on mobile devices */
+@media only screen and (max-width: 767px) and (orientation: portrait) {
+  .header-container{
+    display: grid;
+    grid-template-areas: "header-search header-search " 
+    "header-selection header-menu";
+    align-items: stretch;
+  }
+  .header-search{
+    grid-area: header-search;
+  }
+  .header-selection{
+    grid-area: header-selection;
+  }
+  .header-menu{
+    grid-area: header-menu;
+  }
+}
+
 /* Styles for landscape orientation on desktop */
 @media only screen and (min-width: 1024px) and (orientation: landscape) {
   /* Your CSS styles for landscape orientation on desktop */
@@ -25,7 +54,20 @@
 
 /* Styles for landscape orientation on mobile devices */
 @media only screen and (max-width: 767px) and (orientation: landscape) {
-  /* Your CSS styles for landscape orientation on mobile devices */
+  .header-container{
+    display: grid;
+    grid-template-areas: "header-search header-search header-selection header-menu";
+    align-items: center;
+  }
+  .header-search{
+    grid-area: header-search;
+  }
+  .header-selection{
+    grid-area: header-selection;
+  }
+  .header-menu{
+    grid-area: header-menu;
+  }
 }
 
 * {
