@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
-import { setShowCard, setToken } from '../../redux/userSlice';
+import { setToken, setUsername } from '../../redux/userSlice';
 import * as Yup from 'yup';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
@@ -18,7 +18,7 @@ const onSubmit = values => {
 
 const LoginForm = () => {
     const navigate = useNavigate();
-    const { token, showCard } = useSelector((state) => state.userReducer);
+    const { } = useSelector((state) => state.userReducer);
 
     const dispatch = useDispatch();
 
@@ -39,6 +39,7 @@ const LoginForm = () => {
             toast.success('User Logged In Success!');
             localStorage.setItem('token', response.data.token);
             dispatch(setToken(response.data.token));
+            dispatch(setUsername(response.data.user.username));
             navigate('/listStations');
             return {
                 success: true,

@@ -21,6 +21,7 @@ const userSlice = createSlice({
         myFavoriteStations: [],
         myStationId: '',
         myFavoriteStationsLength: 0,
+        username: '',
     },
     reducers: {
         setUser: (state, action) => {
@@ -80,8 +81,11 @@ const userSlice = createSlice({
         setMyFavoriteStationsLength: (state, action) => {
             state.myFavoriteStationsLength = action.payload;
         },
+        setUsername: (state, action) => {
+            state.username = action.payload;
+        },
     },
 });
 
-export const { setUser, setAllStations, setAllMyStations, setInputValue, setSelectedOption, setUserPosition, setApiStation, setDistanceM, setTime, setShowCard, setGoogleAPIKey, setMyCity, setMyState, setSuccess, setToken, setMyFavoriteStations, setMyStationId, setMyFavoriteStationsLength } = userSlice.actions;
+export const { setUser, setAllStations, setAllMyStations, setInputValue, setSelectedOption, setUserPosition, setApiStation, setDistanceM, setTime, setShowCard, setGoogleAPIKey, setMyCity, setMyState, setSuccess, setToken, setMyFavoriteStations, setMyStationId, setMyFavoriteStationsLength, setUsername } = userSlice.actions;
 export default userSlice.reducer;
