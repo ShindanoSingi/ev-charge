@@ -35,7 +35,7 @@ const LoginForm = () => {
     const handleSubmit = async (values, { setSubmitting }) => {
         try {
             const response = await axios.post(`${process.env.REACT_APP_BASE_URL_USERS}login`, values);
-            setSubmitting(false);
+            // setSubmitting(false);
             toast.success('User Logged In Success!');
             localStorage.setItem('token', response.data.token);
             dispatch(setToken(response.data.token));
@@ -48,7 +48,7 @@ const LoginForm = () => {
 
         } catch (error) {
             toast.error(error.response.data.message);
-            setSubmitting(false);
+            // setSubmitting(false);
             return {
                 success: false,
                 data: error.response.data,
