@@ -45,6 +45,11 @@
 /* Styles for landscape orientation on desktop */
 @media only screen and (min-width: 1024px) and (orientation: landscape) {
   /* Your CSS styles for landscape orientation on desktop */
+  .list-stations{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr ;
+    grid-gap: 10px;
+  }
 }
 
 /* Styles for landscape orientation on tablets */
@@ -68,6 +73,7 @@
   .header-menu{
     grid-area: header-menu;
   }
+  
 }
 
 * {

@@ -142,7 +142,7 @@ function Header() {
                     </select>
                 </fieldset>
                 {
-                    token ? <div className="underline bg-green mx-1 rounded-md p-1">{'SignedIn'}</div> : <div className='underline mx-1 rounded-md p-1 bg-green'>{'SignedOut'}</div>
+                    token ? <div className="bg-green mx-1 rounded-md p-1">{'SignedIn'}</div> : <div className='mx-1 rounded-md p-1 bg-green'>{'SignedOut'}</div>
                 }
 
                 <div className='header-menu' >

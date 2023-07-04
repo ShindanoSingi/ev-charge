@@ -72,45 +72,47 @@ const LoginForm = () => {
     }, []);
 
     return (
-        <div className='center absolute min-h-screen bg-black min-w-[100vw] tablet-landscape:px-[10em] grid tablet-landscape:mt-20 top-[30%] md:max-w-[50%] p-6'>
+        <div className='center absolute min-h-screen bg-black min-w-[100vw] tablet-landscape:px-[10em] grid desktop-landscape:place-content-center tablet-landscape:mt-20 desktop-landscape:mt-0 top-[50%] md:max-w-[50%]'>
             <h1 className=' text-gray-400 tablet-landscape:text-2xl  text-2xl md:text-4xl text-center mb-2'>Signin Form</h1>
-            <Formik
-                initialValues={initialValues}
-                validationSchema={validationSchema}
-                onSubmit={handleSubmit}
-            >
-                <Form className='flex md:text-2xl flex-col gap-3 text-gray-400'>
-                    <div className='flex flex-col gap-0'>
-                        <label className='text-lg tablet-landscape:text-xl md:text-2xl' htmlFor="username">Username</label>
-                        <Field
-                            id="username"
-                            name="username"
-                            type="text"
-                            className='px-3 py-2 rounded-t-xl md:text-2xl tablet-landscape:text-xl'
-                        />
-                        <ErrorMessage name='username' />
-                    </div>
-                    <div className='flex flex-col gap-0 tablet-landscape:text-xl text-gray-400 md:text-2xl'>
-                        <label className='text-lg tablet-landscape:text-xl md:text-2xl' htmlFor="password">Password</label>
-                        <Field
-                            id="password"
-                            name="password"
-                            type="password"
-                            className='px-3 py-2 md:text-2xl tablet-landscape:text-xl rounded-b-xl'
-                        />
-                        <ErrorMessage name='password' />
-                    </div>
-                    <div onClick={() => {
-                        setTimeOut();
-                    }}
-                        className='bg-gray-400 hover:bg-green flex items-center mt-2 md:py-2 md:px-4 py-1 px-4 text-center text-gray-800 text-xl rounded-xl justify-center'>
-                        <button className='md:text-2xl tablet-landscape:text-xl' onClick={onSubmit} type="submit">Submit</button>
-                    </div>
-                    <Link to='/listStations'>
-                        <p className='text-center md:text-2xl tablet-landscape:text-xl' onClick={onSubmit} type="submit">Cancel</p>
-                    </Link>
-                </Form>
-            </Formik>
+            <div className='w-[30rem]'>
+                <Formik
+                    initialValues={initialValues}
+                    validationSchema={validationSchema}
+                    onSubmit={handleSubmit}
+                >
+                    <Form className='flex md:text-2xl flex-col gap-3 text-gray-400'>
+                        <div className='flex flex-col gap-0'>
+                            <label className='text-lg tablet-landscape:text-xl md:text-2xl' htmlFor="username">Username</label>
+                            <Field
+                                id="username"
+                                name="username"
+                                type="text"
+                                className='px-3 py-2 rounded-t-xl md:text-2xl tablet-landscape:text-xl'
+                            />
+                            <ErrorMessage name='username' />
+                        </div>
+                        <div className='flex flex-col gap-0 tablet-landscape:text-xl text-gray-400 md:text-2xl'>
+                            <label className='text-lg tablet-landscape:text-xl md:text-2xl' htmlFor="password">Password</label>
+                            <Field
+                                id="password"
+                                name="password"
+                                type="password"
+                                className='px-3 py-2 md:text-2xl tablet-landscape:text-xl rounded-b-xl'
+                            />
+                            <ErrorMessage name='password' />
+                        </div>
+                        <div onClick={() => {
+                            setTimeOut();
+                        }}
+                            className='bg-gray-400 hover:bg-green flex items-center mt-2 md:py-2 md:px-4 py-1 px-4 text-center text-gray-800 text-xl rounded-xl justify-center'>
+                            <button className='md:text-2xl tablet-landscape:text-xl' onClick={onSubmit} type="submit">Submit</button>
+                        </div>
+                        <Link to='/listStations'>
+                            <p className='text-center md:text-2xl tablet-landscape:text-xl' onClick={onSubmit} type="submit">Cancel</p>
+                        </Link>
+                    </Form>
+                </Formik>
+            </div>
         </div>
     );
 };
