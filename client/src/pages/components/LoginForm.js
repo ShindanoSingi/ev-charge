@@ -7,7 +7,7 @@ import axios from 'axios';
 import { toast } from 'react-hot-toast';
 import { Link, useNavigate } from 'react-router-dom';
 import { AiOutlineCheck } from 'react-icons/ai';
-
+const baseUrl_users = "https://bembe-charge.onrender.com/api/users/";
 
 const onSubmit = values => {
     const user = {
@@ -34,7 +34,7 @@ const LoginForm = () => {
 
     const handleSubmit = async (values, { setSubmitting }) => {
         try {
-            const response = await axios.post(`${process.env.REACT_APP_BASE_URL_USERS}login`, values);
+            const response = await axios.post(`${baseUrl_users}login`, values);
             // setSubmitting(false);
             toast.success('User Logged In Success!');
             localStorage.setItem('token', response.data.token);
