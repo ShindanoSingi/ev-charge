@@ -56,13 +56,13 @@ const LoginForm = () => {
         }
     };
 
-    const setTimeOut = () => {
-        console.log(showCard);
-        setTimeout(() => {
-            dispatch(setShowCard(!showCard));
-        }, 1000);
-        dispatch(setShowCard(!showCard));
-    };
+    // const setTimeOut = () => {
+    //     console.log(showCard);
+    //     setTimeout(() => {
+    //         dispatch(setShowCard(!showCard));
+    //     }, 1000);
+    //     dispatch(setShowCard(!showCard));
+    // };
 
     useEffect(() => {
         if (localStorage.getItem('token')) {
@@ -101,9 +101,7 @@ const LoginForm = () => {
                             />
                             <ErrorMessage name='password' />
                         </div>
-                        <div onClick={() => {
-                            setTimeOut();
-                        }}
+                        <div
                             className='bg-gray-400 hover:bg-green flex items-center mt-2 md:py-2 md:px-4 py-1 px-4 text-center text-gray-800 text-xl rounded-xl justify-center'>
                             <button className='md:text-2xl tablet-landscape:text-xl' onClick={onSubmit} type="submit">Submit</button>
                         </div>
