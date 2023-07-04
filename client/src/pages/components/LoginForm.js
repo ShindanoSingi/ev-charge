@@ -72,9 +72,9 @@ const LoginForm = () => {
     }, []);
 
     return (
-        <div className='center absolute min-h-screen bg-black min-w-[100vw] tablet-landscape:px-[10em] grid desktop-landscape:place-content-center tablet-landscape:mt-20 desktop-landscape:mt-0 top-[50%] md:max-w-[50%]'>
+        <div className='center absolute min-h-screen bg-black min-w-[100vw] tablet-landscape:px-[10em] grid place-content-center desktop-landscape:place-content-center tablet-landscape:mt-20 desktop-landscape:mt-0 top-[50%] md:max-w-[50%]'>
             <h1 className=' text-gray-400 tablet-landscape:text-2xl  text-2xl md:text-4xl text-center mb-2'>Signin Form</h1>
-            <div className='w-[30rem]'>
+            <div className='w-[20em] tablet-portrait:w-[30em] tablet-landscape:w-[30em]'>
                 <Formik
                     initialValues={initialValues}
                     validationSchema={validationSchema}
