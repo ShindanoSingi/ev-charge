@@ -78,13 +78,13 @@ function Station() {
                         <h1 className='line-clamp-1 text-white w-full'>{apiStation.station_name}</h1>
                         <p className='text-sm overflow-ellipsis w-full font-light line-clamp-1 '>{apiStation.street_address},{apiStation.city} {apiStation.state} {apiStation.zip}</p>
                     </div>
-                    <div className='w-11 h-11 rounded-full bg-green hover:bg-cyan-600 p-2 flex items-center justify-center'>
+                    <div className='rounded-full bg-green h-8 w-8 p-4 hover:bg-cyan-600  flex items-center justify-center'>
                         <a href={`https://www.google.com/maps/dir/${userPosition.lat},${userPosition.lng}/${apiStation.latitude},${apiStation.longitude}`} rel="noreferrer" ><FaLocationArrow
                             onClick={() => {
                                 componentDidMount();
                                 getGeolocation();
                             }}
-                            className='h-6 w-6 text-white' /></a>
+                            className=' text-white' /></a>
                     </div>
                 </div>
                 <div className='flex items-center gap-4 flex-wrap'>
