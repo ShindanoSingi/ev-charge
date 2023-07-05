@@ -39,8 +39,7 @@ const LoginForm = () => {
             dispatch(showLoader());
             setSubmitting(false);
             toast.success('User Logged In Success!');
-            console.log(response.data.token);
-            localStorage.setItem("token", response.data);
+            localStorage.setItem("token", response.data.token);
             dispatch(setToken(response.data.token));
             dispatch(setUsername(response.data.user));
             navigate('/listStations');

@@ -34,7 +34,7 @@ const SignupForm = () => {
     const handleSubmit = async (values, { setSubmitting }) => {
         try {
             const response = await axios.post(`${baseUrl_users}register`, values);
-            // setSubmitting(false);
+            setSubmitting(false);
             toast.success(response.data.message);
 
             navigate('/login');
@@ -47,7 +47,7 @@ const SignupForm = () => {
         } catch (error) {
             toast.error(error.response.data.message);
             toast.error(error.response.data.error);
-            // setSubmitting(false);
+            setSubmitting(false);
             return {
                 success: false,
                 data: error.response.data,
