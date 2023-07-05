@@ -5,7 +5,7 @@ import { AiOutlineMenu } from 'react-icons/ai';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { getFavoritesStations } from '../../apiCalls/apiCalls'
-import { setMyFavoriteStations } from '../../redux/userSlice';
+import { setMyFavoriteStations, setUsername } from '../../redux/userSlice';
 
 
 function MenuButton() {
@@ -31,15 +31,16 @@ function MenuButton() {
         setAnchorEl(event.currentTarget);
     };
 
-    // const handleClickLogout = () => {
-    //     document.getElementById('account').click();
-    //     document.getElementById('account').click();
-    // };
+    const handleClickLogout = () => {
+        document.getElementById('account').click();
+        document.getElementById('account').click();
+    };
 
     const handleLogout = async () => {
         try {
             // document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'
             localStorage.removeItem("token");
+            setUsername('');
             handleClose();
             navigate('/');
         } catch (error) {
@@ -91,7 +92,7 @@ function MenuButton() {
                         handleLogout();
                         localStorage.removeItem('token');
                         handleClose();
-                        // handleClickLogout();
+                        handleClickLogout();
                     }}>Sign Out</p>
                 </div>
             </Menu>

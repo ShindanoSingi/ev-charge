@@ -36,8 +36,7 @@ const LoginForm = () => {
     const handleSubmit = async (values, { setSubmitting }) => {
         try {
             const response = await axios.post(`${baseUrl_users}login`, values);
-            dispatch(showLoader());
-            setSubmitting(false);
+            // setSubmitting(false);
             toast.success('User Logged In Success!');
             localStorage.setItem("token", response.data.token);
             dispatch(setToken(response.data.token));
@@ -52,7 +51,7 @@ const LoginForm = () => {
         } catch (error) {
             dispatch(hideLoader());
             toast.error(error.response.data.message);
-            setSubmitting(false);
+            // setSubmitting(false);
             return {
                 success: false,
                 data: error.response.data,
