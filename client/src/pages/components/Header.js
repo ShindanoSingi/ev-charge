@@ -16,6 +16,8 @@ const pos = require('pos');
 function Header() {
     const { inputValue, selectedOption, token, username } = useSelector((state) => state.userReducer);
 
+    console.log(token);
+
     const options = [
         { value: '', label: '' },
         { value: 'BD', label: 'Biodiesel (B20 and above)' },

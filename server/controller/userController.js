@@ -63,6 +63,7 @@ const loginUser = asyncHandler(async (req, res) => {
 
         // Create and assign a token
         const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, { expiresIn: '1d' });
+        user.token = token;
 
         return res.send({
             success: true,
@@ -107,6 +108,7 @@ const getCurrentUser = asyncHandler(async (req, res) => {
 
 // Log the user out
 const logoutUser = asyncHandler(async (req, res) => {
+    const { _id } = req.user;
     try {
         res.cookie('token', '', { maxAge: 1 });
         res.send({

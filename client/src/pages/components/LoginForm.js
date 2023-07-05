@@ -7,6 +7,8 @@ import axios from 'axios';
 import { toast } from 'react-hot-toast';
 import { Link, useNavigate } from 'react-router-dom';
 import { AiOutlineCheck } from 'react-icons/ai';
+import Loader from '../../components/Loader';
+import { hideLoader, showLoader } from '../../redux/loaderSlice';
 const baseUrl_users = "https://bembe-charge.onrender.com/api/users/";
 
 const onSubmit = values => {
@@ -34,9 +36,11 @@ const LoginForm = () => {
     const handleSubmit = async (values, { setSubmitting }) => {
         try {
             const response = await axios.post(`${baseUrl_users}login`, values);
+            dispatch(showLoader());
             setSubmitting(false);
             toast.success('User Logged In Success!');
-            localStorage.setItem('token', response.data.token);
+            console.log(response.data);
+            localStorage.setItem("token", response.data);
             dispatch(setToken(response.data.token));
             dispatch(setUsername(response.data.user));
             navigate('/listStations');
@@ -47,6 +51,7 @@ const LoginForm = () => {
             }
 
         } catch (error) {
+            dispatch(hideLoader());
             toast.error(error.response.data.message);
             setSubmitting(false);
             return {

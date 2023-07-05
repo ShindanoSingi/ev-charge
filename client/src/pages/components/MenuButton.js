@@ -31,14 +31,15 @@ function MenuButton() {
         setAnchorEl(event.currentTarget);
     };
 
-    const handleClickLogout = () => {
-        document.getElementById('account').click();
-        document.getElementById('account').click();
-    };
+    // const handleClickLogout = () => {
+    //     document.getElementById('account').click();
+    //     document.getElementById('account').click();
+    // };
 
     const handleLogout = async () => {
         try {
-            localStorage.removeItem('token');
+            // document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'
+            localStorage.removeItem("token");
             handleClose();
             navigate('/');
         } catch (error) {
@@ -88,8 +89,9 @@ function MenuButton() {
                     </Link>
                     <p className='bg-gray-200 hover:bg-black hover:text-white px-2 w-full ' onClick={() => {
                         handleLogout();
+                        localStorage.removeItem('token');
                         handleClose();
-                        handleClickLogout();
+                        // handleClickLogout();
                     }}>Sign Out</p>
                 </div>
             </Menu>

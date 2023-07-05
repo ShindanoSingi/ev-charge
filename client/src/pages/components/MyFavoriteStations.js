@@ -6,14 +6,14 @@ import { Link } from 'react-router-dom';
 import LoaderPlayer from '../../components/LoaderPlayer';
 import Station from './Station';
 import { setApiStation, setShowCard, setMyStationId } from '../../redux/userSlice';
-import CircularIndeterminate from '../../components/Loader';
+import Loader from '../../components/Loader';
 
 function MyFavoriteStations() {
     const { myFavoriteStations } = useSelector((state) => state.userReducer);
     const dispatch = useDispatch();
 
     return (
-        !myFavoriteStations ? <CircularIndeterminate /> : <div className='h-screen max-h-[73%] w-screen mt-[8.9rem] overflow-scroll'>
+        !myFavoriteStations ? <Loader /> : <div className='h-screen max-h-[73%] w-screen mt-[8.9rem] overflow-scroll'>
             <Station />
             {
                 myFavoriteStations?.map((station, id) => {
