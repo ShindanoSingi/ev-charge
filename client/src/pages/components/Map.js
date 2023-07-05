@@ -40,7 +40,7 @@ function Map() {
 
     return (
         !allStations.station_locator_url ? <div className='h-[100%]'><LoaderPlayer /></div> :
-            <div className='h-[95%] w-full'>
+            <div className='h-[84vh] w-full mt-[7em]'>
                 <Station />
                 {
                     <LoaderPlayer /> && <GoogleMapReact
@@ -57,7 +57,7 @@ function Map() {
                                             dispatch(setApiStation(station))
                                             dispatch(setShowCard(true))
                                         }}
-                                        // onMouseOut={() => { dispatch(setShowCard(false)) }}
+
                                         className='text-red text-3xl'
                                         lat={station.latitude}
                                         lng={station.longitude}
