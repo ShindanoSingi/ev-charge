@@ -18,7 +18,6 @@ const onSubmit = values => {
 
 const LoginForm = () => {
     const navigate = useNavigate();
-    const { } = useSelector((state) => state.userReducer);
 
     const dispatch = useDispatch();
 
@@ -35,11 +34,11 @@ const LoginForm = () => {
     const handleSubmit = async (values, { setSubmitting }) => {
         try {
             const response = await axios.post(`${baseUrl_users}login`, values);
-            // setSubmitting(false);
+            setSubmitting(false);
             toast.success('User Logged In Success!');
             localStorage.setItem('token', response.data.token);
             dispatch(setToken(response.data.token));
-            dispatch(setUsername(response.data.user.username));
+            dispatch(setUsername(response.data.user));
             navigate('/listStations');
             return {
                 success: true,
@@ -49,7 +48,7 @@ const LoginForm = () => {
 
         } catch (error) {
             toast.error(error.response.data.message);
-            // setSubmitting(false);
+            setSubmitting(false);
             return {
                 success: false,
                 data: error.response.data,

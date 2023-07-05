@@ -17,6 +17,7 @@ function Header() {
     const { inputValue, selectedOption, token, username } = useSelector((state) => state.userReducer);
 
     console.log(token)
+    console.log(username)
 
     const options = [
         { value: '', label: '' },
@@ -142,7 +143,7 @@ function Header() {
                     </select>
                 </fieldset>
                 {
-                    token ? <div className="bg-green mx-1 rounded-md p-1">{username}</div> : <div className='mx-1 rounded-md p-1 bg-green'>{'SignIn'}</div>
+                    token ? <div className="bg-green mx-1 rounded-md p-1">{username?.username}</div> : <div className='mx-1 rounded-md p-1 bg-green'>{'SignIn'}</div>
                 }
 
                 <div className='header-menu' >
