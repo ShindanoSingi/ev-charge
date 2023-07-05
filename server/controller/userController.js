@@ -64,12 +64,13 @@ const loginUser = asyncHandler(async (req, res) => {
         // Create and assign a token
         const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, { expiresIn: '1d' });
         user.token = token;
+        await user.save();
 
         return res.send({
             success: true,
             message: 'User logged in successfully',
             user: user.username,
-            token: token
+            token: user.token,
         });
     } catch (error) {
         return res.send({
@@ -110,12 +111,11 @@ const getCurrentUser = asyncHandler(async (req, res) => {
 const logoutUser = asyncHandler(async (req, res) => {
     const { _id } = req.user;
     try {
-        res.cookie('token', '', { maxAge: 1 });
-        res.send({
-            message: 'User logged out successfully',
-            success: true,
-        });
-        console.log('User logged out successfully');
+        const user = await User.findById(_id);
+        if (user) {
+            user.token = '';
+            console.log('User logged out successfully');
+        }
     } catch (error) {
         res.send({
             message: 'User not found',

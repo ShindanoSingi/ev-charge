@@ -10,6 +10,9 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    token: {
+        type: String,
+    },
     stations: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Station' }],
 });
 

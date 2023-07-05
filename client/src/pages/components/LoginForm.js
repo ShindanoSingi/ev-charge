@@ -39,7 +39,7 @@ const LoginForm = () => {
             dispatch(showLoader());
             setSubmitting(false);
             toast.success('User Logged In Success!');
-            console.log(response.data);
+            console.log(response.data.token);
             localStorage.setItem("token", response.data);
             dispatch(setToken(response.data.token));
             dispatch(setUsername(response.data.user));
