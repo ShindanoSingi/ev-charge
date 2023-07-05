@@ -50,8 +50,6 @@ function Station() {
         }
     };
 
-    console.log(apiStation);
-
     // Add a new to favorites
     const addFavStation = async (apiStations) => {
         try {

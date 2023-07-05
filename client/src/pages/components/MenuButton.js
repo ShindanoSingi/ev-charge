@@ -46,8 +46,6 @@ function MenuButton() {
         }
     };
 
-    console.log(token);
-
     useEffect(() => {
         getAllMyFavoriteStations();
         handleLogout();
