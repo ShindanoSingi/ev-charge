@@ -62,15 +62,13 @@ const loginUser = asyncHandler(async (req, res) => {
         }
 
         // Create and assign a token
-        const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, { expiresIn: '1d' });
-        user.token = token;
-        await user.save();
+        const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '1d' });
 
         return res.send({
             success: true,
             message: 'User logged in successfully',
             user: user.username,
-            token: user.token,
+            token: token,
         });
     } catch (error) {
         return res.send({

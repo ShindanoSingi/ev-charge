@@ -130,7 +130,7 @@ function Header() {
                 </div>
             </div>
 
-            <div className='selection w-[99vw] tablet-landscape:w-[50vw] flex items-center'>
+            <div className='selection w-[99vw] self-center tablet-landscape:w-[50vw] flex items-center'>
                 <fieldset className='text-gray-400 rounded-lg border-gray-400 border w-full px-4 '>
                     <legend>Select Fuel Type</legend>
                     <select className='option w-full text-gray-400' value={selectedOption} onChange={handleOptionChange}>

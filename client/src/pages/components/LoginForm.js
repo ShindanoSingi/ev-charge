@@ -36,22 +36,28 @@ const LoginForm = () => {
     const handleSubmit = async (values, { setSubmitting }) => {
         try {
             const response = await axios.post(`${baseUrl_users}login`, values);
-            // setSubmitting(false);
-            toast.success('User Logged In Success!');
-            localStorage.setItem("token", response.data.token);
-            dispatch(setToken(response.data.token));
-            dispatch(setUsername(response.data.user));
-            navigate('/listStations');
-            return {
-                success: true,
-                user: response.data.user,
-                data: response.data,
-            }
+            setSubmitting(false);
+            if (response.data.success === true) {
+                toast.success('User Logged In Success!');
+                localStorage.setItem("token", response.data.token);
+                dispatch(setToken(response.data.token));
+                dispatch(setUsername(response.data.user));
+                navigate('/listStations');
 
+                return {
+                    success: true,
+                    user: response.data.user,
+                    data: response.data,
+                }
+            }
+            if (response.data.success === false) {
+                toast.error('Check your credentials!');
+                navigate('/signin');
+            }
         } catch (error) {
             dispatch(hideLoader());
             toast.error(error.response.data.message);
-            // setSubmitting(false);
+            setSubmitting(false);
             return {
                 success: false,
                 data: error.response.data,

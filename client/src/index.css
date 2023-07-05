@@ -13,6 +13,11 @@
   height: 0;
 }
 
+.input-selection-container{
+  display: flex;
+ 
+}
+
 /* Styles for portrait orientation on desktop */
 @media only screen and (min-width: 1024px) and (orientation: portrait) {
   /* Your CSS styles for portrait orientation on desktop */
@@ -29,7 +34,7 @@
     display: grid;
     grid-template-areas: "header-search header-search " 
     "header-selection header-menu";
-    align-items: stretch;
+    justify-content: baseline;
   }
   .header-search{
     grid-area: header-search;
