@@ -112,3 +112,19 @@ export const distance = (lat1, lon1, lat2, lon2, earthRaduis) => {
     }
     return nDistance;
 }
+
+export const getCurrentUser = async () => {
+    try {
+        const response = await axios.get(`${baseUrl_users}current-user`,
+            {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${localStorage.getItem('token')}`,
+                }
+            });
+        console.log(response.data.data.token);
+        return response.data;
+    } catch (error) {
+        return error.response.data;
+    }
+};

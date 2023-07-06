@@ -10,13 +10,13 @@ import { setMyFavoriteStations, setUsername } from '../../redux/userSlice';
 
 function MenuButton() {
     const navigate = useNavigate();
-    const { token } = useSelector((state) => state.userReducer);
+    const { token, myFavoriteStations } = useSelector((state) => state.userReducer);
     const [anchorEl, setAnchorEl] = React.useState(null);
     const dispatch = useDispatch();
 
     const getAllMyFavoriteStations = async () => {
         try {
-            const response = await getFavoritesStations(localStorage.getItem('token'));
+            const response = await getFavoritesStations(token);
             dispatch(setMyFavoriteStations(response.data));
         } catch (error) {
             return error;
@@ -90,9 +90,11 @@ function MenuButton() {
                     </Link>
                     <p className='bg-gray-200 hover:bg-black hover:text-white px-2 w-full ' onClick={() => {
                         handleLogout();
-                        localStorage.removeItem('token');
-                        handleClose();
                         handleClickLogout();
+                        localStorage.removeItem('token');
+                        dispatch(setUsername(''));
+                        handleClose();
+                        navigate('/listStations');
                     }}>Sign Out</p>
                 </div>
             </Menu>

@@ -9,6 +9,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { AiOutlineCheck } from 'react-icons/ai';
 import Loader from '../../components/Loader';
 import { hideLoader, showLoader } from '../../redux/loaderSlice';
+import { getCurrentUser } from '../../apiCalls/apiCalls';
 const baseUrl_users = "https://bembe-charge.onrender.com/api/users/";
 
 const onSubmit = values => {
@@ -36,34 +37,40 @@ const LoginForm = () => {
     const handleSubmit = async (values, { setSubmitting }) => {
         try {
             const response = await axios.post(`${baseUrl_users}login`, values);
-            setSubmitting(false);
-            if (response.data.success === true) {
-                toast.success('User Logged In Success!');
-                localStorage.setItem("token", response.data.token);
-                dispatch(setToken(response.data.token));
-                dispatch(setUsername(response.data.user));
-                navigate('/listStations');
+            // setSubmitting(false);
+            toast.success('User Logged In Success!');
+            localStorage.setItem("token", response.data.token);
+            dispatch(setToken(response.data.token));
+            dispatch(setUsername(response.data.user));
+            navigate('/favoriteStations');
+            return {
+                success: true,
+                user: response.data.user,
+                data: response.data,
+            }
 
-                return {
-                    success: true,
-                    user: response.data.user,
-                    data: response.data,
-                }
-            }
-            if (response.data.success === false) {
-                toast.error('Check your credentials!');
-                navigate('/signin');
-            }
         } catch (error) {
             dispatch(hideLoader());
             toast.error(error.response.data.message);
-            setSubmitting(false);
+            // setSubmitting(false);
             return {
                 success: false,
                 data: error.response.data,
             };
         }
     };
+
+    const getUser = async () => {
+        try {
+            const response = await getCurrentUser();
+            console.log(response.data);
+            dispatch(setUsername(response.data.user));
+        } catch (error) {
+            return error;
+        }
+    };
+
+    console.log('token', localStorage.getItem('token'));
 
     // const setTimeOut = () => {
     //     console.log(showCard);
@@ -74,8 +81,9 @@ const LoginForm = () => {
     // };
 
     useEffect(() => {
+        handleSubmit();
         if (localStorage.getItem('token')) {
-            dispatch(setToken(localStorage.getItem('token')));
+            getUser();
         }
 
     }, []);

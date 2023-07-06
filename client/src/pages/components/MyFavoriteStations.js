@@ -9,11 +9,11 @@ import { setApiStation, setShowCard, setMyStationId } from '../../redux/userSlic
 import Loader from '../../components/Loader';
 
 function MyFavoriteStations() {
-    const { myFavoriteStations } = useSelector((state) => state.userReducer);
+    const { myFavoriteStations, username } = useSelector((state) => state.userReducer);
     const dispatch = useDispatch();
 
     return (
-        !myFavoriteStations ? <Loader /> : <div className='h-screen max-h-[73%] tablet-landscape:max-h-[92vh] w-screen tablet-landscape:w-2/5  tablet-landscape:mx-auto mt-[8.9rem] tablet-landscape:mt-[5em] tablet-landscape:[100vh] overflow-scroll'>
+        !username ? <Loader /> : <div className='h-screen max-h-[73%] tablet-landscape:max-h-[92vh] w-screen tablet-landscape:w-2/5  tablet-landscape:mx-auto mt-[8.9rem] tablet-landscape:mt-[5em] tablet-landscape:[100vh] overflow-scroll'>
             <Station />
             {
                 myFavoriteStations?.map((station, id) => {

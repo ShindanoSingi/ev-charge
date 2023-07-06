@@ -2,7 +2,7 @@ import * as React from 'react';
 import { showLoader, hideLoader } from '../../redux/loaderSlice';
 import { BsSearch } from 'react-icons/bs';
 import { useEffect } from 'react';
-import { setInputValue, setSelectedOption, setAllStations, setUserPosition } from '../../redux/userSlice';
+import { setInputValue, setSelectedOption, setAllStations, setUserPosition, setUsername } from '../../redux/userSlice';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
@@ -10,10 +10,15 @@ import { extractStateName } from './StatesNames';
 import { AiOutlineMenu } from 'react-icons/ai'
 import { IoSearch } from 'react-icons/io5'
 import MenuButton from './MenuButton';
+import { toast } from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 const pos = require('pos');
 
 
 function Header() {
+
+    const navigate = useNavigate();
+
     const { inputValue, selectedOption, token, username } = useSelector((state) => state.userReducer);
 
     const options = [
@@ -109,13 +114,34 @@ function Header() {
         );
     }
 
-    React.useEffect(() => {
+    const getCurrentUser = async () => {
+        try {
+            dispatch(showLoader());
+            const response = await getCurrentUser();
+            console.log(response);
+            dispatch(hideLoader());
+            if (response.success === true) {
+                dispatch(setUsername(response.user));
+            }
+        } catch (error) {
+            dispatch(hideLoader());
+            toast.error(error.response.data.message);
+            navigate('/signin')
+        }
+    };
+
+    useEffect(() => {
         componentDidMount();
+        if (localStorage.getItem('token')) {
+            getCurrentUser();
+        } else {
+            navigate('/signin')
+        }
+        console.log('token', token);
     }, [])
 
     return (
         <div className='header-container flex flex-row tablet-landscape:items-center tablet-landscape:gap-2 p-2 gap-1 fixed z-10 w-full top-0 bg-[#262A34]'>
-            <div className='absolute inset-x-0 bottom-0 h-1 backdrop-filter backdrop-blur-sm'></div>
             <div className='header-search flex justify-between w-full items-center'>
                 <div className='flex items-center w-[96vw] gap-0 border rounded-lg border-gray-400 md:w-full'>
                     <div className='px-3 gap-2 py-1 w-full search-input flex items-center rounded-lg z-50 '>
@@ -140,7 +166,7 @@ function Header() {
                     </select>
                 </fieldset>
                 {
-                    token ? <div className="bg-green mx-1 rounded-md p-1">{username}</div> : <div className='mx-1 rounded-md p-1 bg-green'>{'SignIn'}</div>
+                    username ? <div className="bg-green mx-1 rounded-md p-1">{username}</div> : <div className='mx-1 rounded-md p-1 bg-green'>{'SignIn'}</div>
                 }
 
                 <div className='header-menu' >
