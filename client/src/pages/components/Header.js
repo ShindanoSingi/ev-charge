@@ -42,7 +42,6 @@ function Header() {
     };
 
     const handleSubmit = (event) => {
-
         getStations(inputValue, selectedOption);
     }
 
@@ -137,7 +136,6 @@ function Header() {
         } else {
             navigate('/signin')
         }
-        console.log('token', token);
     }, [])
 
     return (

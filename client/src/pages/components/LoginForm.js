@@ -37,7 +37,7 @@ const LoginForm = () => {
     const handleSubmit = async (values, { setSubmitting }) => {
         try {
             const response = await axios.post(`${baseUrl_users}login`, values);
-            // setSubmitting(false);
+            setSubmitting(false);
             toast.success('User Logged In Success!');
             localStorage.setItem("token", response.data.token);
             dispatch(setToken(response.data.token));
@@ -52,7 +52,7 @@ const LoginForm = () => {
         } catch (error) {
             dispatch(hideLoader());
             toast.error(error.response.data.message);
-            // setSubmitting(false);
+            setSubmitting(false);
             return {
                 success: false,
                 data: error.response.data,
@@ -63,14 +63,11 @@ const LoginForm = () => {
     const getUser = async () => {
         try {
             const response = await getCurrentUser();
-            console.log(response.data);
             dispatch(setUsername(response.data.user));
         } catch (error) {
             return error;
         }
     };
-
-    console.log('token', localStorage.getItem('token'));
 
     // const setTimeOut = () => {
     //     console.log(showCard);
@@ -84,6 +81,8 @@ const LoginForm = () => {
         handleSubmit();
         if (localStorage.getItem('token')) {
             getUser();
+        } else {
+            navigate('/signin')
         }
 
     }, []);

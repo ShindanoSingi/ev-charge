@@ -13,7 +13,7 @@ function MyFavoriteStations() {
     const dispatch = useDispatch();
 
     return (
-        !username ? <Loader /> : <div className='h-screen max-h-[73%] tablet-landscape:max-h-[92vh] w-screen tablet-landscape:w-2/5  tablet-landscape:mx-auto mt-[8.9rem] tablet-landscape:mt-[5em] tablet-landscape:[100vh] overflow-scroll'>
+        !username && myFavoriteStations ? <Loader /> : <div className='h-screen max-h-[73%] tablet-landscape:max-h-[92vh] w-screen tablet-landscape:w-2/5  tablet-landscape:mx-auto mt-[8.9rem] tablet-landscape:mt-[5em] tablet-landscape:[100vh] overflow-scroll'>
             <Station />
             {
                 myFavoriteStations?.map((station, id) => {

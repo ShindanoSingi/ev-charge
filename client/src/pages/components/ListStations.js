@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import { useSelector } from 'react-redux';
-import { setApiStation, setShowCard } from '../../redux/userSlice';
+import { setAllStations, setApiStation, setShowCard } from '../../redux/userSlice';
 import { useDispatch } from 'react-redux';
 import { BsEvStation } from 'react-icons/bs';
 import { RiMapPin2Fill } from 'react-icons/ri';
@@ -9,16 +9,30 @@ import { BsChevronRight } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
 import Station from './Station';
 import LoaderPlayer from '../../components/LoaderPlayer';
+import { getAllStations } from '../../apiCalls/apiCalls';
 
 
 function ListStations({ getApiStation }) {
     const { allStations } = useSelector((state) => state.userReducer);
     const dispatch = useDispatch();
 
+    const getStations = async () => {
+        try {
+            const response = await getAllStations();
+            console.log(response);
+            dispatch(setAllStations(response));
+
+        } catch (error) {
+            return error;
+        }
+    };
+
     // const earthRaduisK = 6371; // Radius of the earth in km
     const earthRaduisM = 3959; // Radius of the earth in miles
 
-    console.log(allStations);
+    useEffect(() => {
+        getStations();
+    }, []);
 
     return (
         !allStations.station_locator_url ? <LoaderPlayer /> :

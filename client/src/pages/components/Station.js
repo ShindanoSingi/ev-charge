@@ -46,7 +46,7 @@ function Station() {
                 dispatch(setMyState(state));
             }
         } catch (error) {
-            console.error(error);
+            return error;
         }
     };
 
