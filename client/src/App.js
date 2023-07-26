@@ -11,6 +11,7 @@ import { useSelector } from 'react-redux';
 import SignupForm from './pages/components/SignupForm';
 import LoginForm from './pages/components/LoginForm';
 import MyFavoriteStations from './pages/components/MyFavoriteStations';
+import ProtectedRoute from './components/ProtectedRoute'
 
 
 const App = () => {
@@ -39,7 +40,10 @@ const App = () => {
         <Routes>
           <Route path='/' element={<ListStations getApiStation={getApiStation} />} />
           <Route path='/userpage' element={<UserPage />} />
-          <Route path='/favoriteStations' element={<MyFavoriteStations />} />
+          <Route path='/favoriteStations' element={
+            <ProtectedRoute>
+              <MyFavoriteStations />
+            </ProtectedRoute>} />
           <Route path='/signup' element={<SignupForm />} />
           <Route path='/signin' element={<LoginForm />} />
           <Route path='/listStations' element={<ListStations getApiStation={getApiStation} />} />
