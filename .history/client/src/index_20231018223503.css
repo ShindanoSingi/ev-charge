@@ -1,0 +1,206 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.parent{
+  overflow-y: scroll;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;  /* Internet Explorer 10+ */
+}
+
+.child{
+  width: 0;
+  height: 0;
+}
+
+.input-selection-container{
+  display: flex;
+
+}
+
+.selection{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+}
+
+/* Styles for portrait orientation on desktop */
+@media only screen and (min-width: 1024px) and (orientation: portrait) {
+  /* Your CSS styles for portrait orientation on desktop */
+}
+
+/* Styles for portrait orientation on tablets */
+@media only screen and (min-width: 768px) and (max-width: 1023px) and (orientation: portrait) {
+  /* Your CSS styles for portrait orientation on tablets */
+}
+
+/* Styles for portrait orientation on mobile devices */
+@media only screen and (max-width: 767px) and (orientation: portrait) {
+  .header-container{
+    display: grid;
+    grid-template-areas: "header-search header-search "
+    "header-selection header-menu";
+    justify-content: baseline;
+  }
+  .header-search{
+    grid-area: header-search;
+  }
+  .header-selection{
+    grid-area: header-selection;
+  }
+  .header-menu{
+    grid-area: header-menu;
+  }
+}
+
+/* Styles for landscape orientation on desktop */
+@media only screen and (min-width: 1024px) and (orientation: landscape) {
+  /* Your CSS styles for landscape orientation on desktop */
+  .list-stations{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr ;
+    grid-gap: 10px;
+  }
+}
+
+/* Styles for landscape orientation on tablets */
+@media only screen and (min-width: 768px) and (max-width: 1023px) and (orientation: landscape) {
+  /* Your CSS styles for landscape orientation on tablets */
+}
+
+/* Styles for landscape orientation on mobile devices */
+@media only screen and (max-width: 767px) and (orientation: landscape) {
+  .header-container{
+    display: grid;
+    grid-template-areas: "header-search header-search header-selection header-menu";
+    align-items: center;
+  }
+  .header-search{
+    grid-area: header-search;
+  }
+  .header-selection{
+    grid-area: header-selection;
+  }
+  .header-menu{
+    grid-area: header-menu;
+  }
+
+}
+
+* {
+  box-sizing: border-box;
+  font-size: 16px;
+  font-weight: 500;
+  margin: 0px;
+}
+
+:root{
+  --green-color: #28DC89;
+}
+
+input{
+  background-color: #262A34 !important;
+  outline: #28DC89;
+}
+
+select{
+  background-color: #262A34 !important;
+  outline: #28DC89;
+}
+
+li{
+  list-style: none;
+}
+
+.center{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.paddle, .player_two, .player_one {
+  height: 40px;
+  width: 3px;
+  color: #ffffff;
+  background-color: #ffffff;
+  position: relative;
+}
+
+.player_one {
+  left: -100px;
+  animation: movePaddleOne 4s infinite;
+}
+
+.player_two {
+  left: 100px;
+  animation: movePaddleTwo 4s infinite;
+}
+
+.ball {
+  position: relative;
+  height: 5px;
+  width: 5px;
+  border-radius: 50%;
+  background-color: white;
+  animation: moveBall 4s infinite linear;
+}
+
+@keyframes movePaddleOne {
+  0%, 100% {
+    transform: translate(0px, 100px);
+  }
+  25% {
+    transform: translate(0px, 0px);
+  }
+  50% {
+    transform: translate(0px, 0px);
+  }
+  75% {
+    transform: translate(0px, 100px);
+  }
+}
+@keyframes movePaddleTwo {
+  0%, 100% {
+    transform: translate(0px, -50px);
+  }
+  25% {
+    transform: translate(0px, 10px);
+  }
+  50% {
+    transform: translate(0px, 0px);
+  }
+  75% {
+    transform: translate(0px, 50px);
+  }
+}
+@keyframes moveBall {
+  0%, 100% {
+    transform: translate(-100px, 30px);
+  }
+  25% {
+    transform: translate(98px, -25px);
+  }
+  50% {
+    transform: translate(-100px, -55px);
+  }
+  75% {
+    transform: translate(98px, 15px);
+  }
+}
+
+::-webkit-scrollbar {
+  width: 0px; /* Adjust the width as needed */
+}
+
+/* Hide the scrollbar thumb */
+::-webkit-scrollbar-thumb {
+  background-color: transparent;
+}
+
+/* Hide the scrollbar corner */
+::-webkit-scrollbar-corner {
+  background-color: transparent;
+}
