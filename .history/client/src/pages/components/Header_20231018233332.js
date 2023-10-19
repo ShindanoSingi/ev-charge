@@ -171,8 +171,8 @@ function Header() {
                         </div>
                   </div>
 
-                  <div className="flex items-center w-[97vw] ">
-                        <fieldset className="w-full px-4 text-gray-400 border border-gray-400 rounded-lg ">
+                  <div className="flex items-center ">
+                        <fieldset className="px-4 text-gray-400 border border-gray-400 rounded-lg ">
                               <legend>Select Fuel Type</legend>
                               <select
                                     className="w-full text-gray-400 option"

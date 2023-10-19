@@ -60,7 +60,7 @@ function MenuButton() {
         aria-controls="simple-menu"
         aria-haspopup="true"
         onClick={handleClick}
-        className="bg-[#262A34] text-5xl mt-3 font-thin text-gray-400" />
+        className="bg-[#262A34] text-5xl mt-1 font-thin text-gray-400" />
 
       <Menu
         className="mt-[3rem] ml-[0.7rem]"

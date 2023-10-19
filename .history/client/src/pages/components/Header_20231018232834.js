@@ -145,37 +145,36 @@ function Header() {
 
       return (
             <div className=" flex flex-col tablet-landscape:items-center tablet-landscape:gap-2 p-2 gap-1 fixed z-10 w-full top-0 bg-[#262A34]">
-                  <div className="flex items-center justify-between w-full ">
-                        <div className="flex items-center w-[96vw] gap-0 border rounded-lg border-gray-400 md:w-full">
-                              <div className="flex items-center w-full gap-2 px-3 py-1 rounded-lg z-1 ">
-                                    <div className="">
-                                          <BsSearch
-                                                id="search-icon"
-                                                onClick={handleSubmit}
-                                                className="text-xl text-gray-400"
-                                          />
-                                    </div>
-                                    <input
-                                          placeholder="Zipcode, City or State"
-                                          value={inputValue}
-                                          onChange={handleInputChange}
-                                          className="p-1 text-gray-400"
-                                    />
-                              </div>
-                              <div className="bg-gray-100 p-[0.5rem] rounded-r-lg">
-                                    <IoSearch
-                                          onClick={handleSubmit}
-                                          className="text-2xl text-gray-400"
-                                    />
-                              </div>
-                        </div>
-                  </div>
+                  {/* <div className="flex items-center justify-between w-full ">
+        <div className="flex items-center w-[96vw] gap-0 border rounded-lg border-gray-400 md:w-full">
+          <div className="flex items-center w-full gap-2 px-3 py-1 rounded-lg z-1 ">
+            <div className="">
+              <BsSearch id='search-icon'
+                onClick={handleSubmit}
+                className="text-xl text-gray-400"
+              />
+            </div>
+            <input
+              placeholder="Zipcode, City or State"
+              value={inputValue}
+              onChange={handleInputChange}
+              className="p-1 text-gray-400"
+            />
+          </div>
+          <div className="bg-gray-100 p-[0.5rem] rounded-r-lg">
+            <IoSearch
+              onClick={handleSubmit}
+              className="text-2xl text-gray-400"
+            />
+          </div>
+        </div>
+      </div> */}
 
-                  <div className="flex items-center w-[97vw] ">
-                        <fieldset className="w-full px-4 text-gray-400 border border-gray-400 rounded-lg ">
+                  <div className="flex items-center ">
+                        <fieldset className="px-0 text-gray-400 border border-gray-400 rounded-lg ">
                               <legend>Select Fuel Type</legend>
                               <select
-                                    className="w-full text-gray-400 option"
+                                    className="w-full text-gray-400"
                                     value={selectedOption}
                                     onChange={handleOptionChange}
                               >
@@ -184,19 +183,18 @@ function Header() {
                                                 key={option.value}
                                                 value={option.value}
                                           >
-                                                {" "}
                                                 {option.label}
                                           </option>
                                     ))}
                               </select>
                         </fieldset>
-                        {localStorage.getItem("token") ? (
+                        {/* {localStorage.getItem("token") ? (
                               <div className="p-1 mx-1 rounded-md bg-green">
                                     {username}
                               </div>
                         ) : (
                               ""
-                        )}
+                        )} */}
 
                         <MenuButton />
                   </div>
