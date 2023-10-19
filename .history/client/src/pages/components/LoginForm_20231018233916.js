@@ -6,11 +6,9 @@ import * as Yup from "yup"
 import axios from "axios"
 import { toast } from "react-hot-toast"
 import { Link, useNavigate } from "react-router-dom"
-import { AiOutlineCheck } from "react-icons/ai"
-import Loader from "../../components/Loader"
 import { hideLoader, showLoader } from "../../redux/loaderSlice"
-import { getCurrentUser } from "../../apiCalls/apiCalls"
-const baseUrl_users = "http://localhost:4000/api/users/"
+import { GetCurrentUser, LoginUser } from "../../apiCalls/apiCalls"
+// const baseUrl_users = "http://localhost:4000/api/users/"
 
 const onSubmit = (values) => {
   const user = {
@@ -36,23 +34,22 @@ const LoginForm = () => {
       .required("Password is required!")
   })
 
-  const handleSubmit = async (values, { setSubmitting }) => {
-    try {
-      const response = await axios.post(`${baseUrl_users}login`, values)
-
-      console.log(response.data)
-      // toast.success(response.data.message)
-      dispatch(setToken(response.token))
-      localStorage.setItem("token", response.data.data)
-      dispatch(setUsername(response.data.user))
-      setSubmitting(false)
-    } catch (error) {
-      toast.error(error.response.data.message)
+  const handleSubmit = async (values) => {
+    try{
+      const response = await LoginUser(values);
+      console.log(response)
+         toast.success(response.message)
+      localStorage.setItem("token", response.data)
+      dispatch(setToken(localStorage.getItem("token")))
+      dispatch(setUsername(response.user))
+    }catch(error){
+      toast.error(error.message)
     }
   }
 
   useEffect(() => {
-    handleSubmit()
+    // handleSubmit()
+
     if (localStorage.getItem("token")) {
       navigate("/favoriteStations")
     }

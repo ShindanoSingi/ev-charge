@@ -36,19 +36,17 @@ const SignupForm = () => {
      try{
       const response = await RegisterUser(values);
       if (response.success){
-        alert(response.message)
+        toast.success(response.message)
+        dispatch(setShowCard(true))
       }else{
-        alert(response.message)
+        toast.error(response.message)
       }
     }catch(error){
-      alert (error.message)
+      toast.error(error.message)
     }
   }
 
-  const { showCard } = useSelector((state) => state.userReducer)
   const dispatch = useDispatch()
-
-  console.log(localStorage.getItem("token"))
 
   useEffect(() => {
     if (localStorage.getItem("token")) {

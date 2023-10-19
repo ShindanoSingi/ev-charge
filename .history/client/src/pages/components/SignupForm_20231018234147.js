@@ -8,7 +8,7 @@ import { toast } from "react-hot-toast"
 import { Link, useNavigate } from "react-router-dom"
 import { AiOutlineCheck } from "react-icons/ai"
 // const baseUrl_users = "http://localhost:4000/api/users/"
-import {RegisterUser} from '../apiCalls/apiCalls'
+import {RegisterUser} from '../../apiCalls/apiCalls'
 
 const onSubmit = (values) => {
   const user = {
@@ -32,41 +32,19 @@ const SignupForm = () => {
       .required("Password is required!")
   })
 
-  const register = async () => {
-    try{
-      const response = await RegisterUser(initialValues);
+  const handleSubmit = async (values, { setSubmitting }) => {
+     try{
+      const response = await RegisterUser(values);
       if (response.success){
-        alert(response.message)
+        toast.success(response.message)
+        dispatch(setShowCard(true))
       }else{
-        alert(response.message)
+        toast.error(response.message)
       }
     }catch(error){
-      alert (error.message)
+      toast.error(error.message)
     }
   }
-
-  // const handleSubmit = async (values, { setSubmitting }) => {
-  //   try {
-  //     const response = await axios.post(`${baseUrl_users}register`, values)
-  //     setSubmitting(false)
-  //     toast.success(response.data.message)
-
-  //     navigate("/signin")
-
-  //     return {
-  //       success: true,
-  //       data: response.data
-  //     }
-  //   } catch (error) {
-  //     toast.error(error.response.data.message)
-  //     toast.error(error.response.data.error)
-  //     setSubmitting(false)
-  //     return {
-  //       success: false,
-  //       data: error.response.data
-  //     }
-  //   }
-  // }
 
   const { showCard } = useSelector((state) => state.userReducer)
   const dispatch = useDispatch()
@@ -120,7 +98,7 @@ const SignupForm = () => {
               onClick={onSubmit}
               className="flex items-center justify-center p-1 mt-2 text-xl text-center text-gray-800 bg-gray-400 hover:bg-orange-400 rounded-xl"
             >
-              {username && (
+              {localStorage.getItem("token") && (
                 <AiOutlineCheck className="text-green-400" />
               )}
               <button type="submit">Submit</button>
