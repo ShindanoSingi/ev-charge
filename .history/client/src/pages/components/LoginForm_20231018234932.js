@@ -37,9 +37,9 @@ const LoginForm = () => {
   const handleSubmit = async (values) => {
     try{
       const response = await LoginUser(values);
-      console.log(response)
          toast.success(response.message)
       localStorage.setItem("token", response.data)
+      dispatch(setToken(response.data))
       dispatch(setUsername(response.user))
     }catch(error){
       toast.error(error.message)
@@ -47,18 +47,12 @@ const LoginForm = () => {
   }
 
   useEffect(() => {
-
     handleSubmit()
-
-    const token = localStorage.getItem("token")
-    if (token) {
-      dispatch(setToken(token))
-    }
 
     if (localStorage.getItem("token")) {
       navigate("/favoriteStations")
     }
-  }, [dispatch])
+  }, [])
 
   return (
     <div className="center absolute min-h-screen bg-black min-w-[100vw] tablet-landscape:px-[10em] grid place-content-center desktop-landscape:place-content-center tablet-landscape:mt-20 desktop-landscape:mt-0 top-[50%] md:max-w-[50%]">

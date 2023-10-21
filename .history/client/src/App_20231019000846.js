@@ -36,6 +36,7 @@ const App = () => {
           <Route path='/' element={<ListStations getApiStation={getApiStation} />} />
           <Route path='/userpage' element={<UserPage />} />
           <Route path='/favoriteStations' element={
+
               <MyFavoriteStations />
           } />
           <Route path='/signup' element={<SignupForm />} />

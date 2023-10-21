@@ -47,9 +47,6 @@ const LoginForm = () => {
   }
 
   useEffect(() => {
-
-    handleSubmit()
-
     const token = localStorage.getItem("token")
     if (token) {
       dispatch(setToken(token))

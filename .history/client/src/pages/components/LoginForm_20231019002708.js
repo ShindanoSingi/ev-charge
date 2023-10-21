@@ -37,7 +37,6 @@ const LoginForm = () => {
   const handleSubmit = async (values) => {
     try{
       const response = await LoginUser(values);
-      console.log(response)
          toast.success(response.message)
       localStorage.setItem("token", response.data)
       dispatch(setUsername(response.user))
@@ -47,9 +46,6 @@ const LoginForm = () => {
   }
 
   useEffect(() => {
-
-    handleSubmit()
-
     const token = localStorage.getItem("token")
     if (token) {
       dispatch(setToken(token))
